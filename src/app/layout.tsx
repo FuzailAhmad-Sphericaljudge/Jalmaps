@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {/* Applies the stored theme before first paint — prevents a flash. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col font-sans">
         <ThemeProvider initialTheme={parseThemeCookieValue(themeCookie)}>{children}</ThemeProvider>
       </body>
     </html>
