@@ -27,10 +27,6 @@ export type PublicEnv = z.infer<typeof publicSchema>;
 
 export type Env = ServerEnv & PublicEnv;
 
-function formatIssues(error: z.ZodError): string {
-  return error.issues.map((issue) => `  - ${issue.path.join(".") || "(root)"}: ${issue.message}`).join("\n");
-}
-
 /**
  * Parse and validate environment variables. Throws a single, readable error
  * listing every missing or invalid variable so setup failures are obvious.
