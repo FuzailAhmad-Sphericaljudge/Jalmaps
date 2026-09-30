@@ -33,15 +33,12 @@ describe("polarToCartesian", () => {
 describe("describeArc", () => {
   it("starts at the start point and ends at the end point", () => {
     const d = describeArc(50, 50, 40, 180, 270);
-    const numbers = d
-      .split(/[ A]/)
-      .map(Number)
-      .filter((n) => !Number.isNaN(n));
-    const [mx, my, , , , , ex, ey] = numbers;
-    expect(mx).toBeCloseTo(10); // (50 - 40, 50): 180 deg
-    expect(my).toBeCloseTo(50);
-    expect(ex).toBeCloseTo(50); // 270 deg is straight up in SVG coords
-    expect(ey).toBeCloseTo(10);
+    const start = /^M\s+([\d.]+)\s+([\d.]+)/.exec(d);
+    const end = /([\d.]+)\s+([\d.]+)$/.exec(d);
+    expect(Number(start?.[1])).toBeCloseTo(10); // (50 - 40, 50): 180 deg
+    expect(Number(start?.[2])).toBeCloseTo(50);
+    expect(Number(end?.[1])).toBeCloseTo(50); // 270 deg is straight up in SVG coords
+    expect(Number(end?.[2])).toBeCloseTo(10);
   });
 
   it("marks the large-arc flag for arcs over 180deg", () => {
