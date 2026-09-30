@@ -16,6 +16,12 @@ export function ratio(value: number, min: number, max: number): number {
   return clamp((value - min) / (max - min), 0, 1);
 }
 
+/** Round to a fixed number of decimals, keeping 0 as "0". */
+export function roundTo(value: number, decimals: number): number {
+  const factor = 10 ** decimals;
+  return Math.round(value * factor) / factor;
+}
+
 /** Point on a circle centred at (cx, cy). Angle in degrees, 0 = 3 o'clock. */
 export function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number): Point {
   const rad = (angleDeg * Math.PI) / 180;
@@ -36,5 +42,17 @@ export function describeArc(
   const start = polarToCartesian(cx, cy, r, startAngleDeg);
   const end = polarToCartesian(cx, cy, r, endAngleDeg);
   const largeArc = endAngleDeg - startAngleDeg > 180 ? 1 : 0;
-  return ["M", start.x, start.y, "A", r, r, 0, largeArc, 1, end.x, end.y].join(" ");
+  return [
+    "M",
+    roundTo(start.x, 3),
+    roundTo(start.y, 3),
+    "A",
+    r,
+    r,
+    0,
+    largeArc,
+    1,
+    roundTo(end.x, 3),
+    roundTo(end.y, 3),
+  ].join(" ");
 }

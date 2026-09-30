@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import { describeArc, polarToCartesian, ratio } from "./gauge-geometry";
+import { describeArc, polarToCartesian, ratio, roundTo } from "./gauge-geometry";
 import type { WellStatus } from "./status-pill";
 
 const CX = 60;
@@ -59,7 +59,12 @@ export function WaterGauge({
     .sort((a, b) => b.value - a.value)[0];
   const stroke = STATUS_STROKE[active?.status ?? "offline"];
 
-  const needle = polarToCartesian(CX, CY, R - 6, angle);
+  // Rounded so server and client render byte-identical SVG attributes
+  // (raw trig output differs in float precision across runtimes).
+  const needle = {
+    x: roundTo(polarToCartesian(CX, CY, R - 6, angle).x, 3),
+    y: roundTo(polarToCartesian(CX, CY, R - 6, angle).y, 3),
+  };
   const track = describeArc(CX, CY, R, START_ANGLE, END_ANGLE);
   const arc = describeArc(CX, CY, R, START_ANGLE, angle);
 

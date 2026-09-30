@@ -5,6 +5,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /*
+ * Radix data-state variants. Tailwind 4.3 has no `data-state=…` shorthands, so
+ * `data-open:` etc. would compile to bare `[data-open]` presence selectors that
+ * Radix primitives never emit (they set `data-state="open"`). Map the shorthands
+ * onto data-state; bare attributes like `data-disabled` still work as-is.
+ */
+@custom-variant data-open (&[data-state="open"]);
+@custom-variant data-closed (&[data-state="closed"]);
+@custom-variant data-active (&[data-state="active"]);
+@custom-variant data-inactive (&[data-state="inactive"]);
+@custom-variant data-checked (&[data-state="checked"]);
+@custom-variant data-unchecked (&[data-state="unchecked"]);
+
+/*
  * JalMaps design tokens.
  *
  * Palette: calm blue/teal primary (water), warm neutrals (earth), and status
