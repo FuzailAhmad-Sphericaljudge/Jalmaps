@@ -1,16 +1,12 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { cookies } from "next/headers";
+
+import { ThemeProvider } from "@/components/theme/theme-context";
+import { THEME_SCRIPT } from "@/components/theme/theme-script";
+import { getFontClassName } from "@/i18n/fonts";
+import { THEME_COOKIE_NAME, parseThemeCookieValue } from "@/server/theme";
+
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "JalMaps — Groundwater monitoring for India",
@@ -18,13 +14,26 @@ export const metadata: Metadata = {
     "Live water levels, alerts and forecasts for wells and borewells, for farmers, villages and insurers.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f9f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1318" },
+  ],
+};
+
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const cookieStore = await cookies();
+  const themeCookie = cookieStore.get(THEME_COOKIE_NAME)?.value;
+
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={getFontClassName()} suppressHydrationWarning>
+      <head>
+        {/* Applies the stored theme before first paint — prevents a flash. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
+      <body className="flex min-h-full flex-col font-sans">
+        <ThemeProvider initialTheme={parseThemeCookieValue(themeCookie)}>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
