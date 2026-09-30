@@ -112,7 +112,7 @@
   --color-offline-foreground: var(--color-offline-foreground);
   --color-offline-soft: var(--color-offline-soft);
 
-  --font-sans: var(--font-inter), "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-sans: var(--font-inter), var(--font-noto-devanagari), system-ui, sans-serif;
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -126,7 +126,7 @@
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-inter), "Noto Sans Devanagari", system-ui, sans-serif;
+  font-family: var(--font-inter), var(--font-noto-devanagari), system-ui, sans-serif;
 }
 
 /* Focus visibility: never colour alone — 2px outline plus offset. */
