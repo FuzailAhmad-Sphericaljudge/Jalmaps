@@ -208,6 +208,11 @@
   }
 }
 
+/* Large-text mode (gallery accessibility testing): scale all rem sizes. */
+html.text-large {
+  font-size: 125%;
+}
+
 /* Focus visibility: never colour alone — 2px outline plus offset. */
 :focus-visible {
   outline: 2px solid var(--color-primary);
