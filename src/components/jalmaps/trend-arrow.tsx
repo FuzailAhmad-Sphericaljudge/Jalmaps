@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Minus, type LucideIcon } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, type LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -29,7 +29,8 @@ export function TrendArrow({
 }) {
   const config = TREND_CONFIG[direction];
   const Icon = config.icon;
-  const defaultFormat = (metres: number) => `${metres > 0 ? "+" : ""}${metres.toFixed(2)} m`;
+  const format =
+    formatDelta ?? ((metres: number) => `${metres > 0 ? "+" : ""}${metres.toFixed(2)} m`);
 
   return (
     <span
@@ -42,7 +43,7 @@ export function TrendArrow({
       )}
     >
       <Icon aria-hidden className="size-4 shrink-0" />
-      <span>{delta !== undefined ? defaultFormat(delta) : label}</span>
+      <span>{delta !== undefined ? format(delta) : label}</span>
     </span>
   );
 }
