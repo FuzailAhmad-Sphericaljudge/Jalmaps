@@ -1,0 +1,2 @@
+# Runs lint-staged (Prettier + ESLint) on staged files before each commit.
+pnpm exec lint-staged
