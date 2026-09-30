@@ -4,7 +4,7 @@ import { useId } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { clamp, ratio } from "./gauge-geometry";
+import { clamp } from "./gauge-geometry";
 import type { WellStatus } from "./status-pill";
 
 const W = 120;

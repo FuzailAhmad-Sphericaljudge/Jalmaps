@@ -47,5 +47,3 @@ export function TrendArrow({
     </span>
   );
 }
-
-export { Minus as TrendMinusIcon };

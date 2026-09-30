@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, it } from "vitest";
 
 import { expectNoAxeViolations } from "@/test/a11y";
 import { ThemeProvider } from "@/components/theme/theme-context";
