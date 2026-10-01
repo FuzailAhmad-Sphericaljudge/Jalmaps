@@ -1,11 +1,11 @@
 # Supabase
 
-This directory holds all Supabase-related assets for JalMaps:
+This directory holds the local Supabase project for JalMaps:
 
-- `migrations/` — SQL migrations (added in a later phase)
-- `functions/` — Edge Functions (added in a later phase)
-- `config.toml` — local Supabase CLI project configuration (added in a later phase)
+- `config.toml` — local Supabase CLI configuration
+- `migrations/` — ordered, forward-only Postgres schema migrations
+- `seed.sql` — development hierarchy, profile identities, wells and simulated nodes
+- `tests/database/` — pgTAP checks run by `pnpm db:test`
 
-Nothing is wired up yet. Database, auth and storage arrive in later phases;
-see [docs/PROJECT_CONTEXT.md](../docs/PROJECT_CONTEXT.md) and the phase plan in
-[docs/phases/](../docs/phases/) for the roadmap.
+Run `pnpm db:start`, `pnpm db:reset`, `pnpm db:test` and `pnpm db:stop` with Docker
+Desktop running. See [the database guide](../docs/database.md) for schema and workflow.
