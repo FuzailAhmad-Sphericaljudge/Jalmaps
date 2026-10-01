@@ -32,8 +32,8 @@ API concern and must not be implemented by weakening table policies.
 ## Verification
 
 `pnpm db:reset` applies the policies and seeds local role fixtures.
-`pnpm db:test` runs pgTAP checks for RLS coverage, key role boundaries, sensitive
-column access, and forbidden reading writes, plus repository integration tests.
-The role-specific tests are still being expanded to cover every table, operation,
-and seeded role; the final matrix and policy regression demonstration are tracked
-in the Phase 5 work plan.
+`pnpm db:test` runs a 5-role x 10-table x 4-operation pgTAP matrix (200 assertions),
+additional checks for RLS coverage, sensitive columns, privileged profile fields,
+and forbidden reading writes, plus repository integration tests. A local-only
+weakened wells policy was also tested and caused the matrix to fail; resetting the
+database restored the migration-defined policies and the passing suite.
