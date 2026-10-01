@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+import { publicEnvSchema } from "@/lib/db/public-env";
+import type { PublicEnv } from "@/lib/db/public-env";
+
 /**
  * Typed, fail-fast environment loading for JalMaps.
  *
@@ -15,15 +18,8 @@ const serverSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, "SUPABASE_SERVICE_ROLE_KEY is required"),
 });
 
-const publicSchema = z.object({
-  /** Supabase project URL, e.g. https://xyzcompany.supabase.co */
-  NEXT_PUBLIC_SUPABASE_URL: z.url("NEXT_PUBLIC_SUPABASE_URL must be a valid URL"),
-  /** Supabase anonymous key. Safe for the browser; protected by RLS. */
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, "NEXT_PUBLIC_SUPABASE_ANON_KEY is required"),
-});
-
 export type ServerEnv = z.infer<typeof serverSchema>;
-export type PublicEnv = z.infer<typeof publicSchema>;
+export type { PublicEnv } from "@/lib/db/public-env";
 
 export type Env = ServerEnv & PublicEnv;
 
@@ -31,11 +27,9 @@ export type Env = ServerEnv & PublicEnv;
  * Parse and validate environment variables. Throws a single, readable error
  * listing every missing or invalid variable so setup failures are obvious.
  */
-export function parseEnv(
-  source: Record<string, string | undefined> = process.env,
-): Env {
+export function parseEnv(source: Record<string, string | undefined> = process.env): Env {
   const server = serverSchema.safeParse(source);
-  const pub = publicSchema.safeParse(source);
+  const pub = publicEnvSchema.safeParse(source);
 
   if (!server.success || !pub.success) {
     const problems = [

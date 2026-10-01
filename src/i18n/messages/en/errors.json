@@ -1,0 +1,7 @@
+{
+  "genericTitle": "Something went wrong",
+  "genericDescription": "Please try again. If it keeps failing, check your internet connection.",
+  "retry": "Try again",
+  "offlineTitle": "No internet",
+  "offlineDescription": "You are offline. The app will reconnect on its own."
+}

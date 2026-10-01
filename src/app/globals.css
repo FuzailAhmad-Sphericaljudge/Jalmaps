@@ -1,26 +1,256 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+/* Class-based dark mode: `.dark` on <html>, applied pre-paint by the theme script. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Radix data-state variants. Tailwind 4.3 has no `data-state=…` shorthands, so
+ * `data-open:` etc. would compile to bare `[data-open]` presence selectors that
+ * Radix primitives never emit (they set `data-state="open"`). Map the shorthands
+ * onto data-state; bare attributes like `data-disabled` still work as-is.
+ */
+@custom-variant data-open (&[data-state="open"]);
+@custom-variant data-closed (&[data-state="closed"]);
+@custom-variant data-active (&[data-state="active"]);
+@custom-variant data-inactive (&[data-state="inactive"]);
+@custom-variant data-checked (&[data-state="checked"]);
+@custom-variant data-unchecked (&[data-state="unchecked"]);
+
+/*
+ * JalMaps design tokens.
+ *
+ * Palette: calm blue/teal primary (water), warm neutrals (earth), and status
+ * colours for success, warning, danger and offline. All text/background pairs
+ * meet WCAG AA (verified by a unit test on these values, light and dark).
+ *
+ * Status is never colour alone: components pair these colours with icons and
+ * text labels (see src/components/jalmaps).
+ *
+ * Tokens are raw oklch values; the @theme inline block maps them into Tailwind
+ * utilities (bg-background, text-foreground, border-border, ...). The shadcn/ui
+ * semantic variables (--background, --card, --muted, ...) alias these tokens so
+ * generated components share the same palette.
+ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Water / earth palette — light theme */
+  --color-background: oklch(0.985 0.005 95); /* warm off-white */
+  --color-surface: oklch(1 0 0); /* cards */
+  --color-surface-muted: oklch(0.96 0.008 95);
+  --color-foreground: oklch(0.24 0.02 80); /* warm near-black */
+  --color-foreground-muted: oklch(0.44 0.02 80);
+  --color-border: oklch(0.88 0.012 85);
+  --color-primary: oklch(0.52 0.09 220); /* calm blue/teal */
+  --color-primary-foreground: oklch(0.99 0.005 220);
+  --color-primary-soft: oklch(0.93 0.03 220);
+  --color-success: oklch(0.5 0.12 150);
+  --color-success-foreground: oklch(0.99 0.01 150);
+  --color-success-soft: oklch(0.94 0.05 150);
+  --color-warning: oklch(0.45 0.11 75); /* darkened amber, AA on soft bg */
+  --color-warning-foreground: oklch(0.99 0.01 75);
+  --color-warning-soft: oklch(0.95 0.06 85);
+  --color-danger: oklch(0.52 0.17 25);
+  --color-danger-foreground: oklch(0.99 0.005 25);
+  --color-danger-soft: oklch(0.94 0.045 25);
+  --color-offline: oklch(0.42 0.015 260);
+  --color-offline-foreground: oklch(0.99 0.005 260);
+  --color-offline-soft: oklch(0.93 0.008 260);
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+
+  /* Radii, shadows, z-index */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1.25rem;
+  --shadow-sm: 0 1px 2px 0 oklch(0 0 0 / 0.06);
+  --shadow-md: 0 2px 4px 0 oklch(0 0 0 / 0.08);
+  --shadow-lg: 0 8px 24px 0 oklch(0 0 0 / 0.12);
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-overlay: 1200;
+  --z-modal: 1300;
+  --z-toast: 1400;
+
+  /*
+   * shadcn/ui semantic aliases — point the generated component vocabulary at
+   * the JalMaps tokens above. var() is live, so dark mode follows for free.
+   */
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-foreground);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-foreground);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-primary-foreground);
+  --secondary: var(--color-surface-muted);
+  --secondary-foreground: var(--color-foreground);
+  --muted: var(--color-surface-muted);
+  --muted-foreground: var(--color-foreground-muted);
+  --accent: var(--color-primary-soft);
+  --accent-foreground: var(--color-foreground);
+  --destructive: var(--color-danger);
+  --border: var(--color-border);
+  --input: var(--color-border);
+  --ring: var(--color-primary);
+  --chart-1: var(--color-primary);
+  --chart-2: var(--color-success);
+  --chart-3: var(--color-warning);
+  --chart-4: var(--color-danger);
+  --chart-5: var(--color-offline);
+  --radius: var(--radius-lg);
+  --sidebar: var(--color-surface);
+  --sidebar-foreground: var(--color-foreground);
+  --sidebar-primary: var(--color-primary);
+  --sidebar-primary-foreground: var(--color-primary-foreground);
+  --sidebar-accent: var(--color-primary-soft);
+  --sidebar-accent-foreground: var(--color-foreground);
+  --sidebar-border: var(--color-border);
+  --sidebar-ring: var(--color-primary);
+}
+
+.dark {
+  --color-background: oklch(0.2 0.015 240);
+  --color-surface: oklch(0.26 0.018 240);
+  --color-surface-muted: oklch(0.31 0.018 240);
+  --color-foreground: oklch(0.95 0.008 95);
+  --color-foreground-muted: oklch(0.78 0.012 95);
+  --color-border: oklch(0.38 0.02 240);
+  --color-primary: oklch(0.75 0.1 210); /* lighter teal for dark bg */
+  --color-primary-foreground: oklch(0.18 0.03 220);
+  --color-primary-soft: oklch(0.32 0.045 220);
+  --color-success: oklch(0.75 0.13 155);
+  --color-success-foreground: oklch(0.18 0.04 155);
+  --color-success-soft: oklch(0.32 0.055 155);
+  --color-warning: oklch(0.8 0.13 85);
+  --color-warning-foreground: oklch(0.2 0.04 75);
+  --color-warning-soft: oklch(0.34 0.055 80);
+  --color-danger: oklch(0.72 0.15 25);
+  --color-danger-foreground: oklch(0.18 0.04 25);
+  --color-danger-soft: oklch(0.33 0.06 25);
+  --color-offline: oklch(0.72 0.01 260);
+  --color-offline-foreground: oklch(0.2 0.01 260);
+  --color-offline-soft: oklch(0.32 0.012 260);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* JalMaps semantic tokens */
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surface-muted: var(--color-surface-muted);
+  --color-foreground: var(--color-foreground);
+  --color-foreground-muted: var(--color-foreground-muted);
+  --color-border: var(--color-border);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-success: var(--color-success);
+  --color-success-foreground: var(--color-success-foreground);
+  --color-success-soft: var(--color-success-soft);
+  --color-warning: var(--color-warning);
+  --color-warning-foreground: var(--color-warning-foreground);
+  --color-warning-soft: var(--color-warning-soft);
+  --color-danger: var(--color-danger);
+  --color-danger-foreground: var(--color-danger-foreground);
+  --color-danger-soft: var(--color-danger-soft);
+  --color-offline: var(--color-offline);
+  --color-offline-foreground: var(--color-offline-foreground);
+  --color-offline-soft: var(--color-offline-soft);
+
+  /* shadcn/ui vocabulary (aliases resolved above) */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-2xl: calc(var(--radius) * 1.5);
+  --radius-3xl: calc(var(--radius) * 2);
+
+  /*
+   * Fonts per script — see src/i18n/fonts.ts. Base stack is Latin-first
+   * (English); the html[lang] blocks below reorder it so the page's script
+   * renders in its native font while Latin digits/brand names fall back to
+   * Inter. Only the active locale's @font-face files are loaded (next/font
+   * only emits the variables applied on <html>), keeping bundles small.
+   */
+  --font-sans: var(--font-inter), var(--font-noto-devanagari), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Large-text mode (gallery accessibility testing): scale all rem sizes. */
+html.text-large {
+  font-size: 125%;
+}
+
+/* Devanagari pages (hi): native script first, Latin fallback for digits. */
+html[lang="hi"] {
+  --font-sans: var(--font-noto-devanagari), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+/* Focus visibility: never colour alone — 2px outline plus offset. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Honour reduced motion globally; components add their own transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
