@@ -13,7 +13,14 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["./vitest.setup.mts"],
-    include: ["src/**/*.test.{ts,tsx}"],
+    include: ["src/**/*.test.{ts,tsx}", "scripts/**/*.test.{ts,tsx}"],
     exclude: ["node_modules", ".next", "e2e"],
+    server: {
+      deps: {
+        // Inline next-intl so its `next/navigation` imports resolve through
+        // Vite (the pnpm-isolated package cannot import the peer itself).
+        inline: ["next-intl", "use-intl"],
+      },
+    },
   },
 });

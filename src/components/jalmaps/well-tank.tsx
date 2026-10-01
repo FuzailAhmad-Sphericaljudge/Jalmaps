@@ -118,7 +118,7 @@ export function WellTank({
       {/* Ground/coping line */}
       <rect x={0} y={14} width={W} height={4} className="fill-stone-500 dark:fill-stone-400" />
       <text x={WALL + 2} y={11} className="fill-foreground-muted text-[7px]">
-        ⌂
+        {"⌂"}
       </text>
     </svg>
   );

@@ -1,7 +1,42 @@
 import "@testing-library/jest-dom/vitest";
 
 import { cleanup } from "@testing-library/react";
-import { afterEach, beforeAll } from "vitest";
+import { afterEach, beforeAll, vi } from "vitest";
+
+// next/font functions rely on a compile-time transform; emulate the transform's
+// output (a component + a --font-* CSS variable class) for unit tests.
+vi.mock("next/font/google", async (importOriginal) => {
+  const mod = await importOriginal<typeof import("next/font/google")>();
+  const stubFont = (variable: string) => () => ({ variable, className: variable.slice(2) });
+  return {
+    ...mod,
+    Inter: stubFont("--font-inter"),
+    Noto_Sans_Devanagari: stubFont("--font-noto-devanagari"),
+  };
+});
+
+// next-intl's navigation module imports next/navigation, which requires the
+// Next.js runtime; stub the App Router hooks our components use.
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+    prefetch: vi.fn(),
+  }),
+  usePathname: () => "/",
+  useSearchParams: () => new URLSearchParams(),
+  useParams: () => ({}),
+  useSelectedLayoutSegment: () => null,
+  useSelectedLayoutSegments: () => [],
+  redirect: vi.fn(),
+  permanentRedirect: vi.fn(),
+  notFound: vi.fn(),
+  forbidden: vi.fn(),
+  unauthorized: vi.fn(),
+}));
 
 // jsdom does not implement matchMedia; components and tests need it.
 beforeAll(() => {

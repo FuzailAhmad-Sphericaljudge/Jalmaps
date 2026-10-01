@@ -1,0 +1,171 @@
+{
+  "title": "डिज़ाइन सिस्टम",
+  "description": "हर जलमैप्स कॉम्पोनेंट और स्थिति — लाइट और डार्क दोनों में, बड़े अक्षरों के प्रीव्यू के साथ। किसानों के लिए: 48px स्पर्श क्षेत्र, चिह्न + शब्द, केवल रंग पर भरोसा नहीं।",
+  "toolbar": {
+    "largeText": "बड़े अक्षर",
+    "toggleLargeText": "बड़े अक्षरों का प्रीव्यू चालू/बंद करें"
+  },
+  "sections": {
+    "brand": "ब्रांड",
+    "colours": "रंग",
+    "coloursDescription": "स्थिति हमेशा चिह्न + शब्द के साथ दिखती है।",
+    "typeScale": "अक्षर साइज़",
+    "buttons": "बटन",
+    "buttonsDescription": "`touch` साइज़ 48px न्यूनतम को पूरा करते हैं।",
+    "badges": "बैज, सेपरेटर, स्केलेटन",
+    "cards": "कार्ड",
+    "formControls": "फ़ॉर्म नियंत्रण",
+    "formControlsDescription": "हर नियंत्रण पर लेबल, 48px स्पर्श क्षेत्र।",
+    "tabs": "टैब",
+    "overlays": "डायलॉग, शीट, मेनू, टूलटिप, टोस्ट",
+    "statusPills": "स्थिति पिल",
+    "statusPillsDescription": "चिह्न + शब्द + रंग, केवल रंग पर भरोसा नहीं।",
+    "trendArrows": "रुझान तीर",
+    "waterGauge": "पानी का गेज",
+    "wellTank": "कुएँ का चित्र",
+    "statTiles": "आँकड़े टाइल",
+    "states": "स्थितियाँ"
+  },
+  "swatches": {
+    "primary": "मुख्य (पानी)",
+    "success": "ठीक (अच्छा)",
+    "warning": "चेतावनी (पीला)",
+    "danger": "गंभीर (लाल)",
+    "offline": "बंद (स्लेटी)"
+  },
+  "typeScaleRows": {
+    "xs": "अक्षर xs — लेबल",
+    "sm": "अक्षर sm — सहायक",
+    "base": "अक्षर base — मुख्य",
+    "lg": "अक्षर lg — ज़ोर देने के लिए",
+    "xl": "अक्षर xl — अनुभाग शीर्षक",
+    "xxl": "अक्षर 2xl — आँकड़ा मान",
+    "xxxl": "अक्षर 3xl — पन्ने का शीर्षक"
+  },
+  "buttons": {
+    "primary": "मुख्य",
+    "outline": "रूपरेखा",
+    "secondary": "दूसरा",
+    "ghost": "हल्का",
+    "destructive": "मिटाने वाला",
+    "link": "लिंक",
+    "small": "छोटा",
+    "large": "बड़ा",
+    "refreshLevels": "पानी की जानकारी ताज़ा करें",
+    "disabled": "बंद"
+  },
+  "badges": {
+    "default": "सामान्य",
+    "secondary": "दूसरा",
+    "outline": "रूपरेखा",
+    "destructive": "मिटाने वाला",
+    "loadingLevels": "पानी की जानकारी आ रही है",
+    "loadingTile": "टाइल लोड हो रही है"
+  },
+  "cards": {
+    "well4Title": "कुआँ #4",
+    "well4Description": "बोरवेल — खड़गपुर",
+    "well4Value": "ज़मीन से 11.3 मीटर नीचे",
+    "borewell9Title": "बोरवेल #9",
+    "borewell9Description": "समूह का कुआँ — अमरावती",
+    "borewell9Value": "ज़मीन से 28 मीटर नीचे"
+  },
+  "forms": {
+    "villageName": "गाँव का नाम",
+    "villagePlaceholder": "खड़गपुर",
+    "notes": "टिप्पणी",
+    "notesPlaceholder": "कुएँ की जानकारी…",
+    "district": "ज़िला",
+    "districtPlaceholder": "ज़िला चुनें",
+    "districtNagpur": "नागपुर",
+    "districtAmravati": "अमरावती",
+    "alertsLegend": "सूचनाएँ",
+    "smsAlerts": "एसएमएस सूचना",
+    "voiceCalls": "आवाज़ी कॉल",
+    "unitsLegend": "माप",
+    "metres": "मीटर",
+    "feet": "फ़ीट",
+    "voiceGuidance": "आवाज़ में मार्गदर्शन"
+  },
+  "tabs": {
+    "week": "इस हफ़्ते",
+    "month": "इस महीने",
+    "year": "इस साल",
+    "weekContent": "हफ़्ते का पानी स्तर",
+    "monthContent": "महीने का पानी स्तर",
+    "yearContent": "साल का पानी स्तर"
+  },
+  "overlays": {
+    "openDialog": "डायलॉग खोलें",
+    "wellDetailsTitle": "कुएँ की जानकारी",
+    "wellDetailsDescription": "बोरवेल #4 — खड़गपुर",
+    "wellDetailsBody": "गहराई 42 मीटर। पानी ज़मीन से 11.3 मीटर नीचे।",
+    "openSheet": "नीचे की शीट खोलें",
+    "filterWellsTitle": "कुएँ छानें",
+    "filterWellsBody": "गाँव, गहराई या स्थिति चुनें।",
+    "reportMenu": "रिपोर्ट मेनू",
+    "downloadPdf": "पीडीएफ़ डाउनलोड करें",
+    "shareLink": "लिंक साझा करें",
+    "depth": "गहराई",
+    "depthTooltip": "ज़मीन से मीटर नीचे",
+    "showToast": "टोस्ट दिखाएँ",
+    "toastTitle": "जानकारी सहेज ली",
+    "toastDescription": "11.3 मीटर"
+  },
+  "statusPills": {
+    "good": "पानी का स्तर ठीक है",
+    "warning": "पानी तेज़ी से गिर रहा है",
+    "critical": "कुआँ लगभग सूखा है",
+    "offline": "सेंसर बंद है"
+  },
+  "trends": {
+    "rising": "पिछले हफ़्ते से बढ़ रहा है",
+    "falling": "पिछले हफ़्ते से गिर रहा है",
+    "steady": "पिछले हफ़्ते जितना ही"
+  },
+  "gauges": {
+    "well4Name": "कुआँ #4",
+    "well4ValueText": "पानी ज़मीन से 11.3 मीटर नीचे",
+    "well4Center": "11.3",
+    "well4Unit": "मी (ज़मीन से नीचे)",
+    "borewell9Name": "बोरवेल #9",
+    "borewell9ValueText": "28 मीटर",
+    "borewell9Center": "28",
+    "borewell12Name": "बोरवेल #12",
+    "borewell12ValueText": "0 मीटर — सूखा",
+    "borewell12Center": "0"
+  },
+  "tanks": {
+    "well4Name": "कुआँ #4",
+    "well4ValueText": "तीन-चौथाई भरा है",
+    "borewell9Name": "बोरवेल #9",
+    "borewell9ValueText": "एक-तिहाई भरा है",
+    "borewell12Name": "बोरवेल #12",
+    "borewell12ValueText": "लगभग सूखा",
+    "borewell15Name": "बोरवेल #15",
+    "borewell15ValueText": "कोई जानकारी नहीं"
+  },
+  "statTiles": {
+    "waterLevel": "पानी का स्तर",
+    "waterLevelValue": "11.3",
+    "waterLevelUnit": "मी (ज़मीन से नीचे)",
+    "waterLevelTrend": "बढ़ रहा है",
+    "waterLevelStatus": "ठीक",
+    "depth": "गहराई",
+    "depthValue": "42",
+    "depthUnit": "मीटर"
+  },
+  "states": {
+    "emptyTitle": "अभी कोई कुआँ नहीं",
+    "emptyDescription": "पानी का स्तर देखने के लिए पहला कुआँ जोड़ें।",
+    "emptyAction": "कुआँ जोड़ें",
+    "errorTitle": "पानी का स्तर नहीं खुला",
+    "errorDescription": "अपना इंटरनेट कनेक्शन जाँचें।",
+    "errorAction": "फिर कोशिश करें",
+    "loadingLabel": "पानी का स्तर आ रहा है"
+  },
+  "unavailable": {
+    "title": "उपलब्ध नहीं",
+    "description": "डिज़ाइन सिस्टम गैलरी केवल प्रोडक्शन के बाहर खुलती है।"
+  }
+}

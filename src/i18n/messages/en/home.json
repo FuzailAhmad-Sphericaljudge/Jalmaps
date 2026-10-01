@@ -1,0 +1,10 @@
+{
+  "title": "JalMaps",
+  "description": "Groundwater monitoring for India's wells and borewells — live levels, alerts and forecasts for farmers, villages and insurers.",
+  "welcome": {
+    "title": "Welcome to JalMaps",
+    "body": "JalMaps shows groundwater levels for wells and borewells. Farmers see their well at a glance; villages and officials get alerts, forecasts and reports.",
+    "cta": "Explore the design system",
+    "levels": "{count, plural, =0 {No wells yet} one {1 well reporting} other {# wells reporting}}"
+  }
+}

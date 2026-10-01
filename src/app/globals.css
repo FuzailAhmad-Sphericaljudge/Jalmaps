@@ -196,7 +196,13 @@
   --radius-2xl: calc(var(--radius) * 1.5);
   --radius-3xl: calc(var(--radius) * 2);
 
-  /* Fonts: Inter (Latin) + Noto Sans Devanagari (Hindi), see src/i18n/fonts.ts */
+  /*
+   * Fonts per script — see src/i18n/fonts.ts. Base stack is Latin-first
+   * (English); the html[lang] blocks below reorder it so the page's script
+   * renders in its native font while Latin digits/brand names fall back to
+   * Inter. Only the active locale's @font-face files are loaded (next/font
+   * only emits the variables applied on <html>), keeping bundles small.
+   */
   --font-sans: var(--font-inter), var(--font-noto-devanagari), system-ui, sans-serif;
   --font-heading: var(--font-sans);
 
@@ -224,6 +230,12 @@
 /* Large-text mode (gallery accessibility testing): scale all rem sizes. */
 html.text-large {
   font-size: 125%;
+}
+
+/* Devanagari pages (hi): native script first, Latin fallback for digits. */
+html[lang="hi"] {
+  --font-sans: var(--font-noto-devanagari), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
 }
 
 /* Focus visibility: never colour alone — 2px outline plus offset. */

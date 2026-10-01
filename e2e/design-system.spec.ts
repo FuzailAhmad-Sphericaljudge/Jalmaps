@@ -10,7 +10,7 @@ async function scanPage(page: import("@playwright/test").Page) {
 
 test.describe("design system gallery a11y", () => {
   test("gallery has no axe violations in light theme", async ({ page }) => {
-    await page.goto("/dev/design-system");
+    await page.goto("/en/dev/design-system");
     // Force light theme before scan.
     await page.evaluate(() => {
       document.cookie = `jalmaps-theme=${encodeURIComponent(JSON.stringify({ theme: "light" }))}; path=/`;
@@ -23,7 +23,7 @@ test.describe("design system gallery a11y", () => {
   });
 
   test("gallery has no axe violations in dark theme", async ({ page }) => {
-    await page.goto("/dev/design-system");
+    await page.goto("/en/dev/design-system");
     await page.evaluate(() => {
       document.cookie = `jalmaps-theme=${encodeURIComponent(JSON.stringify({ theme: "dark" }))}; path=/`;
       document.documentElement.classList.add("dark");
@@ -35,9 +35,13 @@ test.describe("design system gallery a11y", () => {
   });
 
   test("theme toggle switches theme and persists across reload", async ({ page }) => {
-    await page.goto("/dev/design-system");
+    await page.goto("/en/dev/design-system");
 
-    await page.getByRole("button", { name: /light|dark/i }).click();
+    // Scope to the header: the gallery also renders its own theme toggle.
+    await page
+      .getByRole("banner")
+      .getByRole("button", { name: /light|dark/i })
+      .click();
     const afterToggle = await page.evaluate(() =>
       document.documentElement.classList.contains("dark"),
     );
