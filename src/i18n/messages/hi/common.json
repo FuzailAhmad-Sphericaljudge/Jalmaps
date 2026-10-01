@@ -1,0 +1,22 @@
+{
+  "appName": "जलमैप्स",
+  "tagline": "भारत के लिए भूजल निगरानी",
+  "languageSwitcher": {
+    "label": "भाषा बदलें",
+    "current": "वर्तमान भाषा: {language}"
+  },
+  "theme": {
+    "light": "लाइट",
+    "dark": "डार्क",
+    "toggle": "लाइट और डार्क रूप बदलें"
+  },
+  "brand": {
+    "logoTitle": "जलमैप्स लोगो"
+  },
+  "notFound": {
+    "title": "पन्ना नहीं मिला",
+    "description": "माफ़ कीजिए, वह पन्ना नहीं मिला।"
+  },
+  "backHome": "मुख्य पन्ने पर जाएँ",
+  "skipToContent": "सीधे मुख्य सामग्री पर जाएँ"
+}

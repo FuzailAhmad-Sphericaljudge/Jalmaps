@@ -1,0 +1,6 @@
+{
+  "language": "Language",
+  "languageDescription": "Choose the language for the whole app. Your choice is saved on this device.",
+  "appearance": "Appearance",
+  "appearanceDescription": "Light or dark theme. Follows your phone's setting until you choose."
+}
