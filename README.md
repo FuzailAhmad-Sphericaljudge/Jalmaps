@@ -31,9 +31,15 @@ Prerequisites: **Node.js 24** (see `.nvmrc`) and **pnpm 10** (`corepack enable p
 
 ```bash
 pnpm install
+pnpm db:start               # requires Docker Desktop
+pnpm db:reset               # apply migrations and load development fixtures
 cp .env.example .env.local   # fill in Supabase credentials
 pnpm dev                     # http://localhost:3000
 ```
+
+For local development, copy the API URL, anon key and service-role key printed by
+`pnpm db:start` into `.env.local`. The service-role key is server-only and bypasses RLS;
+never expose it in browser code.
 
 Environment variables are documented in [.env.example](.env.example) and validated at
 runtime by `src/lib/env.ts` — the app fails fast with a readable error if anything is missing.
@@ -46,19 +52,25 @@ pnpm exec playwright install chromium
 
 ## Scripts
 
-| Command           | What it does                     |
-| ----------------- | -------------------------------- |
-| `pnpm dev`        | Start the dev server             |
-| `pnpm build`      | Production build                 |
-| `pnpm start`      | Serve the production build       |
-| `pnpm lint`       | ESLint                           |
-| `pnpm lint:fix`   | ESLint with auto-fix             |
-| `pnpm format`     | Prettier (write)                 |
-| `pnpm typecheck`  | Next.js typegen + `tsc --noEmit` |
-| `pnpm test`       | Vitest unit tests (single run)   |
-| `pnpm test:watch` | Vitest in watch mode             |
-| `pnpm test:e2e`   | Playwright end-to-end tests      |
-| `pnpm check`      | lint + typecheck + unit tests    |
+| Command               | What it does                                                              |
+| --------------------- | ------------------------------------------------------------------------- |
+| `pnpm dev`            | Start the dev server                                                      |
+| `pnpm build`          | Production build                                                          |
+| `pnpm start`          | Serve the production build                                                |
+| `pnpm lint`           | ESLint                                                                    |
+| `pnpm lint:fix`       | ESLint with auto-fix                                                      |
+| `pnpm format`         | Prettier (write)                                                          |
+| `pnpm typecheck`      | Next.js typegen + `tsc --noEmit`                                          |
+| `pnpm test`           | Vitest unit tests (single run)                                            |
+| `pnpm test:watch`     | Vitest in watch mode                                                      |
+| `pnpm test:e2e`       | Playwright end-to-end tests                                               |
+| `pnpm check`          | lint + typecheck + unit tests                                             |
+| `pnpm db:start`       | Start the local Supabase stack (Docker required)                          |
+| `pnpm db:stop`        | Stop the local Supabase stack                                             |
+| `pnpm db:reset`       | Recreate the local database, apply migrations and seed fixtures           |
+| `pnpm db:types`       | Regenerate `src/lib/db/types.ts` from the local schema                    |
+| `pnpm db:types:check` | Fail if generated database types are stale (requires the local stack)     |
+| `pnpm db:test`        | Run SQL/pgTAP and repository integration tests (requires the local stack) |
 
 ## Project structure
 
@@ -68,13 +80,13 @@ src/
   components/ # Shared UI components
   features/   # Feature modules (domain-organised)
   server/     # Server-only code
-  lib/        # Shared utilities (env, clients)
+  lib/        # Shared utilities, Zod schemas, and generated database types
   i18n/       # Messages and locale config (next-intl)
   styles/     # Global styles
 docs/
   adr/        # Architecture decision records
   phases/     # Per-phase build notes
-supabase/     # Migrations, Edge Functions (later phases)
+supabase/     # Local Supabase config, migrations, seed, SQL tests
 e2e/          # Playwright specs
 ```
 
