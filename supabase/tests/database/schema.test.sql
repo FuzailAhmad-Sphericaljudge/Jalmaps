@@ -36,8 +36,8 @@ select is(
    from pg_catalog.pg_policy as policy
    join pg_catalog.pg_class as relation on relation.oid = policy.polrelid
    where relation.relnamespace = 'public'::regnamespace),
-  0,
-  'Phase 4 has no permissive role policies'
+  25,
+  'every application table has its Phase 5 role policies'
 );
 
 select is(

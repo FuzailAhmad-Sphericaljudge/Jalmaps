@@ -293,3 +293,170 @@ on conflict (id) do update set
   last_seen_at = excluded.last_seen_at,
   status = excluded.status,
   is_simulated = excluded.is_simulated;
+
+insert into public.alert_rules (
+  id, created_by, well_id, metric, operator, threshold, severity, channels
+)
+values (
+  md5('alert-rule-farmer-one')::uuid,
+  md5('farmer.one@jalmaps.test')::uuid,
+  md5('well-1')::uuid,
+  'depth_to_water',
+  'above',
+  25,
+  'warning',
+  array['sms']::public.notification_channel[]
+)
+on conflict (id) do update set
+  created_by = excluded.created_by,
+  well_id = excluded.well_id,
+  metric = excluded.metric,
+  operator = excluded.operator,
+  threshold = excluded.threshold,
+  severity = excluded.severity,
+  channels = excluded.channels;
+
+insert into public.alert_rules (
+  id, created_by, well_id, metric, operator, threshold, severity, channels
+)
+values
+  (
+    md5('alert-rule-farmer-two-anantapur')::uuid,
+    md5('farmer.two@jalmaps.test')::uuid,
+    md5('well-2')::uuid,
+    'battery',
+    'below',
+    3,
+    'critical',
+    array['sms']::public.notification_channel[]
+  ),
+  (
+    md5('alert-rule-farmer-two-lakshmipuram')::uuid,
+    md5('farmer.two@jalmaps.test')::uuid,
+    md5('well-18')::uuid,
+    'depth_to_water',
+    'above',
+    28,
+    'warning',
+    array['sms']::public.notification_channel[]
+  )
+on conflict (id) do update set
+  created_by = excluded.created_by,
+  well_id = excluded.well_id,
+  metric = excluded.metric,
+  operator = excluded.operator,
+  threshold = excluded.threshold,
+  severity = excluded.severity,
+  channels = excluded.channels;
+
+insert into public.alerts (
+  id, rule_id, well_id, node_id, metric, severity, message_key, details
+)
+values (
+  md5('alert-farmer-one')::uuid,
+  md5('alert-rule-farmer-one')::uuid,
+  md5('well-1')::uuid,
+  md5('node-1')::uuid,
+  'depth_to_water',
+  'warning',
+  'alerts.depthThreshold',
+  '{"source":"development_seed"}'::jsonb
+)
+on conflict (id) do update set
+  rule_id = excluded.rule_id,
+  well_id = excluded.well_id,
+  node_id = excluded.node_id,
+  metric = excluded.metric,
+  severity = excluded.severity,
+  message_key = excluded.message_key,
+  details = excluded.details;
+
+insert into public.alerts (
+  id, rule_id, well_id, node_id, metric, severity, message_key, details
+)
+values
+  (
+    md5('alert-anantapur')::uuid,
+    md5('alert-rule-farmer-two-anantapur')::uuid,
+    md5('well-2')::uuid,
+    md5('node-2')::uuid,
+    'battery',
+    'critical',
+    'alerts.lowBattery',
+    '{"source":"development_seed"}'::jsonb
+  ),
+  (
+    md5('alert-lakshmipuram')::uuid,
+    md5('alert-rule-farmer-two-lakshmipuram')::uuid,
+    md5('well-18')::uuid,
+    md5('node-18')::uuid,
+    'depth_to_water',
+    'warning',
+    'alerts.depthThreshold',
+    '{"source":"development_seed"}'::jsonb
+  )
+on conflict (id) do update set
+  rule_id = excluded.rule_id,
+  well_id = excluded.well_id,
+  node_id = excluded.node_id,
+  metric = excluded.metric,
+  severity = excluded.severity,
+  message_key = excluded.message_key,
+  details = excluded.details;
+
+with sample_profiles as (
+  select profile.id as profile_id, profile.phone
+  from public.profiles
+  as profile
+)
+insert into public.notification_prefs (id, profile_id, channel, enabled, destination)
+select
+  md5('notification-' || sample_profiles.profile_id::text)::uuid,
+  sample_profiles.profile_id,
+  'sms',
+  true,
+  substring(sample_profiles.phone, 1, 5) || '******'
+from sample_profiles
+on conflict (profile_id, channel) do update set
+  enabled = excluded.enabled,
+  destination = excluded.destination;
+
+with sample_profiles as (
+  select profile.id as profile_id, auth_user.email
+  from public.profiles
+  as profile
+  join auth.users as auth_user on auth_user.id = profile.id
+)
+insert into public.api_keys (
+  id, profile_id, label, key_hash, scopes, requests_per_minute, requests_per_day
+)
+select
+  md5('api-key-' || sample_profiles.profile_id::text)::uuid,
+  sample_profiles.profile_id,
+  'Development fixture key',
+  encode(extensions.digest(email, 'sha256'), 'hex'),
+  array['wells:read'],
+  60,
+  1000
+from sample_profiles
+on conflict (id) do update set
+  profile_id = excluded.profile_id,
+  label = excluded.label,
+  key_hash = excluded.key_hash,
+  scopes = excluded.scopes,
+  requests_per_minute = excluded.requests_per_minute,
+  requests_per_day = excluded.requests_per_day;
+
+insert into public.audit_log (actor_id, action, entity_type, entity_id, details)
+select
+  md5('platform.admin@jalmaps.test')::uuid,
+  'seed_fixture',
+  'phase_5_test',
+  md5('seed-audit-event')::uuid,
+  '{"source":"development_seed"}'::jsonb
+where not exists (
+  select 1
+  from public.audit_log
+  where entity_type = 'phase_5_test'
+    and entity_id = md5('seed-audit-event')::uuid
+);

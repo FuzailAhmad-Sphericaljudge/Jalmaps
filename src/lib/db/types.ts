@@ -596,10 +596,18 @@ export type Database = {
       };
     };
     Functions: {
+      auth_role: {
+        Args: Record<PropertyKey, never>;
+        Returns: Database["public"]["Enums"]["user_role"];
+      };
       calculate_depth_to_water_m: {
         Args: { column_m: number; hang_depth_m: number };
         Returns: number;
       };
+      can_manage_well: { Args: { target_well_id: string }; Returns: boolean };
+      can_read_well: { Args: { target_well_id: string }; Returns: boolean };
+      is_admin: { Args: Record<PropertyKey, never>; Returns: boolean };
+      user_area_ids: { Args: Record<PropertyKey, never>; Returns: string[] };
     };
     Enums: {
       admin_area_level: "state" | "district" | "block" | "village";

@@ -5,10 +5,17 @@ import { nodeCreateSchema, nodeFiltersSchema } from "@/lib/schemas/nodes";
 import { requireDatabaseData } from "@/server/db/errors";
 
 export type Node = Database["public"]["Tables"]["nodes"]["Row"];
+export type SafeNode = Omit<Node, "api_key_hash">;
 
-export async function listNodes(client: SupabaseClient<Database>, input: unknown): Promise<Node[]> {
+const safeNodeColumns =
+  "id,well_id,hardware_id,sensor_model,range_m,hang_depth_m,calibration_offset_m,firmware_version,battery_v,signal_rssi,last_seen_at,status,is_simulated,created_at,updated_at";
+
+export async function listNodes(
+  client: SupabaseClient<Database>,
+  input: unknown,
+): Promise<SafeNode[]> {
   const filters = nodeFiltersSchema.parse(input);
-  let query = client.from("nodes").select("*").eq("well_id", filters.well_id);
+  let query = client.from("nodes").select(safeNodeColumns).eq("well_id", filters.well_id);
 
   if (filters.status) {
     query = query.eq("status", filters.status);
@@ -21,8 +28,12 @@ export async function listNodes(client: SupabaseClient<Database>, input: unknown
 export async function registerNode(
   client: SupabaseClient<Database>,
   input: unknown,
-): Promise<Node> {
+): Promise<SafeNode> {
   const payload = nodeCreateSchema.parse(input);
-  const { data, error } = await client.from("nodes").insert(payload).select().single();
+  const { data, error } = await client
+    .from("nodes")
+    .insert(payload)
+    .select(safeNodeColumns)
+    .single();
   return requireDatabaseData(data, error, "register node");
 }
