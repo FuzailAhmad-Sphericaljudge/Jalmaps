@@ -4,7 +4,7 @@
 > It defines what JalMaps is, who it serves, the fixed stack, and the ground rules that
 > every change must respect.
 
-Status: Phase 4 (database schema and Supabase) — see [docs/phases/](phases/) for progress and
+Status: Phase 5 (authentication and roles) — see [docs/phases/](phases/) for progress and
 [docs/i18n.md](i18n.md) for the i18n architecture and add-a-locale recipe.
 
 ## What we are building
@@ -78,4 +78,6 @@ e2e/            Playwright specs
   messages, formatters, language switcher, pseudo-localisation, `check-i18n` CI gate,
   no-raw-JSX-text lint rule, i18n e2e. No database, auth, or product features yet.
 - **Phase 4 (database)** — Supabase schema, seed fixtures, typed repositories, default-deny
-  RLS and database CI; role-specific policies are deferred to Phase 5.
+  RLS and database CI.
+- **Phase 5 (authentication and roles)** — phone OTP and email sign-in, onboarding,
+  trusted profile roles, table policies, account data controls and automated RLS tests.

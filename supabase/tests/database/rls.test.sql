@@ -1,6 +1,6 @@
 begin;
 
-select plan(231);
+select plan(232);
 
 create function pg_temp.rls_matrix_probe(
   target_table text,
@@ -320,6 +320,13 @@ select throws_ok(
   '42501',
   null,
   'farmer cannot escalate their own role'
+);
+select throws_ok(
+  $$update public.profiles set onboarding_completed_at = now()
+    where id = md5('farmer.one@jalmaps.test')::uuid$$,
+  '42501',
+  null,
+  'farmer cannot mark onboarding complete without server validation'
 );
 select throws_ok(
   $$update public.profiles set admin_area_id = md5('state-telangana')::uuid

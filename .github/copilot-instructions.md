@@ -23,7 +23,7 @@
 - Store all lengths in metres; display metres or feet by user preference.
 - Keep secrets out of source control; service-role credentials are server-only.
 - Use small, meaningful Conventional Commits; never create empty or fake commits.
-- Use one branch per phase unless the phase plan explicitly requires otherwise.
+- Use one branch per phase, following the active phase plan.
 - Keep database access in typed server repositories, not route handlers or UI.
 - Default-deny RLS; never trust client-supplied roles or authorization claims.
 
@@ -31,5 +31,5 @@
 
 - Read `docs/PROJECT_CONTEXT.md` and the active phase plan.
 - Add tests and directly related documentation with each behavior change.
-- Run `pnpm check` before committing or pushing; run `pnpm build` for app changes.
+- Run `pnpm check` before every commit and push; run `pnpm build` for app changes.
 - Keep the worktree clean and push only verified commits.

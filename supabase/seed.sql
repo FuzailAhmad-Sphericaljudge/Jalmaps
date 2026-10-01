@@ -166,27 +166,40 @@ with sample_people (email, phone, full_name, role, area_code, preferred_locale) 
     ('platform.admin@jalmaps.test', '+919000000006', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
 )
 insert into auth.users (
-  id, aud, role, email, phone, encrypted_password, email_confirmed_at, phone_confirmed_at,
+  id, instance_id, aud, role, email, phone, encrypted_password, email_confirmed_at, phone_confirmed_at,
+  confirmation_token, recovery_token, email_change_token_new, email_change,
   raw_app_meta_data, raw_user_meta_data, created_at, updated_at
 )
+-- Local Supabase's test-OTP identities are stored without the leading plus.
 select
   md5(email)::uuid,
+  '00000000-0000-0000-0000-000000000000'::uuid,
   'authenticated',
   'authenticated',
   email,
-  phone,
+  ltrim(phone, '+'),
   '',
   now(),
   now(),
-  '{"provider":"email","providers":["email"]}'::jsonb,
+  '',
+  '',
+  '',
+  '',
+  '{"provider":"phone","providers":["phone","email"]}'::jsonb,
   jsonb_build_object('full_name', full_name, 'preferred_locale', preferred_locale),
   now(),
   now()
 from sample_people
 on conflict (id) do update set
+  instance_id = excluded.instance_id,
   email = excluded.email,
   phone = excluded.phone,
   phone_confirmed_at = excluded.phone_confirmed_at,
+  confirmation_token = excluded.confirmation_token,
+  recovery_token = excluded.recovery_token,
+  email_change_token_new = excluded.email_change_token_new,
+  email_change = excluded.email_change,
+  raw_app_meta_data = excluded.raw_app_meta_data,
   raw_user_meta_data = excluded.raw_user_meta_data,
   updated_at = now();
 
@@ -220,6 +233,81 @@ on conflict (id) do update set
   preferred_locale = excluded.preferred_locale,
   crops = excluded.crops,
   onboarding_completed_at = excluded.onboarding_completed_at;
+
+insert into auth.users (
+  id, instance_id, aud, role, email, phone, encrypted_password, email_confirmed_at, phone_confirmed_at,
+  confirmation_token, recovery_token, email_change_token_new, email_change,
+  raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+)
+values (
+  md5('onboarding@jalmaps.test')::uuid,
+  '00000000-0000-0000-0000-000000000000'::uuid,
+  'authenticated',
+  'authenticated',
+  'onboarding@jalmaps.test',
+  '919000000007',
+  '',
+  now(),
+  now(),
+  '',
+  '',
+  '',
+  '',
+  '{"provider":"phone","providers":["phone","email"]}'::jsonb,
+  '{"full_name":"Onboarding Test Farmer","preferred_locale":"hi"}'::jsonb,
+  now(),
+  now()
+)
+on conflict (id) do update set
+  instance_id = excluded.instance_id,
+  email = excluded.email,
+  phone = excluded.phone,
+  phone_confirmed_at = excluded.phone_confirmed_at,
+  confirmation_token = excluded.confirmation_token,
+  recovery_token = excluded.recovery_token,
+  email_change_token_new = excluded.email_change_token_new,
+  email_change = excluded.email_change,
+  raw_app_meta_data = excluded.raw_app_meta_data,
+  raw_user_meta_data = excluded.raw_user_meta_data,
+  updated_at = now();
+
+insert into auth.identities (
+  provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at
+)
+select
+  id::text,
+  id,
+  jsonb_build_object('sub', id::text, 'phone', phone, 'phone_verified', true),
+  'phone',
+  now(),
+  created_at,
+  updated_at
+from auth.users
+where phone like '91900000000%'
+on conflict (provider_id, provider) do update set
+  user_id = excluded.user_id,
+  identity_data = excluded.identity_data,
+  last_sign_in_at = excluded.last_sign_in_at,
+  updated_at = excluded.updated_at;
+
+insert into auth.identities (
+  provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at
+)
+select
+  id::text,
+  id,
+  jsonb_build_object('sub', id::text, 'email', email, 'email_verified', true),
+  'email',
+  now(),
+  created_at,
+  updated_at
+from auth.users
+where email like '%@jalmaps.test'
+on conflict (provider_id, provider) do update set
+  user_id = excluded.user_id,
+  identity_data = excluded.identity_data,
+  last_sign_in_at = excluded.last_sign_in_at,
+  updated_at = excluded.updated_at;
 
 insert into public.wells (
   id, owner_id, admin_area_id, name, well_type, latitude, longitude,

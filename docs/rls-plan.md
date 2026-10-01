@@ -1,4 +1,8 @@
-# Row-level security (Phase 5)
+# Row-level security plan (Phase 5)
+
+This file records the intended Phase 5 access boundaries. They are implemented
+and tested; see the current enforcement details and verification instructions in
+[docs/rls.md](./rls.md).
 
 RLS is enabled on every application table. Policies use `auth.uid()` plus the
 trusted `profiles.role` and `profiles.admin_area_id` values; role and area changes

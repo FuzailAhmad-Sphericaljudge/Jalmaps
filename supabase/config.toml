@@ -161,7 +161,11 @@ site_url = "http://127.0.0.1:3000"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["https://127.0.0.1:3000"]
+additional_redirect_urls = [
+  "http://127.0.0.1:3000/api/auth/callback",
+  "http://localhost:3000/api/auth/callback",
+  "https://127.0.0.1:3000/api/auth/callback",
+]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to auth.external_url.
@@ -199,7 +203,7 @@ password_requirements = ""
 # Number of emails that can be sent per hour. Requires auth.email.smtp to be enabled.
 email_sent = 2
 # Number of SMS messages that can be sent per hour. Requires auth.sms to be enabled.
-sms_sent = 5
+sms_sent = 20
 # Number of anonymous sign-ins that can be made per hour per IP address. Requires enable_anonymous_sign_ins = true.
 anonymous_users = 30
 # Number of sessions that can be refreshed in a 5 minute interval per IP address.
@@ -262,8 +266,8 @@ enable_signup = true
 enable_confirmations = false
 # Template for sending OTP to users
 template = "Your code is {{ .Code }}"
-# Controls the minimum amount of time that must pass before sending another sms otp.
-max_frequency = "60s"
+# Local test OTPs allow quick repeated test runs; hosted Auth should use a longer cooldown.
+max_frequency = "5s"
 otp_expiry = 300
 
 # Use pre-defined map of phone number to OTP for testing.
@@ -274,6 +278,7 @@ otp_expiry = 300
 919000000004 = "123456"
 919000000005 = "123456"
 919000000006 = "123456"
+919000000007 = "123456"
 
 # Configure logged in session timeouts.
 [auth.sessions]

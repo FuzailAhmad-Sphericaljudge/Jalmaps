@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { Link } from "@/i18n/navigation";
 import { isAppLocale } from "@/i18n/config";
+import { getCurrentUser } from "@/server/auth";
+import { Link, redirect } from "@/i18n/navigation";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -16,6 +17,11 @@ export default async function HomePage({ params }: Props) {
   const locale = requested;
 
   setRequestLocale(locale);
+
+  const current = await getCurrentUser();
+  if (current && !current.profile?.onboarding_completed_at) {
+    redirect({ href: "/onboarding", locale });
+  }
 
   const t = await getTranslations("home");
   // ICU plural: wording adapts to the count per locale.

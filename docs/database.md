@@ -125,9 +125,9 @@ erDiagram
 | `api_keys`           | API access metadata and rate limits; only a fixed-length SHA-256 digest is stored.                                                                                        |
 | `audit_log`          | Operational record of actor, action, entity and structured details.                                                                                                       |
 
-All ten tables have RLS enabled and **no policies** in this phase. This is intentional
-default-deny behavior; see [the Phase 5 policy plan](./rls-plan.md). The
-`latest_reading` view uses invoker security so it cannot bypass the base table's RLS.
+All ten tables have RLS enabled with the role-aware policies described in
+[the Phase 5 RLS guide](./rls.md). The `latest_reading` view uses invoker security
+so it cannot bypass the base table's RLS.
 
 ## Local workflow
 
@@ -140,9 +140,10 @@ default-deny behavior; see [the Phase 5 policy plan](./rls-plan.md). The
 6. Stop the stack with `pnpm db:stop`.
 
 The seed creates two states, four districts, twelve blocks, thirty-six villages, six
-sample profile identities and thirty wells with simulated nodes. Seed identities have
-local OTP phone numbers and no usable password; see [the auth guide](./auth.md). It
-creates no readings. Treat seed identities as local fixtures, not production accounts.
+onboarded role fixtures, one incomplete onboarding identity and thirty wells with
+simulated nodes. Seed identities have local OTP phone numbers and no usable password;
+see [the auth guide](./auth.md). It creates no readings. Treat seed identities as
+local fixtures, not production accounts.
 
 ## Migration guidelines
 

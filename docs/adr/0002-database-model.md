@@ -22,8 +22,9 @@ Every table must be safe by default before role policy design begins.
 - Keep the `latest_reading` view security-invoker and add a B-tree index on
   `(node_id, recorded_at DESC)`, a GiST well-location index and focused ownership,
   area and alert-status indexes.
-- Enable RLS on every table and define no policies in Phase 4. This is the required
-  default-deny starting point, not the final application access policy.
+- Enable RLS on every table in Phase 4 with no policies as the required default-deny
+  starting point. Phase 5 adds the role-aware policies described in
+  [ADR 0003](./0003-role-authorization.md).
 - Persist only SHA-256 hashes for API keys; the schema rejects values that are not
   64-character lowercase hex digests.
 - Leave readings unpartitioned. The unique key, ordering index and likely initial data
@@ -36,7 +37,8 @@ Every table must be safe by default before role policy design begins.
 - The generated TS types are committed and checked against a clean local database in CI.
 - The repository layer uses generated schema types plus Zod request validation.
 - Deployed schema changes are forward-only; corrections should be new migrations.
-- Phase 5 must define and test role-aware policies before user-facing database access.
+- Role-aware access is verified by the Phase 5 pgTAP matrix; see
+  [the RLS guide](../rls.md).
 
 ## Rejected alternatives
 

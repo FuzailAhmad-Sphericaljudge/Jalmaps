@@ -1,6 +1,6 @@
 begin;
 
-select plan(17);
+select plan(23);
 
 select ok(
   (not exists (
@@ -125,6 +125,40 @@ select is(
   'seed profiles cover all five application roles'
 );
 
+select is(
+  (select count(*)::integer
+   from auth.users
+   where email like '%@jalmaps.test'
+     and instance_id = '00000000-0000-0000-0000-000000000000'::uuid
+     and phone_confirmed_at is not null
+     and confirmation_token = ''
+     and recovery_token = ''),
+  7,
+  'seeded Auth users have the default instance and token values required for OTP lookup'
+);
+
+select is(
+  (select count(*)::integer
+   from auth.identities as identity
+   join auth.users as auth_user on auth_user.id = identity.user_id
+   where auth_user.email like '%@jalmaps.test'
+     and identity.provider in ('phone', 'email')),
+  14,
+  'every seeded Auth fixture can use its phone and email identities'
+);
+
+select ok(
+  not has_column_privilege('authenticated', 'public.profiles', 'onboarding_completed_at', 'UPDATE'),
+  'onboarding completion timestamps are server-managed'
+);
+
+select ok(
+  (select onboarding_completed_at is null
+   from public.profiles
+   where id = md5('onboarding@jalmaps.test')::uuid),
+  'seed includes a phone-verifiable farmer who has not completed onboarding'
+);
+
 select ok(
   (select count(*) = 30 and bool_and(is_simulated)
    from public.nodes),
@@ -167,6 +201,95 @@ select ok(
   (select onboarding_completed_at is null and crops = '{}'
    from public.profiles where id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'),
   'new Auth profiles begin with incomplete onboarding and no crop preferences'
+);
+
+insert into auth.users (
+  id, aud, role, email, phone, encrypted_password, email_confirmed_at,
+  raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+) values (
+  md5('delete-cascade@jalmaps.test')::uuid,
+  'authenticated',
+  'authenticated',
+  'delete-cascade@jalmaps.test',
+  '+919999999998',
+  '',
+  now(),
+  '{"provider":"email","providers":["email"]}'::jsonb,
+  '{"full_name":"Delete Cascade Test"}'::jsonb,
+  now(),
+  now()
+);
+
+insert into public.wells (
+  id, owner_id, admin_area_id, name, well_type, latitude, longitude
+) values (
+  md5('delete-cascade-well')::uuid,
+  md5('delete-cascade@jalmaps.test')::uuid,
+  md5('village-lakshmipuram')::uuid,
+  'Delete Cascade Test',
+  'borewell',
+  14.635,
+  77.61
+);
+
+insert into public.nodes (id, well_id, hardware_id)
+values (
+  md5('delete-cascade-node')::uuid,
+  md5('delete-cascade-well')::uuid,
+  'DELETE-CASCADE-NODE'
+);
+
+insert into public.readings (node_id, recorded_at, column_m)
+values (
+  md5('delete-cascade-node')::uuid,
+  '2099-01-01T00:00:00Z',
+  8
+);
+
+insert into public.notification_prefs (profile_id, channel, enabled)
+values (md5('delete-cascade@jalmaps.test')::uuid, 'sms', true);
+
+insert into public.api_keys (profile_id, label, key_hash, scopes)
+values (
+  md5('delete-cascade@jalmaps.test')::uuid,
+  'Delete cascade test',
+  repeat('a', 64),
+  array['wells:read']
+);
+
+insert into public.audit_log (actor_id, action, entity_type, entity_id)
+values (
+  md5('delete-cascade@jalmaps.test')::uuid,
+  'account.deleted',
+  'profile',
+  md5('delete-cascade@jalmaps.test')::uuid
+);
+
+delete from auth.users
+where id = md5('delete-cascade@jalmaps.test')::uuid;
+
+select is(
+  (select (
+    (select count(*) from public.profiles where id = md5('delete-cascade@jalmaps.test')::uuid)
+    + (select count(*) from public.wells where id = md5('delete-cascade-well')::uuid)
+    + (select count(*) from public.nodes where id = md5('delete-cascade-node')::uuid)
+    + (select count(*) from public.readings where node_id = md5('delete-cascade-node')::uuid)
+    + (select count(*) from public.notification_prefs
+       where profile_id = md5('delete-cascade@jalmaps.test')::uuid)
+    + (select count(*) from public.api_keys
+       where profile_id = md5('delete-cascade@jalmaps.test')::uuid)
+  )::integer),
+  0,
+  'deleting an Auth user cascades their profile, wells, nodes, readings and account data'
+);
+
+select ok(
+  (select actor_id is null and entity_id = md5('delete-cascade@jalmaps.test')::uuid
+   from public.audit_log
+   where action = 'account.deleted'
+     and entity_type = 'profile'
+     and entity_id = md5('delete-cascade@jalmaps.test')::uuid),
+  'account deletion retains the audit event while detaching the deleted actor'
 );
 
 select * from finish();

@@ -11,6 +11,7 @@ describe("parsePublicEnv", () => {
         NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED: "false",
       }),
     ).toEqual({
+      NEXT_PUBLIC_SITE_URL: "http://127.0.0.1:3000",
       NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321",
       NEXT_PUBLIC_SUPABASE_ANON_KEY: "local-anon-key",
       NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED: false,
@@ -29,5 +30,6 @@ describe("parsePublicEnv", () => {
       NEXT_PUBLIC_SUPABASE_ANON_KEY: "local-anon-key",
     });
     expect(env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED).toBe(false);
+    expect(env.NEXT_PUBLIC_SITE_URL).toBe("http://127.0.0.1:3000");
   });
 });

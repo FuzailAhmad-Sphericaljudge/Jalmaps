@@ -397,6 +397,27 @@ export type Database = {
           },
         ];
       };
+      otp_rate_limits: {
+        Row: {
+          request_count: number;
+          subject_hash: string;
+          subject_type: string;
+          window_started_at: string;
+        };
+        Insert: {
+          request_count: number;
+          subject_hash: string;
+          subject_type: string;
+          window_started_at: string;
+        };
+        Update: {
+          request_count?: number;
+          subject_hash?: string;
+          subject_type?: string;
+          window_started_at?: string;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           admin_area_id: string | null;
@@ -606,6 +627,10 @@ export type Database = {
       };
       can_manage_well: { Args: { target_well_id: string }; Returns: boolean };
       can_read_well: { Args: { target_well_id: string }; Returns: boolean };
+      consume_otp_rate_limit: {
+        Args: { p_destination_hash: string; p_destination_type: string; p_ip_hash: string };
+        Returns: boolean;
+      };
       is_admin: { Args: Record<PropertyKey, never>; Returns: boolean };
       user_area_ids: { Args: Record<PropertyKey, never>; Returns: string[] };
     };
