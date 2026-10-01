@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { NextIntlClientProvider } from "next-intl";
 import { describe, expect, it, vi } from "vitest";
 
 import { Badge } from "./badge";
@@ -18,15 +19,27 @@ import { Skeleton } from "./skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 
+// Dialog/Sheet close buttons read their sr-only label via next-intl; the
+// minimal fixture mirrors the common.close message used in production.
+const closeMessages = { common: { close: "Close" } };
+
+function renderWithIntl(ui: React.ReactNode) {
+  return render(
+    <NextIntlClientProvider locale="en" messages={closeMessages} timeZone="Asia/Kolkata">
+      {ui}
+    </NextIntlClientProvider>,
+  );
+}
+
 describe("Dialog", () => {
   it("opens on click, is labelled, and closes with Escape", async () => {
     const user = userEvent.setup();
-    render(
+    renderWithIntl(
       <Dialog>
         <DialogTrigger asChild>
           <Button>Open details</Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent closeLabel="Close">
           <DialogTitle>Well details</DialogTitle>
           <DialogDescription>Borewell #4 — Kharagpur</DialogDescription>
           <p>Depth 42 m. Water level 11.3 m below ground level.</p>
@@ -47,12 +60,12 @@ describe("Dialog", () => {
 describe("Sheet (farmer-first bottom sheet on mobile)", () => {
   it("opens with an accessible title and closes via Escape", async () => {
     const user = userEvent.setup();
-    render(
+    renderWithIntl(
       <Sheet>
         <SheetTrigger asChild>
           <Button>Filter wells</Button>
         </SheetTrigger>
-        <SheetContent side="bottom" className="h-auto">
+        <SheetContent side="bottom" className="h-auto" closeLabel="Close">
           <SheetTitle>Filter wells</SheetTitle>
           <p>Pick a village, depth range or status.</p>
         </SheetContent>

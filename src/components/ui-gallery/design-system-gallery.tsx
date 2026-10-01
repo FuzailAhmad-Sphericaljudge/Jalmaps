@@ -126,10 +126,10 @@ export function DesignSystemGallery() {
           title={t("toolbar.toggleLargeText")}
         >
           <span aria-hidden className="text-base leading-none">
-            A
+            {"A"}
           </span>
           <span aria-hidden className="text-sm leading-none">
-            A
+            {"A"}
           </span>
           {t("toolbar.largeText")}
         </Button>
@@ -196,7 +196,7 @@ export function DesignSystemGallery() {
           <Button size="sm">{tButtons("small")}</Button>
           <Button size="lg">{tButtons("large")}</Button>
           <Button size="icon-touch" aria-label={tButtons("refreshLevels")}>
-            ↻
+            {"↻"}
           </Button>
           <Button size="touch" disabled>
             {tButtons("disabled")}
