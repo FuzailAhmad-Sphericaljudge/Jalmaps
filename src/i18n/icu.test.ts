@@ -24,7 +24,7 @@ describe("parseIcu", () => {
 
   it("parses plural options including exact matches", () => {
     const tokens = parseIcu("{count, plural, =0 {No wells} one {1 well} other {# wells}}");
-    expect(tokens[0]).toEqual({
+    expect(tokens[0]).toMatchObject({
       kind: "plural",
       name: "count",
       options: ["=0", "one", "other"],
@@ -47,7 +47,7 @@ describe("parseIcu", () => {
 
   it("parses select options", () => {
     const tokens = parseIcu("{gender, select, male {he} female {she} other {they}}");
-    expect(tokens[0]).toEqual({
+    expect(tokens[0]).toMatchObject({
       kind: "select",
       name: "gender",
       options: ["male", "female", "other"],
@@ -59,7 +59,7 @@ describe("parseIcu", () => {
     // never starts a block; the raw quoted span stays part of the text value.
     const tokens = parseIcu("'{' literal");
     expect(tokens).toHaveLength(1);
-    expect(tokens[0].kind).toBe("text");
+    expect(tokens[0]?.kind).toBe("text");
   });
 
   it("throws on unbalanced braces", () => {

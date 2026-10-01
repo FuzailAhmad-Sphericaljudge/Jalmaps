@@ -1,3 +1,4 @@
+import { type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
 import { routing } from "@/i18n/routing";
@@ -11,12 +12,27 @@ import { routing } from "@/i18n/routing";
  *    cookie first, then the `Accept-Language` header, then the default (`en`).
  * 3. Persists an explicit language choice to the cookie (so a reload — and the
  *    next visit — keeps it).
- *
- * The proxy has no access to the Next.js module graph: import only
- * environment-independent, edge-safe code here (`@/i18n/*` config modules
- * qualify; `loadMessages` and node-only code do not).
+ * 4. Honours the pseudo-localisation toggle: `?pseudo=1` sets a session
+ *    cookie, `?pseudo=0` clears it (see src/i18n/request.ts). The query
+ *    parameter itself is left in the URL — harmless, and simpler than
+ *    rewriting.
  */
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+const PSEUDO_COOKIE = "jalmaps-pseudo";
+
+export default function proxy(request: NextRequest) {
+  const response = intlMiddleware(request);
+
+  const pseudoParam = request.nextUrl.searchParams.get("pseudo");
+  if (pseudoParam === "1") {
+    response.cookies.set(PSEUDO_COOKIE, "1", { path: "/", sameSite: "lax" });
+  } else if (pseudoParam === "0") {
+    response.cookies.delete(PSEUDO_COOKIE);
+  }
+
+  return response;
+}
 
 export const config = {
   // Skip API routes, Next.js internals and static files.

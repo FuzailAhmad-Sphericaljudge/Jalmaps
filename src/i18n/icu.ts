@@ -19,7 +19,13 @@
 export type IcuBlock =
   | { kind: "argument"; name: string }
   | { kind: "number" | "date" | "time"; name: string; style?: string }
-  | { kind: "plural" | "select" | "selectordinal"; name: string; options: string[] };
+  | {
+      kind: "plural" | "select" | "selectordinal";
+      name: string;
+      options: string[];
+      /** Tokenised body of each option, aligned with `options`. */
+      bodies: IcuToken[][];
+    };
 
 export type IcuToken = { kind: "text"; value: string } | IcuBlock;
 
@@ -39,25 +45,6 @@ function readIdentifier(message: string, state: ParseState): string {
     state.index += 1;
   }
   return message.slice(start, state.index);
-}
-
-/** Parse the inside of a `{...}` block; the opening brace is already consumed. */
-function parseBlock(message: string, state: ParseState): IcuBlock {
-  skipWhitespace(message, state);
-  const name = readIdentifier(message, state);
-  skipWhitespace(message, state);
-
-  const next = message[state.index];
-  if (next === "," || next === "}") {
-    if (next === ",") {
-      state.index += 1; // consume ","
-    } else {
-      state.index += 1; // consume "}"
-    }
-    return { kind: "argument", name };
-  }
-
-  throw new Error(`Malformed ICU message near index ${state.index}: ${message}`);
 }
 
 /** Parse a full simple argument `{name}` or typed `{name, type, ...}`. */
@@ -102,6 +89,7 @@ function parseTypedBlock(message: string, state: ParseState): IcuBlock {
     state.index += 1;
 
     const options: string[] = [];
+    const bodies: IcuToken[][] = [];
     for (;;) {
       skipWhitespace(message, state);
       const option = readOptionName(message, state);
@@ -110,14 +98,16 @@ function parseTypedBlock(message: string, state: ParseState): IcuBlock {
         throw new Error(`Malformed ICU ${type} option "${option}": ${message}`);
       }
       state.index += 1;
-      const closed = readNestedBlock(message, state);
+      const body = readNestedBlock(message, state);
       options.push(option);
-      void closed;
+      // Option bodies are full ICU messages themselves — tokenise them so
+      // consumers can transform or validate nested text.
+      bodies.push(parseIcu(body));
       skipWhitespace(message, state);
 
       if (message[state.index] === "}") {
         state.index += 1;
-        return { kind: type, name, options };
+        return { kind: type, name, options, bodies };
       }
     }
   }
