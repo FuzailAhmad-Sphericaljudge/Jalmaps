@@ -4,7 +4,7 @@
 > It defines what JalMaps is, who it serves, the fixed stack, and the ground rules that
 > every change must respect.
 
-Status: Phase 3 (internationalisation) — see [docs/phases/](phases/) for progress and
+Status: Phase 4 (database schema and Supabase) — see [docs/phases/](phases/) for progress and
 [docs/i18n.md](i18n.md) for the i18n architecture and add-a-locale recipe.
 
 ## What we are building
@@ -67,7 +67,7 @@ src/i18n/       Messages and locale config
 src/styles/     Global styles
 docs/adr/       Architecture decision records
 docs/phases/    Per-phase build notes
-supabase/       Migrations + Edge Functions (later phases)
+supabase/       Local Supabase config, migrations, seed data and SQL tests
 e2e/            Playwright specs
 ```
 
@@ -77,3 +77,5 @@ e2e/            Playwright specs
 - **Phase 3 (i18n)** — next-intl foundation: `/en` + `/hi` locale-prefixed routes, typed
   messages, formatters, language switcher, pseudo-localisation, `check-i18n` CI gate,
   no-raw-JSX-text lint rule, i18n e2e. No database, auth, or product features yet.
+- **Phase 4 (database)** — Supabase schema, seed fixtures, typed repositories, default-deny
+  RLS and database CI; role-specific policies are deferred to Phase 5.

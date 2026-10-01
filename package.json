@@ -14,11 +14,19 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:types": "tsx scripts/db-types.ts --write",
+    "db:types:check": "tsx scripts/db-types.ts --check",
+    "db:test": "tsx scripts/db-test.ts",
     "check-i18n": "tsx scripts/check-i18n.ts",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm check-i18n",
     "prepare": "husky"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cn": "^0.4.0",
@@ -35,7 +43,6 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
-    "tsx": "^4.20.3",
     "@commitlint/cli": "^21.2.3",
     "@commitlint/config-conventional": "^21.2.3",
     "@playwright/test": "^1.63.0",
@@ -57,7 +64,9 @@
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "shadcn": "^4.21.0",
+    "supabase": "^2.119.0",
     "tailwindcss": "^4",
+    "tsx": "^4.20.3",
     "typescript": "^5",
     "vitest": "^5.0.2"
   },

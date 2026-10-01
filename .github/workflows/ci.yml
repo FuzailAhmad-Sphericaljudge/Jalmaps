@@ -40,3 +40,38 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+  database:
+    name: Supabase database tests and generated types
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Start Supabase
+        run: pnpm db:start
+
+      - name: Reset and seed database
+        run: pnpm db:reset
+
+      - name: Run SQL tests
+        run: pnpm db:test
+
+      - name: Check generated types
+        run: pnpm db:types:check
+
+      - name: Stop Supabase
+        if: always()
+        run: pnpm db:stop
