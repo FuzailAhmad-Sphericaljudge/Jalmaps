@@ -156,17 +156,17 @@ on conflict (code) do update set
   centroid_lng = excluded.centroid_lng,
   population = excluded.population;
 
-with sample_people (email, full_name, role, area_code, preferred_locale) as (
+with sample_people (email, phone, full_name, role, area_code, preferred_locale) as (
   values
-    ('farmer.one@jalmaps.test', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('farmer.two@jalmaps.test', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
-    ('village.admin@jalmaps.test', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('district.official@jalmaps.test', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
-    ('insurer@jalmaps.test', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
-    ('platform.admin@jalmaps.test', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
+    ('farmer.one@jalmaps.test', '+919000000001', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('farmer.two@jalmaps.test', '+919000000002', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
+    ('village.admin@jalmaps.test', '+919000000003', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('district.official@jalmaps.test', '+919000000004', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
+    ('insurer@jalmaps.test', '+919000000005', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
+    ('platform.admin@jalmaps.test', '+919000000006', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
 )
 insert into auth.users (
-  id, aud, role, email, encrypted_password, email_confirmed_at,
+  id, aud, role, email, phone, encrypted_password, email_confirmed_at, phone_confirmed_at,
   raw_app_meta_data, raw_user_meta_data, created_at, updated_at
 )
 select
@@ -174,40 +174,52 @@ select
   'authenticated',
   'authenticated',
   email,
+  phone,
   '',
   now(),
+  now(),
   '{"provider":"email","providers":["email"]}'::jsonb,
-  jsonb_build_object('full_name', full_name),
+  jsonb_build_object('full_name', full_name, 'preferred_locale', preferred_locale),
   now(),
   now()
 from sample_people
 on conflict (id) do update set
   email = excluded.email,
+  phone = excluded.phone,
+  phone_confirmed_at = excluded.phone_confirmed_at,
   raw_user_meta_data = excluded.raw_user_meta_data,
   updated_at = now();
 
-with sample_people (email, full_name, role, area_code, preferred_locale) as (
+with sample_people (email, phone, full_name, role, area_code, preferred_locale) as (
   values
-    ('farmer.one@jalmaps.test', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('farmer.two@jalmaps.test', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
-    ('village.admin@jalmaps.test', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('district.official@jalmaps.test', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
-    ('insurer@jalmaps.test', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
-    ('platform.admin@jalmaps.test', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
+    ('farmer.one@jalmaps.test', '+919000000001', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('farmer.two@jalmaps.test', '+919000000002', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
+    ('village.admin@jalmaps.test', '+919000000003', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('district.official@jalmaps.test', '+919000000004', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
+    ('insurer@jalmaps.test', '+919000000005', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
+    ('platform.admin@jalmaps.test', '+919000000006', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
 )
-insert into public.profiles (id, full_name, role, admin_area_id, preferred_locale)
+insert into public.profiles (
+  id, full_name, phone, role, admin_area_id, preferred_locale, crops, onboarding_completed_at
+)
 select
   md5(person.email)::uuid,
   person.full_name,
+  person.phone,
   person.role,
   md5(person.area_code)::uuid,
-  person.preferred_locale
+  person.preferred_locale,
+  array['millet', 'groundnut'],
+  now()
 from sample_people as person
 on conflict (id) do update set
   full_name = excluded.full_name,
+  phone = excluded.phone,
   role = excluded.role,
   admin_area_id = excluded.admin_area_id,
-  preferred_locale = excluded.preferred_locale;
+  preferred_locale = excluded.preferred_locale,
+  crops = excluded.crops,
+  onboarding_completed_at = excluded.onboarding_completed_at;
 
 insert into public.wells (
   id, owner_id, admin_area_id, name, well_type, latitude, longitude,

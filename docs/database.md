@@ -112,18 +112,18 @@ erDiagram
 
 ## Tables
 
-| Table                | Purpose and notable constraints                                                                                                       |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `profiles`           | App metadata for an `auth.users` identity. Stores role, locale, unit preference and optional administrative assignment.               |
-| `admin_areas`        | State → district → block → village hierarchy, checked by a trigger. Localized names are JSONB; centroids and population are optional. |
-| `wells`              | Borewells, open wells, tanks and ponds; coordinates are range-checked and a generated PostGIS geography point has a GiST index.       |
-| `nodes`              | Hardware registry, unique hardware ID, optional SHA-256 API-key hash, sensor calibration and simulated-device flag.                   |
-| `readings`           | Append-oriented observations with a bigint identity and unique `(node_id, recorded_at)` key for idempotent writes.                    |
-| `alert_rules`        | Threshold/device rules scoped to a well or administrative area, with severity and notification channels.                              |
-| `alerts`             | Triggered events with acknowledgement/resolution state and a translation `message_key`.                                               |
-| `notification_prefs` | One preference per profile and channel.                                                                                               |
-| `api_keys`           | API access metadata and rate limits; only a fixed-length SHA-256 digest is stored.                                                    |
-| `audit_log`          | Operational record of actor, action, entity and structured details.                                                                   |
+| Table                | Purpose and notable constraints                                                                                                                                           |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `profiles`           | App metadata for an `auth.users` identity. Stores role, locale, unit preference, optional administrative assignment, crop preferences and onboarding/deletion timestamps. |
+| `admin_areas`        | State → district → block → village hierarchy, checked by a trigger. Localized names are JSONB; centroids and population are optional.                                     |
+| `wells`              | Borewells, open wells, tanks and ponds; coordinates are range-checked and a generated PostGIS geography point has a GiST index.                                           |
+| `nodes`              | Hardware registry, unique hardware ID, optional SHA-256 API-key hash, sensor calibration and simulated-device flag.                                                       |
+| `readings`           | Append-oriented observations with a bigint identity and unique `(node_id, recorded_at)` key for idempotent writes.                                                        |
+| `alert_rules`        | Threshold/device rules scoped to a well or administrative area, with severity and notification channels.                                                                  |
+| `alerts`             | Triggered events with acknowledgement/resolution state and a translation `message_key`.                                                                                   |
+| `notification_prefs` | One preference per profile and channel.                                                                                                                                   |
+| `api_keys`           | API access metadata and rate limits; only a fixed-length SHA-256 digest is stored.                                                                                        |
+| `audit_log`          | Operational record of actor, action, entity and structured details.                                                                                                       |
 
 All ten tables have RLS enabled and **no policies** in this phase. This is intentional
 default-deny behavior; see [the Phase 5 policy plan](./rls-plan.md). The
@@ -140,9 +140,9 @@ default-deny behavior; see [the Phase 5 policy plan](./rls-plan.md). The
 6. Stop the stack with `pnpm db:stop`.
 
 The seed creates two states, four districts, twelve blocks, thirty-six villages, six
-sample profile identities and thirty wells with simulated nodes. It creates no readings.
-The sample Auth identities have no usable password and must not be treated as login
-accounts.
+sample profile identities and thirty wells with simulated nodes. Seed identities have
+local OTP phone numbers and no usable password; see [the auth guide](./auth.md). It
+creates no readings. Treat seed identities as local fixtures, not production accounts.
 
 ## Migration guidelines
 

@@ -401,8 +401,11 @@ export type Database = {
         Row: {
           admin_area_id: string | null;
           created_at: string;
+          crops: string[];
+          deleted_at: string | null;
           full_name: string;
           id: string;
+          onboarding_completed_at: string | null;
           phone: string | null;
           preferred_locale: string;
           preferred_unit: Database["public"]["Enums"]["unit_preference"];
@@ -412,8 +415,11 @@ export type Database = {
         Insert: {
           admin_area_id?: string | null;
           created_at?: string;
+          crops?: string[];
+          deleted_at?: string | null;
           full_name: string;
           id: string;
+          onboarding_completed_at?: string | null;
           phone?: string | null;
           preferred_locale?: string;
           preferred_unit?: Database["public"]["Enums"]["unit_preference"];
@@ -423,8 +429,11 @@ export type Database = {
         Update: {
           admin_area_id?: string | null;
           created_at?: string;
+          crops?: string[];
+          deleted_at?: string | null;
           full_name?: string;
           id?: string;
+          onboarding_completed_at?: string | null;
           phone?: string | null;
           preferred_locale?: string;
           preferred_unit?: Database["public"]["Enums"]["unit_preference"];

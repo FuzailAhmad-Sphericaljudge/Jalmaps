@@ -1,6 +1,6 @@
 begin;
 
-select plan(12);
+select plan(17);
 
 select ok(
   (not exists (
@@ -129,6 +129,44 @@ select ok(
   (select count(*) = 30 and bool_and(is_simulated)
    from public.nodes),
   'all thirty seeded wells have simulated sensor nodes'
+);
+
+select lives_ok(
+  $$insert into auth.users (
+      id, aud, role, phone, phone_confirmed_at, encrypted_password,
+      raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+    ) values (
+      'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa', 'authenticated', 'authenticated',
+      '+919999999999', now(), '',
+      '{"provider":"phone","providers":["phone"]}'::jsonb,
+      '{"preferred_locale":"hi","role":"admin","full_name":"New Farmer"}'::jsonb,
+      now(), now()
+    )$$,
+  'auth.users insert creates the linked application profile'
+);
+
+select is(
+  (select role::text from public.profiles where id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'),
+  'farmer',
+  'new Auth profiles ignore client role metadata and default to farmer'
+);
+
+select is(
+  (select preferred_locale from public.profiles where id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'),
+  'hi',
+  'new Auth profiles preserve a supported locale preference from metadata'
+);
+
+select is(
+  (select preferred_unit::text from public.profiles where id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'),
+  'm',
+  'new Auth profiles default to metre units'
+);
+
+select ok(
+  (select onboarding_completed_at is null and crops = '{}'
+   from public.profiles where id = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'),
+  'new Auth profiles begin with incomplete onboarding and no crop preferences'
 );
 
 select * from finish();
