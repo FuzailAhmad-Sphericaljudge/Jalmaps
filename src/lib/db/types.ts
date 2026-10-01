@@ -397,12 +397,36 @@ export type Database = {
           },
         ];
       };
+      otp_rate_limits: {
+        Row: {
+          request_count: number;
+          subject_hash: string;
+          subject_type: string;
+          window_started_at: string;
+        };
+        Insert: {
+          request_count: number;
+          subject_hash: string;
+          subject_type: string;
+          window_started_at: string;
+        };
+        Update: {
+          request_count?: number;
+          subject_hash?: string;
+          subject_type?: string;
+          window_started_at?: string;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           admin_area_id: string | null;
           created_at: string;
+          crops: string[];
+          deleted_at: string | null;
           full_name: string;
           id: string;
+          onboarding_completed_at: string | null;
           phone: string | null;
           preferred_locale: string;
           preferred_unit: Database["public"]["Enums"]["unit_preference"];
@@ -412,8 +436,11 @@ export type Database = {
         Insert: {
           admin_area_id?: string | null;
           created_at?: string;
+          crops?: string[];
+          deleted_at?: string | null;
           full_name: string;
           id: string;
+          onboarding_completed_at?: string | null;
           phone?: string | null;
           preferred_locale?: string;
           preferred_unit?: Database["public"]["Enums"]["unit_preference"];
@@ -423,8 +450,11 @@ export type Database = {
         Update: {
           admin_area_id?: string | null;
           created_at?: string;
+          crops?: string[];
+          deleted_at?: string | null;
           full_name?: string;
           id?: string;
+          onboarding_completed_at?: string | null;
           phone?: string | null;
           preferred_locale?: string;
           preferred_unit?: Database["public"]["Enums"]["unit_preference"];
@@ -587,10 +617,22 @@ export type Database = {
       };
     };
     Functions: {
+      auth_role: {
+        Args: Record<PropertyKey, never>;
+        Returns: Database["public"]["Enums"]["user_role"];
+      };
       calculate_depth_to_water_m: {
         Args: { column_m: number; hang_depth_m: number };
         Returns: number;
       };
+      can_manage_well: { Args: { target_well_id: string }; Returns: boolean };
+      can_read_well: { Args: { target_well_id: string }; Returns: boolean };
+      consume_otp_rate_limit: {
+        Args: { p_destination_hash: string; p_destination_type: string; p_ip_hash: string };
+        Returns: boolean;
+      };
+      is_admin: { Args: Record<PropertyKey, never>; Returns: boolean };
+      user_area_ids: { Args: Record<PropertyKey, never>; Returns: string[] };
     };
     Enums: {
       admin_area_level: "state" | "district" | "block" | "village";

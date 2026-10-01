@@ -1,33 +1,43 @@
 # Row-level security plan (Phase 5)
 
-## Phase 4 baseline
+This file records the intended Phase 5 access boundaries. They are implemented
+and tested; see the current enforcement details and verification instructions in
+[docs/rls.md](./rls.md).
 
-RLS is enabled on every application table. No policies are defined, so requests made
-with `anon` or `authenticated` roles cannot read or mutate rows. The local
-`service_role` bypass is server-only and must never be exposed to clients. A pgTAP test
-checks both that every public table has RLS enabled and that no policy currently widens
-access.
+RLS is enabled on every application table. Policies use `auth.uid()` plus the
+trusted `profiles.role` and `profiles.admin_area_id` values; role and area changes
+are rejected by a database trigger unless the request is an admin operation.
+Anonymous users receive no application-table grants. The server-only service-role
+client bypasses RLS and must never be imported by client code.
 
-## Intended policy matrix
+## Implemented access boundaries
 
-Policies must be based on verified `auth.uid()` and trusted database state, not client
-claims supplied in request payloads. Scope inheritance should be implemented with
-reviewed helper functions to avoid duplicating hierarchy traversal.
+| Table                | Farmer                             | Village admin              | Official                                   | Insurer                   | Admin                           |
+| -------------------- | ---------------------------------- | -------------------------- | ------------------------------------------ | ------------------------- | ------------------------------- |
+| `profiles`           | Own row                            | Own and scoped rows        | Own and scoped rows                        | Own row                   | All rows                        |
+| `admin_areas`        | Read                               | Read                       | Read                                       | Read                      | Read and write                  |
+| `wells`              | Owned wells                        | Read/update assigned area  | Read assigned area and descendants         | No direct access          | All access                      |
+| `nodes`              | Nodes of owned wells               | Read assigned area         | Read assigned area and descendants         | No direct access          | Read, excluding credential hash |
+| `readings`           | Readings for owned wells           | Read assigned area         | Read assigned area and descendants         | No direct access          | Read                            |
+| `alert_rules`        | Manage rules for owned wells       | Read assigned area         | Read assigned area and descendants         | No direct access          | All access                      |
+| `alerts`             | Read/update alerts for owned wells | Read only in assigned area | Read only in assigned area and descendants | No direct access          | All access                      |
+| `notification_prefs` | Own rows                           | Own rows                   | Own rows                                   | Own rows                  | All access                      |
+| `api_keys`           | Own key metadata and keys          | Own key metadata and keys  | Own key metadata and keys                  | Own key metadata and keys | All access                      |
+| `audit_log`          | No direct access                   | No direct access           | No direct access                           | No direct access          | Read                            |
 
-| Role          | Intended access (subject to Phase 5 design review)                                                                                                                                           |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Farmer        | Read own profile, wells they own, their nodes/readings, alerts for those wells and their notification preferences. Update only safe profile preferences and permitted well fields.           |
-| Village admin | Read wells and alert summaries within assigned village scope; acknowledge/resolution actions only within that scope. No access to credentials or unrestricted audit records.                 |
-| Official      | Read aggregated wells/readings/alerts within explicitly assigned administrative scope; no access to API-key hashes or private contact destinations.                                          |
-| Insurer       | Read only authorized coverage and historical observation data; no profile contact details, node credentials or audit internals. Scoped API keys are enforced server-side in addition to RLS. |
-| Admin         | Explicit operational access through trusted server-side paths. Do not grant browser clients broad administrative access merely because a profile says `admin`.                               |
+Node `api_key_hash` and API key `key_hash` are excluded from authenticated
+`SELECT` grants. Reading insertion and mutation are restricted to trusted server
+operations. Audit-log writes are not granted to authenticated clients.
 
-## Phase 5 checklist
+Area scope includes the profile's assigned area and all descendant areas. Insurers
+have no direct row access in this phase; scoped aggregate access is a later server
+API concern and must not be implemented by weakening table policies.
 
-- Specify per-table `SELECT`, `INSERT`, `UPDATE` and `DELETE` policies independently.
-- Prevent users from changing their own role or administrative area through a profile update.
-- Test cross-village and cross-district isolation with authenticated JWTs and negative
-  cases for every role.
-- Keep `api_keys` and `audit_log` inaccessible through ordinary browser clients unless
-  a concrete use case and least-privilege policy are approved.
-- Re-test `latest_reading` under invoker security after policies are introduced.
+## Verification
+
+`pnpm db:reset` applies the policies and seeds local role fixtures.
+`pnpm db:test` runs a 5-role x 10-table x 4-operation pgTAP matrix (200 assertions),
+additional checks for RLS coverage, sensitive columns, privileged profile fields,
+and forbidden reading writes, plus repository integration tests. A local-only
+weakened wells policy was also tested and caused the matrix to fail; resetting the
+database restored the migration-defined policies and the passing suite.

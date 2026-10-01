@@ -17,6 +17,9 @@ import type { AppLocale } from "../config";
 const loaders = {
   en: async () => ({
     common: (await import("./en/common.json")).default,
+    auth: (await import("./en/auth.json")).default,
+    account: (await import("./en/account.json")).default,
+    onboarding: (await import("./en/onboarding.json")).default,
     home: (await import("./en/home.json")).default,
     gallery: (await import("./en/gallery.json")).default,
     settings: (await import("./en/settings.json")).default,
@@ -24,6 +27,9 @@ const loaders = {
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
+    auth: (await import("./hi/auth.json")).default,
+    account: (await import("./hi/account.json")).default,
+    onboarding: (await import("./hi/onboarding.json")).default,
     home: (await import("./hi/home.json")).default,
     gallery: (await import("./hi/gallery.json")).default,
     settings: (await import("./hi/settings.json")).default,
