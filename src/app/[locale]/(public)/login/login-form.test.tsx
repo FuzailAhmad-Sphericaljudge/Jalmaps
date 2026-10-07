@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { expectNoAxeViolations } from "@/test/a11y";
 
-import authMessages from "../../../i18n/messages/en/auth.json";
+import authMessages from "../../../../i18n/messages/en/auth.json";
 
 const mocks = vi.hoisted(() => ({
   replace: vi.fn(),

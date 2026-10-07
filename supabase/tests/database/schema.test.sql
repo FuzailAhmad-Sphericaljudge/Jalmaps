@@ -1,6 +1,6 @@
 begin;
 
-select plan(23);
+select plan(25);
 
 select ok(
   (not exists (
@@ -123,6 +123,20 @@ select is(
   (select count(distinct role)::integer from public.profiles),
   5,
   'seed profiles cover all five application roles'
+);
+
+select ok(
+  (select count(*) = 7
+   from public.profiles
+   where preferred_text_size = 'normal'
+     and preferred_theme = 'system'),
+  'profile shell preferences have supported defaults for every seeded user'
+);
+
+select ok(
+  has_column_privilege('authenticated', 'public.profiles', 'preferred_text_size', 'UPDATE')
+  and has_column_privilege('authenticated', 'public.profiles', 'preferred_theme', 'UPDATE'),
+  'authenticated profile owners can update shell preference columns'
 );
 
 select is(

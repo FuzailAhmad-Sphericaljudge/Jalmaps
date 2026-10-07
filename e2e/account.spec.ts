@@ -21,7 +21,7 @@ async function signIn(page: Page, phoneNumber: string, expectedUserId: string) {
   await page.getByRole("button", { name: "Verify and sign in" }).click();
   const result = await (await verification).json();
   expect(result.user.id).toBe(expectedUserId);
-  await expect(page).toHaveURL(/\/en(?:\/onboarding)?\/?$/);
+  await expect(page).toHaveURL(/\/en(?:\/onboarding|\/farmer)?\/?$/);
 }
 
 test("account export, profile update, sign-out, and deletion", async ({ page }) => {

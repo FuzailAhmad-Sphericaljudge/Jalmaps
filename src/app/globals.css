@@ -118,6 +118,14 @@
   --sidebar-ring: var(--color-primary);
 }
 
+html[data-text-size="large"] {
+  font-size: 112.5%;
+}
+
+html[data-text-size="extraLarge"] {
+  font-size: 125%;
+}
+
 .dark {
   --color-background: oklch(0.2 0.015 240);
   --color-surface: oklch(0.26 0.018 240);

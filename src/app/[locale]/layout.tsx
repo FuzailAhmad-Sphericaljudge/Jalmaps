@@ -7,6 +7,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { AppHeader } from "@/components/layout/app-header";
 import { ThemeProvider } from "@/components/theme/theme-context";
 import { THEME_SCRIPT } from "@/components/theme/theme-script";
+import { Toaster } from "@/components/ui/sonner";
 import { isAppLocale, locales } from "@/i18n/config";
 import { getFontClassName } from "@/i18n/fonts";
 import { THEME_COOKIE_NAME, parseThemeCookieValue } from "@/server/theme";
@@ -80,6 +81,7 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             <AppHeader />
             {children}
+            <Toaster />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

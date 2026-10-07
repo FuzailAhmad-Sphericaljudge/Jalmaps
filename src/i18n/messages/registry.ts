@@ -23,6 +23,7 @@ const loaders = {
     home: (await import("./en/home.json")).default,
     gallery: (await import("./en/gallery.json")).default,
     settings: (await import("./en/settings.json")).default,
+    shell: (await import("./en/shell.json")).default,
     errors: (await import("./en/errors.json")).default,
   }),
   hi: async () => ({
@@ -33,6 +34,7 @@ const loaders = {
     home: (await import("./hi/home.json")).default,
     gallery: (await import("./hi/gallery.json")).default,
     settings: (await import("./hi/settings.json")).default,
+    shell: (await import("./hi/shell.json")).default,
     errors: (await import("./hi/errors.json")).default,
   }),
   // `satisfies` ensures every locale in `config.ts` has a loader while

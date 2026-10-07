@@ -429,6 +429,8 @@ export type Database = {
           onboarding_completed_at: string | null;
           phone: string | null;
           preferred_locale: string;
+          preferred_text_size: string;
+          preferred_theme: string;
           preferred_unit: Database["public"]["Enums"]["unit_preference"];
           role: Database["public"]["Enums"]["user_role"];
           updated_at: string;
@@ -443,6 +445,8 @@ export type Database = {
           onboarding_completed_at?: string | null;
           phone?: string | null;
           preferred_locale?: string;
+          preferred_text_size?: string;
+          preferred_theme?: string;
           preferred_unit?: Database["public"]["Enums"]["unit_preference"];
           role?: Database["public"]["Enums"]["user_role"];
           updated_at?: string;
@@ -457,6 +461,8 @@ export type Database = {
           onboarding_completed_at?: string | null;
           phone?: string | null;
           preferred_locale?: string;
+          preferred_text_size?: string;
+          preferred_theme?: string;
           preferred_unit?: Database["public"]["Enums"]["unit_preference"];
           role?: Database["public"]["Enums"]["user_role"];
           updated_at?: string;

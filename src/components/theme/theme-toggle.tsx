@@ -2,6 +2,8 @@
 
 import { Moon, Sun } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+
 import { useTheme } from "./theme-context";
 
 /**
@@ -11,9 +13,11 @@ import { useTheme } from "./theme-context";
 export function ThemeToggle({
   lightLabel = "Light",
   darkLabel = "Dark",
+  className,
 }: {
   lightLabel?: string;
   darkLabel?: string;
+  className?: string;
 }) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
@@ -23,7 +27,10 @@ export function ThemeToggle({
       type="button"
       onClick={toggleTheme}
       aria-pressed={isDark}
-      className="inline-flex h-12 min-w-12 items-center justify-center gap-2 rounded-md border border-border bg-surface px-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted"
+      className={cn(
+        "inline-flex h-12 min-w-12 items-center justify-center gap-2 rounded-md border border-border bg-surface px-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-muted",
+        className,
+      )}
     >
       {isDark ? <Moon aria-hidden className="size-4" /> : <Sun aria-hidden className="size-4" />}
       <span>{isDark ? darkLabel : lightLabel}</span>

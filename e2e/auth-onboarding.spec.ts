@@ -44,5 +44,5 @@ test("phone OTP sign-in completes onboarding accessibly", async ({ page }) => {
 
   await page.getByLabel("Rice").check();
   await page.getByRole("button", { name: "Finish setup" }).click();
-  await expect(page).toHaveURL(/\/en\/?$/);
+  await expect(page).toHaveURL(/\/en\/farmer$/);
 });

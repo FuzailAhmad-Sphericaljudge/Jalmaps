@@ -32,6 +32,8 @@ const profile: Database["public"]["Tables"]["profiles"]["Row"] = {
   phone: "+919000000001",
   preferred_locale: "en",
   preferred_unit: "m",
+  preferred_text_size: "normal",
+  preferred_theme: "system",
   role: "farmer",
   admin_area_id: null,
   crops: [],

@@ -22,6 +22,16 @@ export default async function HomePage({ params }: Props) {
   if (current && !current.profile?.onboarding_completed_at) {
     redirect({ href: "/onboarding", locale });
   }
+  if (current?.profile) {
+    const roleHome = {
+      farmer: "/farmer",
+      village_admin: "/village",
+      official: "/official",
+      insurer: "/insurer",
+      admin: "/admin",
+    } as const;
+    redirect({ href: roleHome[current.profile.role], locale });
+  }
 
   const t = await getTranslations("home");
   // ICU plural: wording adapts to the count per locale.
