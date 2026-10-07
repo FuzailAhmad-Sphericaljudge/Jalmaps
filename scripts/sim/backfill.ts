@@ -1,11 +1,6 @@
 import { parseArgs } from "util";
 import { createServiceRoleClient } from "../../src/server/supabase/service-role";
-import {
-  generateSeries,
-  NodeSimConfig,
-  ScenarioType,
-  SCENARIOS,
-} from "../../src/server/simulator/models";
+import { generateSeries, NodeSimConfig, ScenarioType } from "../../src/server/simulator/models";
 import { createPRNG, hashString } from "../../src/server/simulator/prng";
 import { writeSimulationBatch } from "../../src/server/simulator/writer";
 
@@ -53,14 +48,12 @@ async function main() {
   start.setMonth(start.getMonth() - months);
   const end = new Date();
 
-  const scenariosList = Object.keys(SCENARIOS) as ScenarioType[];
-
   const startTime = Date.now();
 
   let totalReadings = 0;
 
-  for (let i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
+  for (const node of nodes) {
+    if (!node) continue;
     const nodeSeed = hashString(`${globalSeed}-${node.id}`);
     const prng = createPRNG(nodeSeed);
 
@@ -97,7 +90,7 @@ async function main() {
       totalReadings += batch.length;
     }
 
-    console.log(`[${i + 1}/${nodes.length}] Node ${node.id} backfilled ${series.length} readings.`);
+    console.log(`Node ${node.id} backfilled ${series.length} readings.`);
   }
 
   const durationMs = Date.now() - startTime;

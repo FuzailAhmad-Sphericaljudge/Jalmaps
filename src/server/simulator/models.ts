@@ -157,7 +157,7 @@ export function getWaterDepthAtTime(
 
 export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): ReadingResult {
   const scenarioConfig = SCENARIOS[config.scenario];
-  const { depthM, isPumping } = getWaterDepthAtTime(config, date, prng);
+  const { depthM } = getWaterDepthAtTime(config, date, prng);
 
   let truthDepthM = depthM;
   let injectedFault: string | undefined = undefined;

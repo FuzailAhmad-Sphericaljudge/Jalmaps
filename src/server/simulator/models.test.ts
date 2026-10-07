@@ -91,8 +91,8 @@ describe("Simulator Models", () => {
     });
 
     // Depth should generally increase during pumping hours (6-9)
-    const earlyDepth = series[0].depth_to_water_m;
-    const lateDepth = series[2].depth_to_water_m;
+    const earlyDepth = series[0]!.depth_to_water_m;
+    const lateDepth = series[2]!.depth_to_water_m;
     expect(lateDepth).toBeGreaterThan(earlyDepth);
   });
 });
