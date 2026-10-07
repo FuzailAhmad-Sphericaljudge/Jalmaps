@@ -65,3 +65,4 @@ end;
 $$;
 
 comment on function public.check_node_rate_limit is 'Fixed-window rate limiter (1 minute window). Returns true if within limit, false if exceeded.';
+
