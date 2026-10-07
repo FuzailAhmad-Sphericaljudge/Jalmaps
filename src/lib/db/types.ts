@@ -1,4 +1,4 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+﻿export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   public: {
@@ -594,6 +594,42 @@ export type Database = {
           },
         ];
       };
+      well_members: {
+        Row: {
+          created_at: string | null;
+          role: string | null;
+          user_id: string;
+          well_id: string;
+        };
+        Insert: {
+          created_at?: string | null;
+          role?: string | null;
+          user_id: string;
+          well_id: string;
+        };
+        Update: {
+          created_at?: string | null;
+          role?: string | null;
+          user_id?: string;
+          well_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "well_members_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "well_members_well_id_fkey";
+            columns: ["well_id"];
+            isOneToOne: false;
+            referencedRelation: "wells";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       wells: {
         Row: {
           admin_area_id: string;
@@ -719,7 +755,7 @@ export type Database = {
       reading_quality: "good" | "suspect" | "bad";
       unit_preference: "m" | "ft";
       user_role: "farmer" | "village_admin" | "official" | "insurer" | "admin";
-      well_status: "active" | "inactive" | "decommissioned";
+      well_status: "active" | "inactive" | "decommissioned" | "planned" | "dry";
       well_type: "borewell" | "open_well" | "tank" | "pond";
       well_visibility: "private" | "admin_area" | "public";
     };
@@ -843,7 +879,7 @@ export const Constants = {
       reading_quality: ["good", "suspect", "bad"],
       unit_preference: ["m", "ft"],
       user_role: ["farmer", "village_admin", "official", "insurer", "admin"],
-      well_status: ["active", "inactive", "decommissioned"],
+      well_status: ["active", "inactive", "decommissioned", "planned", "dry"],
       well_type: ["borewell", "open_well", "tank", "pond"],
       well_visibility: ["private", "admin_area", "public"],
     },

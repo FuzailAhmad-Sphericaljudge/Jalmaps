@@ -121,7 +121,6 @@ export async function rotateKeyAction(
   locale: string,
   nodeId: string,
   hardwareId: string,
-  _actorId: string,
 ): Promise<RotateKeyResult> {
   if (!isAppLocale(locale)) return { status: "error", message: "Invalid locale" };
   const current = await requireRole(locale, "farmer", "admin");

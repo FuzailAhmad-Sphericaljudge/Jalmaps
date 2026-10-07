@@ -6,7 +6,6 @@ import { createServiceRoleClient } from "../../server/supabase/service-role";
 import { issueNodeKey, revokeNodeKey } from "./keys";
 import { processIngestion, IngestError } from "./service";
 import crypto from "node:crypto";
-import { getEnv } from "../../lib/env";
 
 describe("Ingestion Service Integration", () => {
   const db = createServiceRoleClient();

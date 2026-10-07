@@ -61,7 +61,7 @@ export async function getWell(client: SupabaseClient<Database>, wellId: string) 
 export async function updateWell(
   client: SupabaseClient<Database>,
   wellId: string,
-  payload: unknown,
+  payload: Database["public"]["Tables"]["wells"]["Update"],
 ) {
   const { data, error } = await client
     .from("wells")
@@ -91,7 +91,10 @@ export async function createNode(
   client: SupabaseClient<Database>,
   wellId: string,
   hardwareId: string,
-  settings: Record<string, unknown>,
+  settings: Omit<
+    Database["public"]["Tables"]["nodes"]["Insert"],
+    "well_id" | "hardware_id" | "status" | "is_simulated"
+  >,
 ) {
   const { data, error } = await client
     .from("nodes")
@@ -110,7 +113,7 @@ export async function createNode(
 export async function updateNodeSettings(
   client: SupabaseClient<Database>,
   nodeId: string,
-  settings: Record<string, unknown>,
+  settings: Database["public"]["Tables"]["nodes"]["Update"],
   actorId: string,
 ) {
   const { data, error } = await client
