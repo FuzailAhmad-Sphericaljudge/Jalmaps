@@ -113,8 +113,8 @@ export function getWaterDepthAtTime(
 ): { depthM: number; isPumping: boolean } {
   const scenarioConfig = SCENARIOS[config.scenario];
   const tYear = date.getTime() / MS_PER_YEAR;
-  const month = date.getMonth();
-  const hour = date.getHours();
+  const month = date.getUTCMonth();
+  const hour = date.getUTCHours();
 
   // Baseline + Trend
   let depth = config.baselineDepthM - tYear * scenarioConfig.longTermTrendMYr;
@@ -210,7 +210,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
 
   // Device model (Battery & RSSI)
   // Battery discharges slightly during pumping or night, charges during day
-  const hour = date.getHours();
+  const hour = date.getUTCHours();
   let batteryV =
     config.scenario === "low_battery"
       ? 3.3 + Math.sin(hour) * 0.1
