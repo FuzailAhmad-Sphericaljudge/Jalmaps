@@ -35,3 +35,4 @@ CREATE POLICY "Admins and village_admins can read all well_members" ON public.we
             WHERE id = auth.uid() AND role IN ('admin', 'village_admin')
         )
     );
+

@@ -20,3 +20,4 @@ CREATE POLICY "Owner can read well photos" ON storage.objects
         bucket_id = 'well-photos' AND
         (storage.foldername(name))[1] = auth.uid()::text
     );
+
