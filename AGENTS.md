@@ -7,3 +7,39 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# JalMaps Project Rules
+
+See `docs/` for full details. Do not paste long documents here.
+
+## Purpose
+
+A groundwater monitoring platform for India (sensors -> DB -> Web UI).
+Users: Farmers (phones), Village Admins, Officials, Insurers.
+
+## Stack (Fixed - do not substitute)
+
+- Next.js (App Router), TypeScript (strict)
+- Tailwind CSS v4, shadcn/ui, lucide-react, next-intl
+- Supabase (Postgres, Auth, RLS, Storage)
+- Zod, TanStack Query, Recharts, MapLibre GL
+- Vitest, Playwright, pnpm
+
+## Ground Rules
+
+1. **i18n for EVERY string.** No hardcoded UI text.
+2. **Farmer-first UI:** 48px minimum touch targets, icon + text.
+3. **Units:** Store in metres, display in local preference (m/ft).
+4. **Commits:** Small, atomic, Conventional Commits.
+5. **Git:** Work directly on `main`, run `pnpm check` before push, push frequently.
+6. **Secrets:** `.env.local` only (no secrets in repo). `src/lib/env.ts` for parsing.
+7. **Auth Phase (Current):** No UI for managing other users, OTP tested locally.
+
+## Key Commands
+
+- `pnpm dev`: Start Next.js
+- `pnpm db:start` / `pnpm db:stop`: Manage local Supabase
+- `pnpm db:reset`: Reset DB & seed
+- `pnpm db:test`: Run pgTAP / DB tests
+- `pnpm check`: Run lint, typecheck, unit tests, i18n checks (MUST RUN BEFORE PUSH)
+- `pnpm test:e2e`: Playwright
