@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getServiceRoleClient } from "@/server/supabase/service-role";
+import { createServiceRoleClient } from "@/server/supabase/service-role";
 import { verifyNodeKey } from "@/server/ingest/keys";
 
 export async function GET(request: Request) {
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     }
 
     const token = authHeader.substring(7);
-    const db = getServiceRoleClient();
+    const db = createServiceRoleClient();
 
     const nodeId = await verifyNodeKey(db, token, hardwareId);
     if (!nodeId) {
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json({ server_time: new Date().toISOString() }, { status: 200 });
-  } catch (_error) {
+  } catch {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

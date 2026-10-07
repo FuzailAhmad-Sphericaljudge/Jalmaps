@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "@/lib/db/types";
+import type { Database, Json } from "@/lib/db/types";
 import {
   ingestRequestSchema,
   type IngestResponse,
@@ -26,6 +26,7 @@ export async function processIngestion(
   db: SupabaseClient<Database>,
   authHeader: string | null,
   bodyRaw: string,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   _clientIp: string,
 ): Promise<IngestResponse> {
   const serverTime = new Date();
@@ -99,6 +100,7 @@ export async function processIngestion(
 
   for (let i = 0; i < req.readings.length; i++) {
     const r = req.readings[i];
+    if (!r) continue;
 
     // Resolve timestamp
     let recordedAt: Date;
@@ -118,12 +120,11 @@ export async function processIngestion(
       continue;
     }
 
-    const previousMa = i > 0 ? req.readings[i - 1].current_ma : undefined;
+    const previousR = i > 0 ? req.readings[i - 1] : undefined;
+    const previousMa = previousR ? previousR.current_ma : undefined;
     const minutesSincePrev =
-      i > 0 && r.recorded_at && req.readings[i - 1].recorded_at
-        ? (new Date(r.recorded_at).getTime() -
-            new Date(req.readings[i - 1].recorded_at!).getTime()) /
-          60000
+      previousR && r.recorded_at && previousR?.recorded_at
+        ? (new Date(r.recorded_at).getTime() - new Date(previousR?.recorded_at).getTime()) / 60000
         : undefined;
 
     const quality = classifyQuality({
@@ -160,7 +161,7 @@ export async function processIngestion(
       battery_v: r.battery_v ?? null,
       rssi: r.rssi ?? null,
       quality: quality,
-      raw: r as unknown as Record<string, unknown>,
+      raw: r as unknown as NonNullable<Json>,
     });
 
     results.push({ index: i, status: "accepted" });
@@ -169,7 +170,8 @@ export async function processIngestion(
     // Keep track of latest reading to update node
     if (
       latestAcceptedIndex === -1 ||
-      new Date(readingsToInsert[latestAcceptedIndex].recorded_at).getTime() < recordedAt.getTime()
+      new Date(readingsToInsert[latestAcceptedIndex]?.recorded_at ?? "").getTime() <
+        recordedAt.getTime()
     ) {
       latestAcceptedIndex = readingsToInsert.length - 1;
     }
@@ -177,6 +179,15 @@ export async function processIngestion(
 
   // Insert readings batch
   if (readingsToInsert.length > 0) {
+    const timestamps = readingsToInsert.map((r) => r.recorded_at);
+    const { data: existing } = await db
+      .from("readings")
+      .select("recorded_at")
+      .eq("node_id", nodeId)
+      .in("recorded_at", timestamps);
+
+    const existingMap = new Set((existing || []).map((e) => new Date(e.recorded_at).getTime()));
+
     // We use ON CONFLICT DO NOTHING to ignore duplicates
     const { error: insertError } = await db
       .from("readings")
@@ -187,33 +198,21 @@ export async function processIngestion(
       throw new IngestError(500, "Database Error");
     }
 
-    // Now we must count duplicates vs actual accepted. Since Supabase upsert doesn't tell us which rows were ignored easily without fetching,
-    // we can either assume all are accepted if no error, but the prompt says: "Duplicate sends do not create duplicate rows. report duplicates per reading."
-    // Actually, to report duplicates accurately per reading, we should ideally check which timestamps exist first.
-    // For this Phase, we'll do a quick check of existing timestamps if there are readings to insert.
-    const timestamps = readingsToInsert.map((r) => r.recorded_at);
-    const { data: existing } = await db
-      .from("readings")
-      .select("recorded_at")
-      .eq("node_id", nodeId)
-      .in("recorded_at", timestamps);
-
-    if (existing && existing.length > 0) {
-      const existingMap = new Set(existing.map((e) => e.recorded_at));
-
+    if (existingMap.size > 0) {
       // Update results
       accepted = 0;
       for (const r of readingsToInsert) {
         const origResult = results.find(
           (res) =>
-            req.readings[res.index].recorded_at === r.recorded_at ||
-            (req.readings[res.index].age_s !== undefined &&
+            new Date(req.readings[res.index]?.recorded_at || "").getTime() ===
+              new Date(r.recorded_at).getTime() ||
+            (req.readings[res.index]?.age_s !== undefined &&
               new Date(
-                serverTime.getTime() - req.readings[res.index].age_s! * 1000,
-              ).toISOString() === r.recorded_at),
+                serverTime.getTime() - (req.readings[res.index]?.age_s ?? 0) * 1000,
+              ).getTime() === new Date(r.recorded_at).getTime()),
         );
         if (origResult) {
-          if (existingMap.has(r.recorded_at)) {
+          if (existingMap.has(new Date(r.recorded_at).getTime())) {
             origResult.status = "duplicate";
             duplicates++;
           } else {
@@ -226,18 +225,20 @@ export async function processIngestion(
     // Update side effects
     if (latestAcceptedIndex !== -1) {
       const latest = readingsToInsert[latestAcceptedIndex];
-      await db
-        .from("nodes")
-        .update({
-          last_seen_at: latest.recorded_at,
-          battery_v: latest.battery_v,
-          signal_rssi: latest.rssi,
-          firmware_version: req.firmware,
-        })
-        .eq("id", nodeId);
+      if (latest) {
+        await db
+          .from("nodes")
+          .update({
+            last_seen_at: latest.recorded_at,
+            battery_v: latest.battery_v,
+            signal_rssi: latest.rssi,
+            firmware_version: req.firmware,
+          })
+          .eq("id", nodeId);
 
-      // Extension point
-      await onReadingsIngested(db, nodeId, latest.recorded_at);
+        // Extension point
+        await onReadingsIngested(db, nodeId, latest.recorded_at);
+      }
     }
   }
 
@@ -279,7 +280,7 @@ async function recordReject(
     node_id: nodeId,
     hardware_id: hardwareId,
     reason,
-    payload: jsonPayload as unknown as Record<string, unknown>,
+    payload: jsonPayload as unknown as NonNullable<Json>,
   });
 }
 
@@ -287,6 +288,7 @@ async function recordReject(
  * Extension point for evaluating alerts, etc.
  * Will be implemented in Phase 13.
  */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export async function onReadingsIngested(
   _db: SupabaseClient<Database>,
   _nodeId: string,

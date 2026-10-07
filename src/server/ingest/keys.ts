@@ -65,13 +65,16 @@ export async function verifyNodeKey(
   keyString: string,
   hardwareId: string,
 ): Promise<string | null> {
-  const parts = keyString.split("_");
-  if (parts.length !== 4 || parts[0] !== "jm" || parts[1] !== "live") {
+  if (!keyString.startsWith("jm_live_")) {
     return null; // Malformed
   }
 
-  const prefix = parts[2];
-  const secret = parts[3];
+  const rest = keyString.slice(8);
+  const firstUnderscore = rest.indexOf("_");
+  if (firstUnderscore === -1) return null;
+
+  const prefix = rest.slice(0, firstUnderscore);
+  const secret = rest.slice(firstUnderscore + 1);
 
   if (!prefix || !secret) {
     return null;
@@ -87,6 +90,7 @@ export async function verifyNodeKey(
     .maybeSingle();
 
   if (error || !data) {
+    console.error("VERIFY FAILED:", error, data, "FOR PREFIX", prefix, "HARDWARE", hardwareId);
     return null;
   }
 

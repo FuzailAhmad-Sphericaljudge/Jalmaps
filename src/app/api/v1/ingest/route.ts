@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getServiceRoleClient } from "@/server/supabase/service-role";
+import { createServiceRoleClient } from "@/server/supabase/service-role";
 import { processIngestion, IngestError } from "@/server/ingest/service";
 
 export async function POST(request: Request) {
@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const bodyRaw = await request.text();
     const clientIp = request.headers.get("x-forwarded-for") ?? "unknown";
 
-    const db = getServiceRoleClient();
+    const db = createServiceRoleClient();
 
     const response = await processIngestion(db, authHeader, bodyRaw, clientIp);
 
