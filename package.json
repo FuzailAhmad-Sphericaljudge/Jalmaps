@@ -27,7 +27,8 @@
     "sim:live": "tsx scripts/sim/live.ts",
     "sim:reset": "tsx scripts/sim/reset.ts",
     "sim:status": "tsx scripts/sim/status.ts",
-    "sim:export": "tsx scripts/sim/export.ts"
+    "sim:export": "tsx scripts/sim/export.ts",
+    "node:key": "tsx scripts/node/key.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

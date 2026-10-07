@@ -15,10 +15,8 @@ async function main() {
     },
   });
 
-  if (values["via-api"]) {
-    console.log("TODO: via-api is stubbed. Phase 8 completes it.");
-    process.exit(0);
-  }
+  const viaApi = values["via-api"] as boolean;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://127.0.0.1:3000";
 
   const months = parseInt(values.months!);
   const interval = parseInt(values.interval!);
