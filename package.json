@@ -22,7 +22,12 @@
     "db:test": "tsx scripts/db-test.ts",
     "check-i18n": "tsx scripts/check-i18n.ts",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm check-i18n",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sim:backfill": "tsx scripts/sim/backfill.ts",
+    "sim:live": "tsx scripts/sim/live.ts",
+    "sim:reset": "tsx scripts/sim/reset.ts",
+    "sim:status": "tsx scripts/sim/status.ts",
+    "sim:export": "tsx scripts/sim/export.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
