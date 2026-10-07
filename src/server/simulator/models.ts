@@ -205,7 +205,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
 
   if (injectedFault === "stuck_low") {
     currentMa = 3.2 + prng() * 0.2; // stuck below 3.5 mA
-    column = currentToColumnM(currentMa, config.sensorRangeM);
+    column = currentToColumnM(currentMa, { range_m: config.sensorRangeM });
   }
 
   // Device model (Battery & RSSI)

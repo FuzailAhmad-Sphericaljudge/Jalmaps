@@ -8,7 +8,7 @@ export type Node = Database["public"]["Tables"]["nodes"]["Row"];
 export type SafeNode = Omit<Node, "api_key_hash">;
 
 export const safeNodeColumns =
-  "id,well_id,hardware_id,sensor_model,range_m,hang_depth_m,calibration_offset_m,firmware_version,battery_v,signal_rssi,last_seen_at,status,is_simulated,created_at,updated_at";
+  "id,well_id,hardware_id,sensor_model,range_m,hang_depth_m,calibration_offset_m,firmware_version,battery_v,signal_rssi,last_seen_at,status,is_simulated,api_key_prefix,revoked_at,created_at,updated_at";
 
 export async function listNodes(
   client: SupabaseClient<Database>,
