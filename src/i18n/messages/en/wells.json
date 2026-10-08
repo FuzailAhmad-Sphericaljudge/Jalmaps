@@ -54,6 +54,7 @@
     "hardwareIdPlaceholder": "E.g. JM-ESP32-0001",
     "scanQR": "Scan QR code",
     "scanFallback": "QR scanner not available — enter the ID manually",
+    "cancelScan": "Cancel scan",
     "sensorModel": "Sensor model",
     "rangeM": "Sensor range (m)",
     "hangDepthM": "Hang depth (m)",
