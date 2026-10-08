@@ -115,7 +115,10 @@
     "import": "वैध पंक्तियां आयात करें",
     "errors": "त्रुटि रिपोर्ट डाउनलोड करें",
     "successCount": "{count, plural, one {# कुआं आयात किया गया} other {# कुएं आयात किए गए}}",
-    "maxRows": "प्रति आयात अधिकतम 500 पंक्तियाँ"
+    "maxRows": "प्रति आयात अधिकतम 500 पंक्तियाँ",
+    "failedRows": "{count, plural, one {# पंक्ति विफल रही} other {# पंक्तियाँ विफल रहीं}}",
+    "previewRows": "{count, plural, one {# पंक्ति} other {# पंक्तियाँ}}",
+    "moreRows": "… {count, plural, one {# और पंक्ति} other {# और पंक्तियाँ}}"
   },
   "detail": {
     "settings": "कुएं की सेटिंग्स",

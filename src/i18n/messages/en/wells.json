@@ -115,7 +115,10 @@
     "import": "Import valid rows",
     "errors": "Download error report",
     "successCount": "{count, plural, one {# well imported} other {# wells imported}}",
-    "maxRows": "Maximum 500 rows per import"
+    "maxRows": "Maximum 500 rows per import",
+    "failedRows": "{count, plural, one {# row failed} other {# rows failed}}",
+    "previewRows": "{count, plural, one {# row} other {# rows}}",
+    "moreRows": "… {count, plural, one {# more row} other {# more rows}}"
   },
   "detail": {
     "settings": "Well settings",
