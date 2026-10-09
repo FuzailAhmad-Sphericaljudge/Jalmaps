@@ -1,3 +1,4 @@
 {
-  "title": "{name} History"
+  "title": "{name} History",
+  "loading": "Loading..."
 }
