@@ -5,6 +5,7 @@ import { useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 import { useSeries } from "@/lib/series/use-series";
 import type { TimeRangePreset } from "@/lib/series/ranges";
+import { ChartRangePicker } from "./ChartRangePicker";
 
 interface HistoryChartProps {
   wellId: string;
@@ -12,7 +13,7 @@ interface HistoryChartProps {
 
 export function HistoryChart({ wellId }: HistoryChartProps) {
   const t = useTranslations("history");
-  const [range] = useState<TimeRangePreset>("1y");
+  const [range, setRange] = useState<TimeRangePreset>("1y");
   const { data, isLoading, isError } = useSeries(wellId, range);
 
   if (isLoading) {
@@ -33,6 +34,7 @@ export function HistoryChart({ wellId }: HistoryChartProps) {
 
   return (
     <div className="flex flex-col gap-4">
+      <ChartRangePicker value={range} onChange={setRange} />
       <div className="h-72 w-full rounded-lg border border-border bg-card p-4">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={data}>
