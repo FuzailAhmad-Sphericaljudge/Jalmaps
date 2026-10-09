@@ -20,8 +20,8 @@ describe("downsampleWithGaps", () => {
     }));
     const result = downsampleWithGaps(data, 10, 10);
     expect(result.length).toBe(10);
-    expect(result[0].x).toBe(0); // first
-    expect(result[9].x).toBe(99); // last
+    expect(result[0]!.x).toBe(0); // first
+    expect(result[9]!.x).toBe(99); // last
   });
 
   it("detects gaps and inserts nulls", () => {
@@ -40,7 +40,7 @@ describe("downsampleWithGaps", () => {
     expect(result[0]).toEqual({ x: 1, y: 10 });
     expect(result[1]).toEqual({ x: 2, y: 20 });
     // gap inserted
-    expect(result[2].y).toBe(null);
+    expect(result[2]!.y).toBe(null);
     expect(result[3]).toEqual({ x: 7, y: 30 });
     expect(result[4]).toEqual({ x: 8, y: 40 });
   });
@@ -54,6 +54,6 @@ describe("downsampleWithGaps", () => {
 
     const result = downsampleWithGaps(data, 5, 100);
     expect(result.length).toBe(3);
-    expect(result[1].y).toBe(null);
+    expect(result[1]!.y).toBe(null);
   });
 });

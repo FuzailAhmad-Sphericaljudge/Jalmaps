@@ -160,7 +160,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
   const { depthM } = getWaterDepthAtTime(config, date, prng);
 
   let truthDepthM = depthM;
-  let injectedFault: string | undefined = undefined;
+  let injectedFault: string | null = null;
   let quality: "good" | "suspect" | "bad" = "good";
 
   // Gap probability
@@ -175,7 +175,11 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
       signal_rssi: 0,
       is_missing: true,
       quality: "bad",
-      raw_sim: { scenario: config.scenario, truth_depth_m: truthDepthM, injected_fault: "offline" },
+      raw_sim: {
+        scenario: config.scenario,
+        truth_depth_m: truthDepthM,
+        injected_fault: injectedFault || undefined,
+      },
     };
   }
 
@@ -206,6 +210,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
   if (injectedFault === "stuck_low") {
     currentMa = 3.2 + prng() * 0.2; // stuck below 3.5 mA
     column = currentToColumnM(currentMa, { range_m: config.sensorRangeM });
+    column = Math.max(0, column); // Clamp to 0 for schema compliance
   }
 
   // Device model (Battery & RSSI)
@@ -232,7 +237,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
     raw_sim: {
       scenario: config.scenario,
       truth_depth_m: truthDepthM,
-      injected_fault: injectedFault,
+      injected_fault: injectedFault || undefined,
     },
   };
 }

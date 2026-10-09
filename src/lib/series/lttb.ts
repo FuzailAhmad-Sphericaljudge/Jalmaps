@@ -91,7 +91,7 @@ export function downsampleWithGaps<T extends DataPoint>(
   let currentSegment: T[] = [];
 
   for (let i = 0; i < data.length; i++) {
-    const point = data[i];
+    const point = data[i]!;
     if (point.y === null) {
       if (currentSegment.length > 0) {
         segments.push(currentSegment);
@@ -101,7 +101,7 @@ export function downsampleWithGaps<T extends DataPoint>(
     }
 
     if (currentSegment.length > 0) {
-      const prev = currentSegment[currentSegment.length - 1];
+      const prev = currentSegment[currentSegment.length - 1]!;
       if (point.x - prev.x > maxGap) {
         segments.push(currentSegment);
         currentSegment = [];
@@ -124,7 +124,7 @@ export function downsampleWithGaps<T extends DataPoint>(
   const result: T[] = [];
 
   for (let i = 0; i < segments.length; i++) {
-    const segment = segments[i];
+    const segment = segments[i]!;
 
     const segmentThreshold = Math.max(2, Math.floor((segment.length / totalPoints) * threshold));
 
@@ -137,8 +137,8 @@ export function downsampleWithGaps<T extends DataPoint>(
     // Insert a null gap between segments to prevent Recharts from connecting them
     if (i < segments.length - 1) {
       result.push({
-        ...segment[segment.length - 1],
-        x: segment[segment.length - 1].x + maxGap / 2, // arbitrary midpoint for the gap
+        ...segment[segment.length - 1]!,
+        x: segment[segment.length - 1]!.x + maxGap / 2, // arbitrary midpoint for the gap
         y: null,
       } as unknown as T);
     }

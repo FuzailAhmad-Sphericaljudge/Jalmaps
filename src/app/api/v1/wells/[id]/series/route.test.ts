@@ -59,14 +59,14 @@ describe("GET /api/v1/wells/[id]/series", () => {
       makeRequest(
         "http://localhost/api/v1/wells/well1/series?from=2026-01-01T00:00:00Z&to=2026-02-01T00:00:00Z",
       ),
-      { params: { id: "well1" } },
+      { params: Promise.resolve({ id: "well1" }) },
     );
     expect(res.status).toBe(401);
   });
 
   it("validates from and to parameters", async () => {
     const res = await GET(makeRequest("http://localhost/api/v1/wells/well1/series?from=invalid"), {
-      params: { id: "well1" },
+      params: Promise.resolve({ id: "well1" }),
     });
     expect(res.status).toBe(400);
     const body = await res.json();
@@ -78,7 +78,7 @@ describe("GET /api/v1/wells/[id]/series", () => {
       makeRequest(
         "http://localhost/api/v1/wells/well1/series?from=2026-02-01T00:00:00Z&to=2026-01-01T00:00:00Z",
       ),
-      { params: { id: "well1" } },
+      { params: Promise.resolve({ id: "well1" }) },
     );
     expect(res.status).toBe(400);
   });
@@ -89,7 +89,7 @@ describe("GET /api/v1/wells/[id]/series", () => {
       makeRequest(
         "http://localhost/api/v1/wells/well1/series?from=2026-01-01T00:00:00Z&to=2026-02-01T00:00:00Z",
       ),
-      { params: { id: "well1" } },
+      { params: Promise.resolve({ id: "well1" }) },
     );
     expect(res.status).toBe(200);
     const body = await res.json();
@@ -102,7 +102,7 @@ describe("GET /api/v1/wells/[id]/series", () => {
       makeRequest(
         "http://localhost/api/v1/wells/well1/series?from=2026-01-01T00:00:00Z&to=2026-02-01T00:00:00Z",
       ),
-      { params: { id: "well1" } },
+      { params: Promise.resolve({ id: "well1" }) },
     );
     expect(res.status).toBe(200);
     const body = await res.json();
@@ -114,7 +114,7 @@ describe("GET /api/v1/wells/[id]/series", () => {
     const from = "2026-01-01T00:00:00.000Z";
     const to = "2026-01-30T00:00:00.000Z";
     await GET(makeRequest(`http://localhost/api/v1/wells/well1/series?from=${from}&to=${to}`), {
-      params: { id: "well1" },
+      params: Promise.resolve({ id: "well1" }),
     });
 
     expect(mocks.rpc).toHaveBeenCalledWith("readings_bucketed", {
@@ -129,7 +129,7 @@ describe("GET /api/v1/wells/[id]/series", () => {
     const from = "2025-01-01T00:00:00.000Z";
     const to = "2026-01-01T00:00:00.000Z";
     await GET(makeRequest(`http://localhost/api/v1/wells/well1/series?from=${from}&to=${to}`), {
-      params: { id: "well1" },
+      params: Promise.resolve({ id: "well1" }),
     });
 
     expect(mocks.rpc).toHaveBeenCalledWith("readings_bucketed", {
