@@ -17,7 +17,7 @@ function lttbSingle<T extends DataPoint>(data: T[], threshold: number): T[] {
   const every = (dataLength - 2) / (threshold - 2);
   let a = 0; // Initially a is the first point in the triangle
 
-  sampled.push(data[a]); // Always add the first point
+  sampled.push(data[a]!); // Always add the first point
 
   for (let i = 0; i < threshold - 2; i++) {
     // Calculate point average for next bucket (min, max)
@@ -30,8 +30,8 @@ function lttbSingle<T extends DataPoint>(data: T[], threshold: number): T[] {
     const avgRangeLength = avgRangeEnd - avgRangeStart;
 
     for (; avgRangeStart < avgRangeEnd; avgRangeStart++) {
-      avgX += data[avgRangeStart].x;
-      avgY += data[avgRangeStart].y!; // assumed not null
+      avgX += data[avgRangeStart]!.x;
+      avgY += data[avgRangeStart]!.y!; // assumed not null
     }
     avgX /= avgRangeLength;
     avgY /= avgRangeLength;
@@ -41,8 +41,8 @@ function lttbSingle<T extends DataPoint>(data: T[], threshold: number): T[] {
     const rangeTo = Math.floor((i + 1) * every) + 1;
 
     // Point a
-    const pointAX = data[a].x;
-    const pointAY = data[a].y!; // assumed not null
+    const pointAX = data[a]!.x;
+    const pointAY = data[a]!.y!; // assumed not null
 
     let maxArea = -1;
     let area = -1;
@@ -52,8 +52,8 @@ function lttbSingle<T extends DataPoint>(data: T[], threshold: number): T[] {
       // Calculate triangle area over three buckets
       area =
         Math.abs(
-          (pointAX - avgX) * (data[rangeOffs].y! - pointAY) -
-            (pointAX - data[rangeOffs].x) * (avgY - pointAY),
+          (pointAX - avgX) * (data[rangeOffs]!.y! - pointAY) -
+            (pointAX - data[rangeOffs]!.x) * (avgY - pointAY),
         ) * 0.5;
       if (area > maxArea) {
         maxArea = area;
@@ -62,12 +62,12 @@ function lttbSingle<T extends DataPoint>(data: T[], threshold: number): T[] {
     }
 
     if (maxAreaPoint !== -1) {
-      sampled.push(data[maxAreaPoint]);
+      sampled.push(data[maxAreaPoint]!);
       a = maxAreaPoint;
     }
   }
 
-  sampled.push(data[dataLength - 1]); // Always add last
+  sampled.push(data[dataLength - 1]!); // Always add last
   return sampled;
 }
 
