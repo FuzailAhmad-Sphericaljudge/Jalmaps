@@ -206,3 +206,27 @@ export async function listWellMembers(client: SupabaseClient<Database>, wellId: 
     .eq("well_id", wellId);
   return requireDatabaseData(data, error, "list well members");
 }
+
+export async function getFarmerWells(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("wells")
+    .select(
+      `
+      *,
+      nodes (
+        id, well_id, status, range_m,
+        latest_reading (*)
+      )
+    `,
+    )
+    .eq("owner_id", userId);
+  return requireDatabaseData(data, error, "get farmer wells");
+}
+
+export async function getTrend(client: SupabaseClient<Database>, wellId: string, hours: number) {
+  const { data, error } = await client.rpc("get_trend", { p_well_id: wellId, p_hours: hours });
+  return requireDatabaseData(data, error, "get trend") as unknown as {
+    recorded_at: string;
+    depth_to_water_m: number;
+  }[];
+}
