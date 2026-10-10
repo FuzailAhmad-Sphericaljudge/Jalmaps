@@ -1,4 +1,4 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+﻿export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   public: {
@@ -52,6 +52,80 @@ export type Database = {
             referencedColumns: ["id"];
           },
         ];
+      };
+      advisory_feedback: {
+        Row: {
+          advice_key: string;
+          created_at: string;
+          id: string;
+          is_helpful: boolean;
+          reason: string | null;
+          user_id: string;
+          well_id: string;
+        };
+        Insert: {
+          advice_key: string;
+          created_at?: string;
+          id?: string;
+          is_helpful: boolean;
+          reason?: string | null;
+          user_id: string;
+          well_id: string;
+        };
+        Update: {
+          advice_key?: string;
+          created_at?: string;
+          id?: string;
+          is_helpful?: boolean;
+          reason?: string | null;
+          user_id?: string;
+          well_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "advisory_feedback_well_id_fkey";
+            columns: ["well_id"];
+            isOneToOne: false;
+            referencedRelation: "wells";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      advisory_rules: {
+        Row: {
+          advice_key: string;
+          conditions: NonNullable<Json>;
+          cooldown_days: number;
+          created_at: string;
+          enabled: boolean;
+          id: string;
+          priority: number;
+          updated_at: string;
+          version: number;
+        };
+        Insert: {
+          advice_key: string;
+          conditions: NonNullable<Json>;
+          cooldown_days?: number;
+          created_at?: string;
+          enabled?: boolean;
+          id: string;
+          priority?: number;
+          updated_at?: string;
+          version?: number;
+        };
+        Update: {
+          advice_key?: string;
+          conditions?: NonNullable<Json>;
+          cooldown_days?: number;
+          created_at?: string;
+          enabled?: boolean;
+          id?: string;
+          priority?: number;
+          updated_at?: string;
+          version?: number;
+        };
+        Relationships: [];
       };
       alert_events: {
         Row: {
@@ -372,6 +446,36 @@ export type Database = {
             referencedColumns: ["id"];
           },
         ];
+      };
+      crop_profiles: {
+        Row: {
+          created_at: string;
+          growth_stages: NonNullable<Json>;
+          id: string;
+          name_en: string;
+          name_hi: string;
+          sowing_windows: NonNullable<Json>;
+          water_sensitivity: string;
+        };
+        Insert: {
+          created_at?: string;
+          growth_stages: NonNullable<Json>;
+          id: string;
+          name_en: string;
+          name_hi: string;
+          sowing_windows: NonNullable<Json>;
+          water_sensitivity: string;
+        };
+        Update: {
+          created_at?: string;
+          growth_stages?: NonNullable<Json>;
+          id?: string;
+          name_en?: string;
+          name_hi?: string;
+          sowing_windows?: NonNullable<Json>;
+          water_sensitivity?: string;
+        };
+        Relationships: [];
       };
       ingest_rejects: {
         Row: {
@@ -792,6 +896,42 @@ export type Database = {
           user_id?: string;
         };
         Relationships: [];
+      };
+      well_crops: {
+        Row: {
+          created_at: string;
+          crop_id: string;
+          sowing_date: string;
+          well_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          crop_id: string;
+          sowing_date: string;
+          well_id: string;
+        };
+        Update: {
+          created_at?: string;
+          crop_id?: string;
+          sowing_date?: string;
+          well_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "well_crops_crop_id_fkey";
+            columns: ["crop_id"];
+            isOneToOne: false;
+            referencedRelation: "crop_profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "well_crops_well_id_fkey";
+            columns: ["well_id"];
+            isOneToOne: false;
+            referencedRelation: "wells";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       well_members: {
         Row: {
