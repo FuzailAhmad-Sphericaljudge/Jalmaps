@@ -1,0 +1,9 @@
+Term,English,Hindi,Notes
+well,well,कुआं,Generic term for groundwater source.
+water level,water level,जल स्तर,Depth of water in the well.
+advisory,advisory,सलाह,Actionable advice given to farmers.
+sensor,sensor,सेंसर,Hardware measuring the water level.
+alert,alert,अलर्ट,System notification of an issue.
+pump,pump,पंप,Water extraction equipment.
+recharge,recharge,रिचार्ज,Water returning to the aquifer.
+depletion,depletion,कमी/गिरावट,Rapid loss of water level.
