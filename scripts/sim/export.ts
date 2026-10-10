@@ -55,9 +55,7 @@ async function main() {
     const sampleRate = Math.max(1, Math.floor(depths.length / 80));
 
     for (let i = 0; i < depths.length; i += sampleRate) {
-      const depth = depths[i];
-      if (depth === undefined) continue;
-      const normalized = (depth - min) / range;
+      const normalized = (depths[i]! - min) / range;
       const sparkIdx = Math.floor(normalized * (sparks.length - 1));
       line += sparks[sparkIdx];
     }
