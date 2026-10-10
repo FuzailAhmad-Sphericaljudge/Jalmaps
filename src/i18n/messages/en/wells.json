@@ -122,6 +122,7 @@
   },
   "detail": {
     "settings": "Well settings",
+    "alerts": "Alerts",
     "lastReading": "Last reading",
     "noReadings": "No readings yet",
     "depth": "Depth to water",
