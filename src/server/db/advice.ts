@@ -17,16 +17,16 @@ export async function getAdviceForWell(
   // Get well_crops
   const { data: wellCrop } = await client
     .from("well_crops")
-    .select("crop, sowing_date")
+    .select("crop_id, sowing_date")
     .eq("well_id", wellId)
     .single();
 
   let cropProfile = null;
-  if (wellCrop?.crop) {
+  if (wellCrop?.crop_id) {
     const { data: profileData } = await client
       .from("crop_profiles")
       .select("*")
-      .eq("id", wellCrop.crop)
+      .eq("id", wellCrop.crop_id)
       .single();
     if (profileData) {
       cropProfile = profileData;
@@ -52,14 +52,14 @@ export async function getAdviceForWell(
       .eq("node_id", node.id)
       .order("recorded_at", { ascending: false })
       .limit(10);
-    if (recent) recentReadings = recent;
+    if (recent) recentReadings = recent.filter(r => r.depth_to_water_m !== null) as any;
 
     const { data: historical } = await client
       .from("readings")
       .select("depth_to_water_m")
       .eq("node_id", node.id)
       .limit(100);
-    if (historical) historicalReadings = historical;
+    if (historical) historicalReadings = historical.filter(r => r.depth_to_water_m !== null) as any;
   }
 
   const facts = await buildFacts(

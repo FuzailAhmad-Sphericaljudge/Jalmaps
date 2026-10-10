@@ -22,7 +22,7 @@ export default async function WellSettingsPage({
     listWellMembers(client, id).catch(() => []),
     getTranslations({ locale, namespace: "wells" }),
     client.from("crop_profiles").select("id, name_en, name_hi"),
-    client.from("well_crops").select("crop, sowing_date").eq("well_id", id).maybeSingle(),
+    client.from("well_crops").select("crop_id, sowing_date").eq("well_id", id).maybeSingle(),
   ]);
 
   if (!well || well.owner_id !== user.id) {

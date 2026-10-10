@@ -218,8 +218,8 @@ export async function updateWellCropAction(
     } else {
       await client.from("well_crops").upsert({
         well_id: wellId,
-        crop: input.crop,
-        sowing_date: input.sowing_date,
+        crop_id: input.crop,
+        sowing_date: input.sowing_date!,
       });
     }
     return { status: "ok" };

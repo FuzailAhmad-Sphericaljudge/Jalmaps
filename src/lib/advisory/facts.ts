@@ -71,16 +71,16 @@ export async function buildFacts(
     const latest = sorted[0];
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const closestTo7d = sorted.reduce((prev, curr) => {
-      const prevDiff = Math.abs(new Date(prev.recorded_at).getTime() - sevenDaysAgo.getTime());
+      const prevDiff = Math.abs(new Date(prev?.recorded_at).getTime() - sevenDaysAgo.getTime());
       const currDiff = Math.abs(new Date(curr.recorded_at).getTime() - sevenDaysAgo.getTime());
       return currDiff < prevDiff ? curr : prev;
     }, latest);
 
     if (
-      new Date(latest.recorded_at).getTime() - new Date(closestTo7d.recorded_at).getTime() >
+      new Date(latest?.recorded_at).getTime() - new Date(closestTo7d?.recorded_at).getTime() >
       3 * 24 * 60 * 60 * 1000
     ) {
-      depthTrend7d = latest.depth_to_water_m - closestTo7d.depth_to_water_m;
+      depthTrend7d = latest?.depth_to_water_m - closestTo7d?.depth_to_water_m;
     }
   }
 
