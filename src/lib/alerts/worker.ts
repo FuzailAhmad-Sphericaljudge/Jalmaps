@@ -3,6 +3,7 @@ import { evaluateLevelBelow, evaluateDropRate, evaluateNoData, evaluateLowBatter
 import { transitionAlertState } from "./state";
 import type { AlertContext, AlertRuleType, EvaluatorFunction } from "./types";
 import { getEnv } from "@/lib/env";
+import { queueAlertNotifications } from "@/lib/notifications/queue";
 
 const getEvaluator = (type: AlertRuleType): EvaluatorFunction => {
   switch (type) {
@@ -84,16 +85,17 @@ export const evaluateWell = async (wellId: string, now: Date = new Date()) => {
           new_status: "open",
           reason: "Evaluator triggered"
         });
+        await queueAlertNotifications(newAlert, "opened");
       }
     } else if (!result.triggered && result.shouldResolve && previousAlert) {
       // Auto-resolve
       const transition = transitionAlertState(previousAlert.status, "resolve_auto");
       if (transition.success) {
-        await supabase.from("alerts").update({
+        const { data: updatedAlert } = await supabase.from("alerts").update({
           status: transition.newStatus,
           resolved_at: now.toISOString(),
           resolved_reason: transition.resolvedReason,
-        }).eq("id", previousAlert.id);
+        }).eq("id", previousAlert.id).select().single();
 
         await supabase.from("alert_events").insert({
           alert_id: previousAlert.id,
@@ -101,6 +103,9 @@ export const evaluateWell = async (wellId: string, now: Date = new Date()) => {
           new_status: transition.newStatus,
           reason: transition.reason
         });
+        if (updatedAlert) {
+          await queueAlertNotifications(updatedAlert, "resolved");
+        }
       }
     }
   }
