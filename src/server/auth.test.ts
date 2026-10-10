@@ -34,6 +34,7 @@ const profile: Database["public"]["Tables"]["profiles"]["Row"] = {
   preferred_unit: "m",
   preferred_text_size: "normal",
   preferred_theme: "system",
+  preferred_high_contrast: false,
   role: "farmer",
   admin_area_id: null,
   crops: [],

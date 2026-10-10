@@ -84,9 +84,9 @@ export default async function WellDetailPage({
   if (advice && advice.length > 0) {
     const topAdvice = advice[0];
     const tAdvisory = await getTranslations({ locale, namespace: "advisory" });
-    const adviceString = tAdvisory(
-      `rules.${topAdvice.adviceKey}` as Parameters<typeof tAdvisory>[0],
-    );
+    const adviceString = topAdvice
+      ? tAdvisory(`rules.${topAdvice.adviceKey}` as Parameters<typeof tAdvisory>[0])
+      : "";
     if (adviceString) {
       speechText += " " + tSpeech("advice", { advice: adviceString });
     }
