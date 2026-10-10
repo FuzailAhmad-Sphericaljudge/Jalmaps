@@ -25,12 +25,14 @@ export function SettingsForm({
   initialUnit,
   initialTextSize,
   initialTheme,
+  initialHighContrast,
 }: {
   locale: AppLocale;
   initialLocale: AppLocale;
   initialUnit: SettingsInput["preferred_unit"];
   initialTextSize: SettingsInput["text_size"];
   initialTheme: SettingsInput["theme"];
+  initialHighContrast: boolean;
 }) {
   const t = useTranslations("settings");
   const router = useRouter();
@@ -39,6 +41,7 @@ export function SettingsForm({
   const [preferredUnit, setPreferredUnit] = useState(initialUnit);
   const [textSize, setTextSizeState] = useState(initialTextSize);
   const [theme, setThemeState] = useState(initialTheme);
+  const [highContrast, setHighContrastState] = useState(initialHighContrast);
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -57,6 +60,12 @@ export function SettingsForm({
     }
   }
 
+  function changeHighContrast(checked: boolean) {
+    setHighContrastState(checked);
+    document.documentElement.classList.toggle("theme-high-contrast", checked);
+    document.cookie = `jalmaps-high-contrast=${checked}; path=/; max-age=${textSizeCookieAge}; samesite=lax`;
+  }
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setBusy(true);
@@ -67,6 +76,7 @@ export function SettingsForm({
         preferred_unit: preferredUnit,
         text_size: textSize,
         theme,
+        high_contrast: highContrast,
       });
       setIsError(result.status !== "saved");
       setMessage(result.status === "saved" ? t("saved") : t("saveError"));
@@ -81,6 +91,8 @@ export function SettingsForm({
       setTextSize(initialTextSize);
       setThemeState(initialTheme);
       setTheme(initialTheme);
+      setHighContrastState(initialHighContrast);
+      changeHighContrast(initialHighContrast);
     } finally {
       setBusy(false);
     }
@@ -168,6 +180,27 @@ export function SettingsForm({
             <option value="light">{t("light")}</option>
             <option value="dark">{t("dark")}</option>
           </select>
+        </div>
+        <div className="flex items-center justify-between rounded-lg border border-input p-4 sm:col-span-2">
+          <div>
+            <label htmlFor="settings-high-contrast" className="block font-medium">
+              {t("highContrast")}
+            </label>
+            <p className="text-sm text-muted-foreground">{t("highContrastDescription")}</p>
+          </div>
+          <div className="relative inline-block w-12 align-middle transition duration-200 ease-in select-none">
+            <input
+              type="checkbox"
+              id="settings-high-contrast"
+              checked={highContrast}
+              onChange={(e) => changeHighContrast(e.target.checked)}
+              className="toggle-checkbox absolute block h-6 w-6 cursor-pointer appearance-none rounded-full border-4 bg-white transition-transform duration-200 ease-in-out checked:translate-x-6 checked:border-primary"
+            />
+            <label
+              htmlFor="settings-high-contrast"
+              className={`toggle-label block h-6 cursor-pointer overflow-hidden rounded-full bg-gray-300 ${highContrast ? "bg-primary" : ""}`}
+            ></label>
+          </div>
         </div>
       </div>
 
