@@ -14,16 +14,16 @@ function renderWithIntl(ui: React.ReactNode) {
 describe("LiveBadge", () => {
   it("renders live state", () => {
     renderWithIntl(<LiveBadge state="live" />);
-    expect(screen.getByText("live")).toBeInTheDocument();
+    expect(screen.getByText("realtime.live")).toBeInTheDocument();
   });
 
   it("renders connecting state", () => {
     renderWithIntl(<LiveBadge state="connecting" />);
-    expect(screen.getByText("connecting")).toBeInTheDocument();
+    expect(screen.getByText("realtime.connecting")).toBeInTheDocument();
   });
 
   it("renders offline state", () => {
     renderWithIntl(<LiveBadge state="offline" />);
-    expect(screen.getByText("offline")).toBeInTheDocument();
+    expect(screen.getByText("realtime.offline")).toBeInTheDocument();
   });
 });

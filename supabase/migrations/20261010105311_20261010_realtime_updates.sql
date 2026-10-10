@@ -31,9 +31,13 @@ BEGIN
     true
   )
   FROM (
-    SELECT DISTINCT ON (well_id) *
-    FROM new_readings
-    ORDER BY well_id, recorded_at DESC
+    SELECT DISTINCT ON (n.well_id) 
+      r.*, 
+      n.well_id 
+    FROM new_readings r
+    JOIN public.nodes n ON n.id = r.node_id
+    WHERE n.well_id IS NOT NULL
+    ORDER BY n.well_id, r.recorded_at DESC
   ) r;
   
   RETURN NULL;
