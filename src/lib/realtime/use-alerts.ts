@@ -39,3 +39,4 @@ export function useAlerts(wellId?: string, onAlert?: (event: AlertEvent) => void
     return () => clearInterval(interval);
   }, [wellId, onAlert]);
 }
+
