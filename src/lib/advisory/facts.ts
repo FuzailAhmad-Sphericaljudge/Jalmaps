@@ -9,12 +9,14 @@ export interface RainfallProvider {
 }
 
 export class MockForecastProvider implements ForecastProvider {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getDaysToCritical(_wellId: string): Promise<number | null> {
     return 14;
   }
 }
 
 export class MockRainfallProvider implements RainfallProvider {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getExpectedRainfall(_wellId: string, _daysAhead: number): Promise<number> {
     return 0;
   }

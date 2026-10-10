@@ -9,10 +9,12 @@ import { isAppLocale } from "@/i18n/config";
 import { requireRole } from "@/server/auth";
 import { createServerComponentClient } from "@/server/supabase/server-component";
 import { getWell } from "@/server/db/wells";
+import { getAdviceForWell } from "@/server/db/advice";
 import { getNodeConnectionState } from "@/lib/wells/status";
 import { StatusPill } from "@/components/jalmaps/status-pill";
 import { LiveLatestReading } from "@/features/wells/live-latest-reading";
 import { Button } from "@/components/ui/button";
+import { AdviceCard } from "@/features/advisory/advice-card";
 
 export default async function WellDetailPage({
   params,
@@ -34,7 +36,6 @@ export default async function WellDetailPage({
   }
 
   // Find active node
-  // The 'nodes' from getWell is an array
   const nodes = (well.nodes || []) as Array<{
     id: string;
     status: string;
@@ -56,6 +57,8 @@ export default async function WellDetailPage({
     latestReading = data;
   }
 
+  const { advice, facts } = await getAdviceForWell(client, wellId);
+
   const connectionState = activeNode ? getNodeConnectionState(activeNode) : "no_node";
   const unit = current.profile.preferred_unit;
 
@@ -67,9 +70,7 @@ export default async function WellDetailPage({
           actions={
             <div className="flex gap-2">
               <Button variant="outline" asChild>
-                <Link href={`/app/farmer/wells/${well.id}/alerts`}>
-                  {t("alerts")}
-                </Link>
+                <Link href={`/app/farmer/wells/${well.id}/alerts`}>{t("alerts")}</Link>
               </Button>
               <Button variant="outline" asChild>
                 <Link href={`/app/farmer/wells/${well.id}/settings`}>
@@ -140,6 +141,11 @@ export default async function WellDetailPage({
             activeNode={activeNode}
             unit={unit}
           />
+
+          {/* Advice Card */}
+          <div className="md:col-span-2">
+            <AdviceCard wellId={wellId} advice={advice} facts={facts} />
+          </div>
         </div>
       </PageContainer>
     </ProtectedAppShell>

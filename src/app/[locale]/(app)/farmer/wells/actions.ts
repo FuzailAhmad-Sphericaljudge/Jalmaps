@@ -202,3 +202,29 @@ export async function addWellMemberAction(
     return { status: "error", message: "Could not add member. Please try again." };
   }
 }
+
+export async function updateWellCropAction(
+  locale: string,
+  wellId: string,
+  input: { crop: string | null; sowing_date: string | null },
+): Promise<{ status: "ok" } | { status: "error"; message: string }> {
+  if (!isAppLocale(locale)) return { status: "error", message: "Invalid locale" };
+  await requireRole(locale, "farmer", "admin");
+
+  try {
+    const client = await createServerComponentClient();
+    if (input.crop === null) {
+      await client.from("well_crops").delete().eq("well_id", wellId);
+    } else {
+      await client.from("well_crops").upsert({
+        well_id: wellId,
+        crop: input.crop,
+        sowing_date: input.sowing_date,
+      });
+    }
+    return { status: "ok" };
+  } catch (err) {
+    console.error("updateWellCropAction failed", err);
+    return { status: "error", message: "Could not update crop settings." };
+  }
+}

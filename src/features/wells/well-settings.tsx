@@ -1,17 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
-import { updateWellAction, addWellMemberAction } from "@/app/[locale]/(app)/farmer/wells/actions";
+import {
+  updateWellAction,
+  addWellMemberAction,
+  updateWellCropAction,
+} from "@/app/[locale]/(app)/farmer/wells/actions";
 
 // Assuming we have basic UI components from earlier phases
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function WellSettings({ well, members }: { well: any; members: any[] }) {
+export function WellSettings({
+  well,
+  members,
+  availableCrops,
+  wellCrop,
+}: {
+  well: any;
+  members: any[];
+  availableCrops?: { id: string; name_en: string; name_hi: string }[];
+  wellCrop?: { crop: string; sowing_date: string } | null;
+}) {
   const t = useTranslations("wells");
   const router = useRouter();
   const params = useParams();
@@ -19,6 +33,8 @@ export function WellSettings({ well, members }: { well: any; members: any[] }) {
 
   const [name, setName] = useState(well.name);
   const [notes, setNotes] = useState(well.notes || "");
+  const [crop, setCrop] = useState(wellCrop?.crop || "");
+  const [sowingDate, setSowingDate] = useState(wellCrop?.sowing_date || "");
   const [saving, setSaving] = useState(false);
 
   const [phone, setPhone] = useState("");
@@ -31,6 +47,10 @@ export function WellSettings({ well, members }: { well: any; members: any[] }) {
     setSaving(true);
     try {
       await updateWellAction(locale, well.id, { name, notes });
+      await updateWellCropAction(locale, well.id, {
+        crop: crop || null,
+        sowing_date: sowingDate || null,
+      });
       router.refresh();
     } catch (err) {
       console.error(err);
@@ -80,6 +100,36 @@ export function WellSettings({ well, members }: { well: any; members: any[] }) {
               className="min-h-[48px]"
             />
           </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">{t("wizard.cropProfile")}</label>
+            <select
+              value={crop}
+              onChange={(e) => setCrop(e.target.value)}
+              className="flex h-12 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <option value="">{t("wizard.none")}</option>
+              {availableCrops?.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {locale === "hi" && c.name_hi ? c.name_hi : c.name_en}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {crop && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium">{t("wizard.sowingDate")}</label>
+              <Input
+                type="date"
+                value={sowingDate}
+                onChange={(e) => setSowingDate(e.target.value)}
+                required
+                className="min-h-[48px]"
+              />
+            </div>
+          )}
+
           <Button type="submit" disabled={saving} className="min-h-[48px]">
             {saving ? t("wizard.saving") : t("wizard.save")}
           </Button>
