@@ -1,8 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { createServerClient } from "@/server/supabase/server";
-import { PageHeader } from "@/components/ui/page-header";
+import { createServerComponentClient } from "@/server/supabase/server-component";
+import { PageContainer, PageHeader } from "@/components/layout/page-scaffolding";
+import { ProtectedAppShell } from "@/components/layout/protected-app-shell";
 import { HistoryChart } from "@/components/jalmaps/HistoryChart";
+import { requireRole } from "@/server/auth";
+import { isAppLocale } from "@/i18n/config";
 
 export default async function HistoryPage({
   params,
@@ -10,24 +13,30 @@ export default async function HistoryPage({
   params: Promise<{ id: string; locale: string }>;
 }) {
   const { id, locale } = await params;
-  const t = await getTranslations("history");
-  const supabase = await createServerClient();
+  if (!isAppLocale(locale)) notFound();
 
-  const { data: well, error } = await supabase.from("wells").select("name").eq("id", id).single();
+  const current = await requireRole(locale, "farmer");
+  const t = await getTranslations("history");
+  const supabase = await createServerComponentClient();
+
+  const { data: well, error } = await supabase
+    .from("wells")
+    .select("name, id")
+    .eq("id", id)
+    .single();
 
   if (error || !well) {
     notFound();
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <PageHeader
-        title={t("title", { name: well.name })}
-        backHref={`/${locale}/app/farmer/wells/${id}`}
-      />
-      <div className="flex flex-col gap-4">
-        <HistoryChart wellId={id} />
-      </div>
-    </div>
+    <ProtectedAppShell locale={locale} current={current}>
+      <PageContainer>
+        <PageHeader title={t("title", { name: well.name })} />
+        <div className="mt-6 flex flex-col gap-4">
+          <HistoryChart wellId={id} />
+        </div>
+      </PageContainer>
+    </ProtectedAppShell>
   );
 }
