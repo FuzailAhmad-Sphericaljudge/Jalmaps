@@ -1,0 +1,9 @@
+{
+  "improve_translation": "Improve this translation",
+  "reported_text_label": "Reported text: '{text}'",
+  "suggestion_placeholder": "Your correction (optional)",
+  "submit": "Submit",
+  "close": "Close",
+  "thank_you": "Thank you! Your feedback will help improve translations.",
+  "error_submitting": "Failed to submit feedback. Please try again."
+}
