@@ -52,6 +52,7 @@ describe("LanguageSwitcher", () => {
     expect(options).toHaveLength(11);
     expect(options[0]).toHaveTextContent("English");
     expect(options[1]).toHaveTextContent("हिन्दी");
+    expect(options[2]).toHaveTextContent("ਪੰਜਾਬੀ (Beta)");
   });
 
   it("renders with a Hindi aria-label in the hi locale", () => {

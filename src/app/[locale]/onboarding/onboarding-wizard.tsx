@@ -202,21 +202,31 @@ export function OnboardingWizard({
 
           {step === 0 ? (
             <div className="grid gap-3">
-              {(["en", "hi"] as const).map((value) => (
-                <label
-                  key={value}
-                  className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border px-4"
-                >
-                  <input
-                    type="radio"
-                    name="preferred-locale"
-                    value={value}
-                    checked={preferredLocale === value}
-                    onChange={() => setPreferredLocale(value)}
-                  />
-                  {t(value === "en" ? "english" : "hindi")}
-                </label>
-              ))}
+              <p className="-mt-2 mb-2 text-sm text-muted-foreground">{t("betaWarning")}</p>
+              {locales.map((value) => {
+                const isStable = value === "en" || value === "hi";
+                const label =
+                  value === "en"
+                    ? t("english")
+                    : value === "hi"
+                      ? t("hindi")
+                      : localeNativeNames[value] + (isStable ? "" : " (Beta)");
+                return (
+                  <label
+                    key={value}
+                    className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border px-4"
+                  >
+                    <input
+                      type="radio"
+                      name="preferred-locale"
+                      value={value}
+                      checked={preferredLocale === value}
+                      onChange={() => setPreferredLocale(value)}
+                    />
+                    {label}
+                  </label>
+                );
+              })}
             </div>
           ) : null}
 

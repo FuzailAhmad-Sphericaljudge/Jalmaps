@@ -6238,5 +6238,17 @@
     "kn": "draft_machine",
     "ml": "draft_machine",
     "or": "draft_machine"
+  },
+  "onboarding.betaWarning": {
+    "pa": "draft_machine",
+    "hi": "approved",
+    "mr": "draft_machine",
+    "gu": "draft_machine",
+    "bn": "draft_machine",
+    "ta": "draft_machine",
+    "te": "draft_machine",
+    "kn": "draft_machine",
+    "ml": "draft_machine",
+    "or": "draft_machine"
   }
 }

@@ -28,5 +28,6 @@
   "cropMaize": "Maize",
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
-  "cropSugarcane": "Sugarcane"
+  "cropSugarcane": "Sugarcane",
+  "betaWarning": "Beta languages use early machine translations."
 }
