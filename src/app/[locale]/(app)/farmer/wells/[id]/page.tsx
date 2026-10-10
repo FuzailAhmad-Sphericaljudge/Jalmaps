@@ -14,6 +14,7 @@ import { getNodeConnectionState } from "@/lib/wells/status";
 import { StatusPill } from "@/components/jalmaps/status-pill";
 import { LiveLatestReading } from "@/features/wells/live-latest-reading";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AdviceCard } from "@/features/advisory/advice-card";
 import { ReadAloud } from "@/components/jalmaps/read-aloud";
 import { formatNumberForSpeech } from "@/lib/speech/formatters";
@@ -117,71 +118,83 @@ export default async function WellDetailPage({
           </div>
         )}
 
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {/* Node Status */}
-          <div className="flex flex-col items-center space-y-4 rounded-xl border bg-card p-6 text-center">
-            <h3 className="text-lg font-semibold">{t("node.title")}</h3>
+        <Tabs defaultValue="overview" className="mt-6 w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="overview">
+              {t("detail.overview", { fallback: "Overview" })}
+            </TabsTrigger>
+            <TabsTrigger value="details">
+              {t("detail.moreDetails", { fallback: "More details" })}
+            </TabsTrigger>
+          </TabsList>
 
-            {activeNode ? (
-              <>
-                <StatusPill
-                  status={
-                    connectionState === "online"
-                      ? "good"
-                      : connectionState === "offline"
-                        ? "offline"
-                        : "warning"
-                  }
-                  label={t(
-                    `nodeStatus.${connectionState}` as "online" | "offline" | "never_reported",
-                  )}
-                />
-
-                <div className="mt-4 grid w-full grid-cols-2 gap-4">
-                  <div className="rounded-lg bg-muted p-3">
-                    <div className="text-xs text-muted-foreground">{t("node.battery")}</div>
-                    <div className="font-medium">
-                      {activeNode.battery_v ? `${activeNode.battery_v} V` : "-"}
-                    </div>
-                  </div>
-                  <div className="rounded-lg bg-muted p-3">
-                    <div className="text-xs text-muted-foreground">{t("node.signal")}</div>
-                    <div className="font-medium">
-                      {activeNode.signal_rssi ? `${activeNode.signal_rssi} dBm` : "-"}
-                    </div>
-                  </div>
-                </div>
-
-                <Button variant="outline" className="mt-2 w-full" asChild>
-                  <Link href={`/app/farmer/wells/${well.id}/node`}>{t("detail.settings")}</Link>
-                </Button>
-              </>
-            ) : (
-              <>
-                <div className="my-4 text-muted-foreground">{t("node.noNode")}</div>
-                <Button className="w-full" asChild>
-                  <Link href={`/app/farmer/wells/${well.id}/node/new`}>
-                    <Plus className="mr-2 h-5 w-5" />
-                    {t("node.attachNode")}
-                  </Link>
-                </Button>
-              </>
-            )}
-          </div>
-
-          {/* Latest Reading */}
-          <LiveLatestReading
-            wellId={wellId}
-            initialReading={latestReading}
-            activeNode={activeNode}
-            unit={unit}
-          />
-
-          {/* Advice Card */}
-          <div className="md:col-span-2">
+          <TabsContent value="overview" className="mt-6 space-y-6">
             <AdviceCard wellId={wellId} advice={advice} facts={facts} />
-          </div>
-        </div>
+          </TabsContent>
+
+          <TabsContent value="details" className="mt-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {/* Node Status */}
+              <div className="flex flex-col items-center space-y-4 rounded-xl border bg-card p-6 text-center">
+                <h3 className="text-lg font-semibold">{t("node.title")}</h3>
+
+                {activeNode ? (
+                  <>
+                    <StatusPill
+                      status={
+                        connectionState === "online"
+                          ? "good"
+                          : connectionState === "offline"
+                            ? "offline"
+                            : "warning"
+                      }
+                      label={t(
+                        `nodeStatus.${connectionState}` as "online" | "offline" | "never_reported",
+                      )}
+                    />
+
+                    <div className="mt-4 grid w-full grid-cols-2 gap-4">
+                      <div className="rounded-lg bg-muted p-3">
+                        <div className="text-xs text-muted-foreground">{t("node.battery")}</div>
+                        <div className="font-medium">
+                          {activeNode.battery_v ? `${activeNode.battery_v} V` : "-"}
+                        </div>
+                      </div>
+                      <div className="rounded-lg bg-muted p-3">
+                        <div className="text-xs text-muted-foreground">{t("node.signal")}</div>
+                        <div className="font-medium">
+                          {activeNode.signal_rssi ? `${activeNode.signal_rssi} dBm` : "-"}
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" className="mt-2 w-full" asChild>
+                      <Link href={`/app/farmer/wells/${well.id}/node`}>{t("detail.settings")}</Link>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <div className="my-4 text-muted-foreground">{t("node.noNode")}</div>
+                    <Button className="w-full" asChild>
+                      <Link href={`/app/farmer/wells/${well.id}/node/new`}>
+                        <Plus className="mr-2 h-5 w-5" />
+                        {t("node.attachNode")}
+                      </Link>
+                    </Button>
+                  </>
+                )}
+              </div>
+
+              {/* Latest Reading */}
+              <LiveLatestReading
+                wellId={wellId}
+                initialReading={latestReading}
+                activeNode={activeNode}
+                unit={unit}
+              />
+            </div>
+          </TabsContent>
+        </Tabs>
       </PageContainer>
     </ProtectedAppShell>
   );
