@@ -25,18 +25,24 @@ describe("classifyWellStatus", () => {
   it("returns stale if reading is older than 24 hours", () => {
     const now = new Date("2026-10-10T12:00:00Z").getTime();
     const reading = { recorded_at: "2026-10-09T11:00:00Z", quality: "good" };
-    expect(classifyWellStatus({ status: "active" } as Node, reading as unknown as Reading, now)).toBe("stale");
+    expect(
+      classifyWellStatus({ status: "active" } as Node, reading as unknown as Reading, now),
+    ).toBe("stale");
   });
 
   it("returns fault if reading quality is bad", () => {
     const now = new Date("2026-10-10T12:00:00Z").getTime();
     const reading = { recorded_at: "2026-10-10T11:00:00Z", quality: "bad" };
-    expect(classifyWellStatus({ status: "active" } as Node, reading as unknown as Reading, now)).toBe("fault");
+    expect(
+      classifyWellStatus({ status: "active" } as Node, reading as unknown as Reading, now),
+    ).toBe("fault");
   });
 
   it("returns online for recent good reading", () => {
     const now = new Date("2026-10-10T12:00:00Z").getTime();
     const reading = { recorded_at: "2026-10-10T11:00:00Z", quality: "good" };
-    expect(classifyWellStatus({ status: "active" } as Node, reading as unknown as Reading, now)).toBe("online");
+    expect(
+      classifyWellStatus({ status: "active" } as Node, reading as unknown as Reading, now),
+    ).toBe("online");
   });
 });

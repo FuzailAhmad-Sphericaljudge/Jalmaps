@@ -34,14 +34,14 @@ test.describe("Farmer History View", () => {
   test("should have no automatically detectable accessibility violations", async ({ page }) => {
     // We wait for the chart to load
     await expect(page.locator(".recharts-wrapper")).toBeVisible();
-    
+
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
   test("switch ranges", async ({ page }) => {
     await expect(page.locator(".recharts-wrapper")).toBeVisible();
-    
+
     await page.getByRole("button", { name: "30D" }).click();
     // Verify it switched (we can't easily verify SVG, but we can verify active class)
     await expect(page.getByRole("button", { name: "30D" })).toHaveClass(/bg-primary/);
@@ -50,7 +50,7 @@ test.describe("Farmer History View", () => {
   test("compare wells", async ({ page }) => {
     // Wait for CompareSelector to be visible
     const compareButtons = page.locator("button", { hasText: "Well" });
-    if (await compareButtons.count() > 0) {
+    if ((await compareButtons.count()) > 0) {
       await compareButtons.first().click();
       // Should now render a second line
       const lines = page.locator(".recharts-line");
@@ -60,9 +60,9 @@ test.describe("Farmer History View", () => {
 
   test("accessibility table toggle", async ({ page }) => {
     await expect(page.locator(".recharts-wrapper")).toBeVisible();
-    
+
     await page.getByRole("button", { name: "View Table" }).click();
-    
+
     // The table should be visible
     await expect(page.getByRole("table")).toBeVisible();
     // And chart gone
@@ -78,11 +78,11 @@ test.describe("Farmer History View", () => {
     const download = await downloadPromise;
 
     expect(download.suggestedFilename()).toMatch(/history_.*\.csv/);
-    
+
     // Wait for the download to complete
     const downloadPath = await download.path();
     expect(downloadPath).toBeTruthy();
-    
+
     // Parse it and verify BOM and headers
     if (downloadPath) {
       const content = fs.readFileSync(downloadPath, "utf-8");

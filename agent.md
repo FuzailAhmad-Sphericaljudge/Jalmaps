@@ -14,6 +14,7 @@ It is specifically designed for agents to easily understand the project history 
 - **Phase 11: Charts and history**
   - **Pitch:** A fast, accessible, localised history view for each well that stays smooth with a year of data on a low-end phone.
   - **Status:** Completed. Implemented LTTB downsampling, `readings_bucketed` RPC, Range presets, History Chart with Recharts, server-computed summary stats, Compare mode, accessibility table toggle, CSV export, E2E testing, and Documentation.
+
 ## Upcoming Phases (12+)
 
 - **Phase 12:** Realtime updates for chart and dashboard.
