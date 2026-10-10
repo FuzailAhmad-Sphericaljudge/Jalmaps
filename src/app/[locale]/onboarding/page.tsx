@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 
-import { isAppLocale } from "@/i18n/config";
+import { headers } from "next/headers";
+
+import { isAppLocale, localeMetadata } from "@/i18n/config";
 import { redirect } from "@/i18n/navigation";
 import { createServerComponentClient } from "@/server/supabase/server-component";
 import { requireAuthenticatedUser } from "@/server/auth";
@@ -25,11 +27,16 @@ export default async function OnboardingPage({ params }: { params: Promise<{ loc
   if (error) throw error;
 
   const preferredLocale = current.profile?.preferred_locale;
-  return (
-    <OnboardingWizard
-      locale={locale}
-      states={states}
-      initialLocale={isAppLocale(preferredLocale) ? preferredLocale : locale}
-    />
-  );
+  const reqHeaders = await headers();
+  const region = reqHeaders.get("x-vercel-ip-country-region");
+
+  let suggestedLocale = isAppLocale(preferredLocale) ? preferredLocale : locale;
+  if (!current.profile?.preferred_locale && region) {
+    const match = Object.values(localeMetadata).find((meta) => meta.defaultStates.includes(region));
+    if (match) {
+      suggestedLocale = match.code;
+    }
+  }
+
+  return <OnboardingWizard locale={locale} states={states} initialLocale={suggestedLocale} />;
 }
