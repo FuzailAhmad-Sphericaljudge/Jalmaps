@@ -383,84 +383,79 @@ on conflict (id) do update set
   is_simulated = excluded.is_simulated;
 
 insert into public.alert_rules (
-  id, created_by, well_id, metric, operator, threshold, severity, channels
+  id, scope, created_by, well_id, rule_type, params, severity
 )
 values (
   md5('alert-rule-farmer-one')::uuid,
+  'well',
   md5('farmer.one@jalmaps.test')::uuid,
   md5('well-1')::uuid,
-  'depth_to_water',
-  'above',
-  25,
-  'warning',
-  array['sms']::public.notification_channel[]
+  'level_below',
+  '{"threshold_m": 25}'::jsonb,
+  'warning'
 )
 on conflict (id) do update set
+  scope = excluded.scope,
   created_by = excluded.created_by,
   well_id = excluded.well_id,
-  metric = excluded.metric,
-  operator = excluded.operator,
-  threshold = excluded.threshold,
-  severity = excluded.severity,
-  channels = excluded.channels;
+  rule_type = excluded.rule_type,
+  params = excluded.params,
+  severity = excluded.severity;
 
 insert into public.alert_rules (
-  id, created_by, well_id, metric, operator, threshold, severity, channels
+  id, scope, created_by, well_id, rule_type, params, severity
 )
 values
   (
     md5('alert-rule-farmer-two-anantapur')::uuid,
+    'well',
     md5('farmer.two@jalmaps.test')::uuid,
     md5('well-2')::uuid,
-    'battery',
-    'below',
-    3,
-    'critical',
-    array['sms']::public.notification_channel[]
+    'low_battery',
+    '{"threshold_v": 3}'::jsonb,
+    'critical'
   ),
   (
     md5('alert-rule-farmer-two-lakshmipuram')::uuid,
+    'well',
     md5('farmer.two@jalmaps.test')::uuid,
     md5('well-18')::uuid,
-    'depth_to_water',
-    'above',
-    28,
-    'warning',
-    array['sms']::public.notification_channel[]
+    'level_below',
+    '{"threshold_m": 28}'::jsonb,
+    'warning'
   )
 on conflict (id) do update set
+  scope = excluded.scope,
   created_by = excluded.created_by,
   well_id = excluded.well_id,
-  metric = excluded.metric,
-  operator = excluded.operator,
-  threshold = excluded.threshold,
-  severity = excluded.severity,
-  channels = excluded.channels;
+  rule_type = excluded.rule_type,
+  params = excluded.params,
+  severity = excluded.severity;
 
 insert into public.alerts (
-  id, rule_id, well_id, node_id, metric, severity, message_key, details
+  id, rule_id, well_id, node_id, severity, message_key, payload, dedupe_key
 )
 values (
   md5('alert-farmer-one')::uuid,
   md5('alert-rule-farmer-one')::uuid,
   md5('well-1')::uuid,
   md5('node-1')::uuid,
-  'depth_to_water',
   'warning',
   'alerts.depthThreshold',
-  '{"source":"development_seed"}'::jsonb
+  '{"source":"development_seed"}'::jsonb,
+  'level_below_' || md5('well-1')
 )
 on conflict (id) do update set
   rule_id = excluded.rule_id,
   well_id = excluded.well_id,
   node_id = excluded.node_id,
-  metric = excluded.metric,
   severity = excluded.severity,
   message_key = excluded.message_key,
-  details = excluded.details;
+  payload = excluded.payload,
+  dedupe_key = excluded.dedupe_key;
 
 insert into public.alerts (
-  id, rule_id, well_id, node_id, metric, severity, message_key, details
+  id, rule_id, well_id, node_id, severity, message_key, payload, dedupe_key
 )
 values
   (
@@ -468,29 +463,29 @@ values
     md5('alert-rule-farmer-two-anantapur')::uuid,
     md5('well-2')::uuid,
     md5('node-2')::uuid,
-    'battery',
     'critical',
     'alerts.lowBattery',
-    '{"source":"development_seed"}'::jsonb
+    '{"source":"development_seed"}'::jsonb,
+    'low_battery_' || md5('well-2')
   ),
   (
     md5('alert-lakshmipuram')::uuid,
     md5('alert-rule-farmer-two-lakshmipuram')::uuid,
     md5('well-18')::uuid,
     md5('node-18')::uuid,
-    'depth_to_water',
     'warning',
     'alerts.depthThreshold',
-    '{"source":"development_seed"}'::jsonb
+    '{"source":"development_seed"}'::jsonb,
+    'level_below_' || md5('well-18')
   )
 on conflict (id) do update set
   rule_id = excluded.rule_id,
   well_id = excluded.well_id,
   node_id = excluded.node_id,
-  metric = excluded.metric,
   severity = excluded.severity,
   message_key = excluded.message_key,
-  details = excluded.details;
+  payload = excluded.payload,
+  dedupe_key = excluded.dedupe_key;
 
 with sample_profiles as (
   select profile.id as profile_id, profile.phone
