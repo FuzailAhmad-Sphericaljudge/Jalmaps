@@ -35,7 +35,7 @@ export function HistoryDataTable({
           <tbody>
             {currentData.map((row, i) => (
               <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
-                <td className="p-4">{new Date(row.x).toLocaleString()}</td>
+                <td className="p-4">{new Date(row.x as string | number).toLocaleString()}</td>
                 <td className="p-4">{typeof row.y === "number" ? row.y.toFixed(2) : "-"}</td>
                 {compareWellIds.map((id) => {
                   const val = row[`y_${id}`];

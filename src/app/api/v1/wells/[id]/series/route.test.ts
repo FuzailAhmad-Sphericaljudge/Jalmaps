@@ -139,4 +139,31 @@ describe("GET /api/v1/wells/[id]/series", () => {
       p_bucket: "daily",
     });
   });
+
+  it("keeps response payload small and fast for 1000 points", async () => {
+    const largeData = Array.from({ length: 1000 }).map((_, i) => ({
+      bucket_time: new Date(2026, 0, 1, i).toISOString(),
+      avg_depth: 10 + Math.sin(i / 10),
+      min_depth: 9 + Math.sin(i / 10),
+      max_depth: 11 + Math.sin(i / 10),
+      count: 1,
+    }));
+    mocks.rpc.mockResolvedValue({ data: largeData, error: null });
+
+    const start = performance.now();
+    const res = await GET(
+      makeRequest(
+        "http://localhost/api/v1/wells/well1/series?from=2026-01-01T00:00:00Z&to=2026-02-01T00:00:00Z",
+      ),
+      { params: Promise.resolve({ id: "well1" }) },
+    );
+    const end = performance.now();
+
+    expect(res.status).toBe(200);
+    const bodyText = await res.text();
+    // Payload should be under 200KB for 1000 points
+    expect(bodyText.length).toBeLessThan(200000);
+    // Processing time should be under 200ms
+    expect(end - start).toBeLessThan(200);
+  });
 });
