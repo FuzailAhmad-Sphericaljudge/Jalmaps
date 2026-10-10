@@ -4,7 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
-import type { AppLocale } from "@/i18n/config";
+import { locales, localeNativeNames, type AppLocale } from "@/i18n/config";
 import type { Database, Json } from "@/lib/db/types";
 import { createBrowserSupabaseClient } from "@/lib/db/client";
 import { useRouter } from "@/i18n/navigation";
