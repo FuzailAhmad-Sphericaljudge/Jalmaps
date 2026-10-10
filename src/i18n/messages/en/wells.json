@@ -127,6 +127,8 @@
     "noReadings": "No readings yet",
     "depth": "Depth to water",
     "quality": "Reading quality",
-    "markDry": "Mark as dry"
+    "markDry": "Mark as dry",
+    "overview": "Overview",
+    "moreDetails": "More details"
   }
 }
