@@ -41,7 +41,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     );
   }
 
-  const { from, to, metric } = parsed.data;
+  const { from, to } = parsed.data;
   let bucket = parsed.data.bucket;
 
   const durationHours = (new Date(to).getTime() - new Date(from).getTime()) / (1000 * 60 * 60);
