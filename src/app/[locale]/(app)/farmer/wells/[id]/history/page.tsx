@@ -26,7 +26,7 @@ export default async function HistoryPage({
       .from("alert_rules")
       .select("threshold, severity")
       .eq("well_id", id)
-      .eq("metric", "depth_to_water_m")
+      .eq("metric", "depth_to_water")
       .eq("enabled", true),
   ]);
 

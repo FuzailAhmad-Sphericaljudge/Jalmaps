@@ -31,10 +31,16 @@ export async function HistoryStats({ wellId }: HistoryStatsProps) {
       .order("recorded_at", { ascending: true });
 
     if (readings && readings.length > 0) {
-      minDepth = Math.min(...readings.map((r) => r.depth_to_water_m));
-      maxDepth = Math.max(...readings.map((r) => r.depth_to_water_m));
-      avgDepth = readings.reduce((acc, r) => acc + r.depth_to_water_m, 0) / readings.length;
-      netChange = readings[readings.length - 1].depth_to_water_m - readings[0].depth_to_water_m;
+      const validReadings = readings
+        .map((r) => r.depth_to_water_m)
+        .filter((val): val is number => val !== null);
+
+      if (validReadings.length > 0) {
+        minDepth = Math.min(...validReadings);
+        maxDepth = Math.max(...validReadings);
+        avgDepth = validReadings.reduce((acc, val) => acc + val, 0) / validReadings.length;
+        netChange = validReadings[validReadings.length - 1]! - validReadings[0]!;
+      }
     }
   }
 
