@@ -1,7 +1,8 @@
 export interface SpeechConfig { rate: number; pitch: number; }
 
 export class SpeechService {
-  private queue: string[] = [];
+  private queue: SpeechSynthesisUtterance[] = [];
+  private isSpeaking = false;
 
   constructor() {}
 
@@ -25,11 +26,36 @@ export class SpeechService {
       utterance.rate = config.rate;
       utterance.pitch = config.pitch;
     }
-    window.speechSynthesis.speak(utterance);
+
+    utterance.onend = () => {
+      this.isSpeaking = false;
+      this.processQueue();
+    };
+
+    utterance.onerror = () => {
+      this.isSpeaking = false;
+      this.processQueue();
+    };
+
+    this.queue.push(utterance);
+    this.processQueue();
+  }
+
+  private processQueue() {
+    if (this.isSpeaking || this.queue.length === 0) return;
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+
+    const utterance = this.queue.shift();
+    if (utterance) {
+      this.isSpeaking = true;
+      window.speechSynthesis.speak(utterance);
+    }
   }
 
   public stop() {
     if (typeof window === "undefined" || !window.speechSynthesis) return;
+    this.queue = [];
+    this.isSpeaking = false;
     window.speechSynthesis.cancel();
   }
 
