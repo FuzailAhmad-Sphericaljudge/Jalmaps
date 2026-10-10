@@ -12,6 +12,14 @@ vi.mock("next/font/google", async (importOriginal) => {
     ...mod,
     Inter: stubFont("--font-inter"),
     Noto_Sans_Devanagari: stubFont("--font-noto-devanagari"),
+    Noto_Sans_Gurmukhi: stubFont("--font-noto-gurmukhi"),
+    Noto_Sans_Gujarati: stubFont("--font-noto-gujarati"),
+    Noto_Sans_Bengali: stubFont("--font-noto-bengali"),
+    Noto_Sans_Tamil: stubFont("--font-noto-tamil"),
+    Noto_Sans_Telugu: stubFont("--font-noto-telugu"),
+    Noto_Sans_Kannada: stubFont("--font-noto-kannada"),
+    Noto_Sans_Malayalam: stubFont("--font-noto-malayalam"),
+    Noto_Sans_Oriya: stubFont("--font-noto-oriya"),
   };
 });
 

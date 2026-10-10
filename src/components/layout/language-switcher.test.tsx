@@ -49,7 +49,7 @@ describe("LanguageSwitcher", () => {
     const select = screen.getByRole("combobox", { name: "Change language" });
     expect(select).toHaveValue("en");
     const options = select.querySelectorAll("option");
-    expect(options).toHaveLength(2);
+    expect(options).toHaveLength(11);
     expect(options[0]).toHaveTextContent("English");
     expect(options[1]).toHaveTextContent("हिन्दी");
   });
