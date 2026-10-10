@@ -15,6 +15,8 @@ import { StatusPill } from "@/components/jalmaps/status-pill";
 import { LiveLatestReading } from "@/features/wells/live-latest-reading";
 import { Button } from "@/components/ui/button";
 import { AdviceCard } from "@/features/advisory/advice-card";
+import { ReadAloud } from "@/components/jalmaps/read-aloud";
+import { formatNumberForSpeech } from "@/lib/speech/formatters";
 
 export default async function WellDetailPage({
   params,
@@ -62,6 +64,33 @@ export default async function WellDetailPage({
   const connectionState = activeNode ? getNodeConnectionState(activeNode) : "no_node";
   const unit = current.profile.preferred_unit;
 
+  const tSpeech = await getTranslations({ locale, namespace: "speech" });
+  let speechText = "";
+  if (latestReading && latestReading.depth_to_water_m !== null) {
+    const depthVal =
+      unit === "ft" ? latestReading.depth_to_water_m * 3.28084 : latestReading.depth_to_water_m;
+    const spokenUnit = unit === "ft" ? "feet" : "metres"; // Basic translation handled by TTS engine or i18n
+    const statusText = t(`nodeStatus.${connectionState}` as Parameters<typeof t>[0]);
+    speechText += tSpeech("well_status", {
+      depth: formatNumberForSpeech(depthVal, locale),
+      unit: spokenUnit,
+      status: statusText,
+    });
+  }
+
+  // Find critical alert if any? The phase says "Speakable text... situation is ok".
+  // Let's just add the top advice rule if it exists
+  if (advice && advice.length > 0) {
+    const topAdvice = advice[0];
+    const tAdvisory = await getTranslations({ locale, namespace: "advisory" });
+    const adviceString = tAdvisory(
+      `rules.${topAdvice.adviceKey}` as Parameters<typeof tAdvisory>[0],
+    );
+    if (adviceString) {
+      speechText += " " + tSpeech("advice", { advice: adviceString });
+    }
+  }
+
   return (
     <ProtectedAppShell locale={locale} current={current}>
       <PageContainer>
@@ -81,6 +110,12 @@ export default async function WellDetailPage({
             </div>
           }
         />
+
+        {speechText && (
+          <div className="mt-4 mb-2">
+            <ReadAloud text={speechText} locale={locale} />
+          </div>
+        )}
 
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Node Status */}
