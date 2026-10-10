@@ -24,6 +24,7 @@ export async function saveSettings(locale: unknown, input: unknown) {
       preferred_unit: parsed.data.preferred_unit,
       preferred_text_size: parsed.data.text_size,
       preferred_theme: parsed.data.theme,
+      preferred_high_contrast: parsed.data.high_contrast,
     })
     .eq("id", current.user.id);
   if (error) throw error;
@@ -35,6 +36,11 @@ export async function saveSettings(locale: unknown, input: unknown) {
     sameSite: "lax",
   });
   cookieStore.set("jalmaps-text-size", parsed.data.text_size, {
+    path: "/",
+    maxAge: cookieAge,
+    sameSite: "lax",
+  });
+  cookieStore.set("jalmaps-high-contrast", String(parsed.data.high_contrast), {
     path: "/",
     maxAge: cookieAge,
     sameSite: "lax",
