@@ -65,12 +65,19 @@ export default async function WellDetailPage({
         <PageHeader
           title={well.name}
           actions={
-            <Button variant="outline" asChild>
-              <Link href={`/app/farmer/wells/${well.id}/settings`}>
-                <Settings className="mr-2 h-5 w-5" />
-                {t("detail.settings")}
-              </Link>
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" asChild>
+                <Link href={`/app/farmer/wells/${well.id}/alerts`}>
+                  {t("alerts")}
+                </Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href={`/app/farmer/wells/${well.id}/settings`}>
+                  <Settings className="mr-2 h-5 w-5" />
+                  {t("detail.settings")}
+                </Link>
+              </Button>
+            </div>
           }
         />
 
