@@ -1,0 +1,5 @@
+{
+  "well_status": "आपके कुएँ में पानी ज़मीन से {depth} {unit} नीचे है। स्थिति {status} है।",
+  "alert_status": "{severity} चेतावनी है: {message}।",
+  "advice": "अगले 3 दिनों के लिए सलाह: {advice}।"
+}
