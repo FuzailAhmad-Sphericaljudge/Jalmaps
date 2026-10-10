@@ -21,7 +21,9 @@
     "max": "Max Depth",
     "avg": "Average Depth",
     "netChange": "Net Change",
-    "summary": "Water {direction} {change} m in the last {days} days."
+    "summary": "Water {direction} {change} m in the last {days} days.",
+    "rose": "rose",
+    "fell": "fell"
   },
   "compareWith": "Compare with",
   "thisWell": "This well",

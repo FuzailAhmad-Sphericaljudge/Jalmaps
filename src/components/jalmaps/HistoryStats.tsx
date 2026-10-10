@@ -70,7 +70,7 @@ export async function HistoryStats({ wellId }: HistoryStatsProps) {
         <p className="text-sm font-medium">
           {t("summary", {
             change: Math.abs(netChange).toFixed(1),
-            direction: isRising ? "rose" : "fell",
+            direction: isRising ? t("rose", { fallback: "rose" }) : t("fell", { fallback: "fell" }),
             days: 30,
           })}
         </p>

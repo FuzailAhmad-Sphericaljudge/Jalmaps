@@ -21,7 +21,9 @@
     "max": "अधिकतम गहराई",
     "avg": "औसत गहराई",
     "netChange": "कुल परिवर्तन",
-    "summary": "पिछले {days} दिनों में पानी {change} मी {direction}।"
+    "summary": "पिछले {days} दिनों में पानी {change} मी {direction}।",
+    "rose": "बढ़ा",
+    "fell": "गिरा"
   },
   "compareWith": "तुलना करें",
   "thisWell": "यह कुआं",
