@@ -37,3 +37,4 @@ language sql security invoker as $$
 $$;
 
 grant execute on function public.readings_bucketed(uuid[], timestamptz, timestamptz, bucket_interval) to authenticated;
+

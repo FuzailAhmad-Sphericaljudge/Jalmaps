@@ -1,4 +1,4 @@
-﻿export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   public: {
@@ -741,7 +741,30 @@ export type Database = {
         Args: { p_destination_hash: string; p_destination_type: string; p_ip_hash: string };
         Returns: boolean;
       };
+      get_trend: {
+        Args: { p_hours: number; p_well_id: string };
+        Returns: {
+          depth_to_water_m: number;
+          recorded_at: string;
+        }[];
+      };
       is_admin: { Args: Record<PropertyKey, never>; Returns: boolean };
+      readings_bucketed: {
+        Args: {
+          p_bucket: Database["public"]["Enums"]["bucket_interval"];
+          p_from: string;
+          p_node_ids: string[];
+          p_to: string;
+        };
+        Returns: {
+          avg_depth: number;
+          bucket_time: string;
+          max_depth: number;
+          min_depth: number;
+          node_id: string;
+          reading_count: number;
+        }[];
+      };
       user_area_ids: { Args: Record<PropertyKey, never>; Returns: string[] };
     };
     Enums: {
@@ -749,6 +772,7 @@ export type Database = {
       alert_metric: "depth_to_water" | "battery" | "node_offline";
       alert_severity: "info" | "warning" | "critical";
       alert_status: "open" | "acknowledged" | "resolved";
+      bucket_interval: "raw" | "hourly" | "daily";
       comparison_operator: "above" | "below";
       node_status: "provisioning" | "active" | "offline" | "fault" | "retired";
       notification_channel: "sms" | "email" | "push" | "whatsapp";
@@ -873,6 +897,7 @@ export const Constants = {
       alert_metric: ["depth_to_water", "battery", "node_offline"],
       alert_severity: ["info", "warning", "critical"],
       alert_status: ["open", "acknowledged", "resolved"],
+      bucket_interval: ["raw", "hourly", "daily"],
       comparison_operator: ["above", "below"],
       node_status: ["provisioning", "active", "offline", "fault", "retired"],
       notification_channel: ["sms", "email", "push", "whatsapp"],
