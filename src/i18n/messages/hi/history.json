@@ -15,5 +15,24 @@
   "unit": {
     "m": "मी",
     "ft": "फीट"
+  },
+  "stats": {
+    "min": "न्यूनतम गहराई",
+    "max": "अधिकतम गहराई",
+    "avg": "औसत गहराई",
+    "netChange": "कुल परिवर्तन",
+    "summary": "पिछले {days} दिनों में पानी {change} मी {direction}।"
+  },
+  "export": {
+    "date": "दिनांक",
+    "depth": "औसत गहराई",
+    "minDepth": "न्यूनतम गहराई",
+    "maxDepth": "अधिकतम गहराई",
+    "readingCount": "रीडिंग की संख्या"
+  },
+  "alerts": {
+    "info": "जानकारी",
+    "warning": "चेतावनी",
+    "critical": "गंभीर"
   }
 }

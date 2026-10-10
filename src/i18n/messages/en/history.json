@@ -15,5 +15,24 @@
   "unit": {
     "m": "m",
     "ft": "ft"
+  },
+  "stats": {
+    "min": "Min Depth",
+    "max": "Max Depth",
+    "avg": "Average Depth",
+    "netChange": "Net Change",
+    "summary": "Water {direction} {change} m in the last {days} days."
+  },
+  "export": {
+    "date": "Date",
+    "depth": "Average Depth",
+    "minDepth": "Min Depth",
+    "maxDepth": "Max Depth",
+    "readingCount": "Reading Count"
+  },
+  "alerts": {
+    "info": "Info",
+    "warning": "Warning",
+    "critical": "Critical"
   }
 }
