@@ -10,6 +10,7 @@ export interface LocaleMetadata {
   script: string;
   intlLocale: string;
   fontFamily: string;
+  preferredNumberingSystem: string;
   defaultStates: string[];
 }
 
@@ -20,6 +21,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Latn",
     intlLocale: "en-IN",
     fontFamily: "var(--font-inter)",
+    preferredNumberingSystem: "latn",
     defaultStates: [],
   },
   hi: {
@@ -28,6 +30,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Deva",
     intlLocale: "hi-IN",
     fontFamily: "var(--font-noto-devanagari)",
+    preferredNumberingSystem: "latn", // use '-u-nu-deva' for native digits
     defaultStates: ["DL", "UP", "HR", "BR", "MP", "RJ", "CG", "JH", "UK", "HP"],
   },
   pa: {
@@ -36,6 +39,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Guru",
     intlLocale: "pa-IN",
     fontFamily: "var(--font-noto-gurmukhi)",
+    preferredNumberingSystem: "latn", // use '-u-nu-guru' for native digits
     defaultStates: ["PB", "CH"],
   },
   mr: {
@@ -44,6 +48,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Deva",
     intlLocale: "mr-IN",
     fontFamily: "var(--font-noto-devanagari)",
+    preferredNumberingSystem: "latn",
     defaultStates: ["MH", "GA"],
   },
   gu: {
@@ -52,6 +57,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Gujr",
     intlLocale: "gu-IN",
     fontFamily: "var(--font-noto-gujarati)",
+    preferredNumberingSystem: "latn", // use '-u-nu-gujr'
     defaultStates: ["GJ", "DD", "DN"],
   },
   bn: {
@@ -60,6 +66,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Beng",
     intlLocale: "bn-IN",
     fontFamily: "var(--font-noto-bengali)",
+    preferredNumberingSystem: "latn", // use '-u-nu-beng'
     defaultStates: ["WB", "TR"],
   },
   ta: {
@@ -68,6 +75,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Taml",
     intlLocale: "ta-IN",
     fontFamily: "var(--font-noto-tamil)",
+    preferredNumberingSystem: "latn", // use '-u-nu-taml'
     defaultStates: ["TN", "PY"],
   },
   te: {
@@ -76,6 +84,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Telu",
     intlLocale: "te-IN",
     fontFamily: "var(--font-noto-telugu)",
+    preferredNumberingSystem: "latn", // use '-u-nu-telu'
     defaultStates: ["AP", "TG"],
   },
   kn: {
@@ -84,6 +93,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Knda",
     intlLocale: "kn-IN",
     fontFamily: "var(--font-noto-kannada)",
+    preferredNumberingSystem: "latn", // use '-u-nu-knda'
     defaultStates: ["KA"],
   },
   ml: {
@@ -92,6 +102,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Mlym",
     intlLocale: "ml-IN",
     fontFamily: "var(--font-noto-malayalam)",
+    preferredNumberingSystem: "latn", // use '-u-nu-mlym'
     defaultStates: ["KL", "LD"],
   },
   or: {
@@ -100,6 +111,7 @@ export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
     script: "Orya",
     intlLocale: "or-IN",
     fontFamily: "var(--font-noto-oriya)",
+    preferredNumberingSystem: "latn", // use '-u-nu-orya'
     defaultStates: ["OR"],
   },
 };
