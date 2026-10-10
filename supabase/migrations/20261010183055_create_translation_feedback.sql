@@ -2,7 +2,7 @@ create type public.translation_feedback_status as enum ('pending', 'reviewed', '
 
 create table public.translation_feedback (
     id uuid primary key default gen_random_uuid(),
-    user_id uuid not null references public.users(id) on delete cascade,
+    user_id uuid not null references public.profiles(id) on delete cascade,
     message_key text not null,
     locale text not null,
     reported_text text not null,
@@ -30,9 +30,9 @@ create policy "Admins can view all feedback"
     to authenticated
     using (
         exists (
-            select 1 from public.users
-            where users.id = auth.uid()
-            and users.role = 'admin'
+            select 1 from public.profiles
+            where profiles.id = auth.uid()
+            and profiles.role = 'admin'
         )
     );
 
@@ -41,13 +41,13 @@ create policy "Admins can update feedback status"
     to authenticated
     using (
         exists (
-            select 1 from public.users
-            where users.id = auth.uid()
-            and users.role = 'admin'
+            select 1 from public.profiles
+            where profiles.id = auth.uid()
+            and profiles.role = 'admin'
         )
     );
 
 -- Set updated_at on update
 create trigger handle_translation_feedback_updated_at
     before update on public.translation_feedback
-    for each row execute function public.handle_updated_at();
+    for each row execute function public.set_updated_at();
