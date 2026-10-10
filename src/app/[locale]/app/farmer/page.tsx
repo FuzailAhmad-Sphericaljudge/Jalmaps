@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, ArrowUp, ArrowRight, Battery, Wifi, Clock } from "lucide-react";
 import { redirect } from "next/navigation";
+import { TranslationFeedback } from "@/components/jalmaps/translation-feedback";
 
 export default async function FarmerDashboard({ params }: { params: { locale: string } }) {
   const t = await getTranslations("home.dashboard");
@@ -155,6 +156,16 @@ export default async function FarmerDashboard({ params }: { params: { locale: st
                   </div>
                 </div>
               </CardContent>
+              <div className="border-t bg-muted/20 p-3">
+                <TranslationFeedback
+                  sentences={[
+                    { key: "home.dashboard.title", text: t("title") },
+                    { key: `home.dashboard.status.${status}`, text: t(`status.${status}`) },
+                    { key: "home.dashboard.depth_label", text: t("depth_label") },
+                    { key: "home.dashboard.trend", text: t("trend", { trend: trendState }) },
+                  ]}
+                />
+              </div>
             </Card>
           );
         })}

@@ -6,6 +6,7 @@ import { ChevronDown, ChevronUp, ThumbsUp, ThumbsDown } from "lucide-react";
 import { AdviceItem } from "@/lib/advisory/engine";
 import { WellFacts } from "@/lib/advisory/facts";
 import { Button } from "@/components/ui/button";
+import { TranslationFeedback } from "@/components/jalmaps/translation-feedback";
 
 export function AdviceCard({
   advice,
@@ -98,6 +99,17 @@ export function AdviceCard({
           )}
         </div>
       ))}
+      <div className="border-t pt-4">
+        <TranslationFeedback
+          sentences={[
+            { key: "advisory.title", text: t("title") },
+            ...advice.map((item) => ({
+              key: `advisory.${item.id}.action`,
+              text: t(`${item.id}.action` as Parameters<typeof t>[0]),
+            })),
+          ]}
+        />
+      </div>
     </div>
   );
 }
