@@ -24,6 +24,21 @@ describe("SpeechService", () => {
       },
       writable: true,
     });
+
+    Object.defineProperty(globalThis, "SpeechSynthesisUtterance", {
+      value: class {
+        text: string;
+        voice = null;
+        rate = 1;
+        pitch = 1;
+        onend = null;
+        onerror = null;
+        constructor(text: string) {
+          this.text = text;
+        }
+      },
+      writable: true,
+    });
   });
 
   it("should queue utterances and play them sequentially", () => {
@@ -33,8 +48,10 @@ describe("SpeechService", () => {
     expect(speakMock).toHaveBeenCalledTimes(1);
 
     // Simulate first utterance completing
-    const utterance = speakMock.mock.calls[0][0] as SpeechSynthesisUtterance;
-    utterance?.onend?.(new Event("end") as unknown as SpeechSynthesisEvent);
+    const utterance = speakMock.mock.calls[0]?.[0] as SpeechSynthesisUtterance | undefined;
+    if (utterance?.onend) {
+      utterance.onend(new Event("end") as unknown as SpeechSynthesisEvent);
+    }
 
     expect(speakMock).toHaveBeenCalledTimes(2);
   });

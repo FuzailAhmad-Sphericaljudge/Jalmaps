@@ -52,14 +52,21 @@ export async function getAdviceForWell(
       .eq("node_id", node.id)
       .order("recorded_at", { ascending: false })
       .limit(10);
-    if (recent) recentReadings = recent.filter(r => r.depth_to_water_m !== null) as any;
+    if (recent)
+      recentReadings = recent.filter((r) => r.depth_to_water_m !== null) as {
+        recorded_at: string;
+        depth_to_water_m: number;
+      }[];
 
     const { data: historical } = await client
       .from("readings")
       .select("depth_to_water_m")
       .eq("node_id", node.id)
       .limit(100);
-    if (historical) historicalReadings = historical.filter(r => r.depth_to_water_m !== null) as any;
+    if (historical)
+      historicalReadings = historical.filter((r) => r.depth_to_water_m !== null) as {
+        depth_to_water_m: number;
+      }[];
   }
 
   const facts = await buildFacts(

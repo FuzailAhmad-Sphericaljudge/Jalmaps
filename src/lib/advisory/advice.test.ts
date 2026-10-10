@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it } from "vitest";
 
-describe('getAdviceForWell', () => {
-  it('fetches rules', () => {});
-  it('returns advice and facts', () => {});
+describe("getAdviceForWell", () => {
+  it("fetches rules", () => {});
+  it("returns advice and facts", () => {});
 });

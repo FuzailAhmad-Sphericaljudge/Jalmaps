@@ -21,13 +21,13 @@ describe("runAdvisoryEngine", () => {
   it("returns generic fallback when no rules match", () => {
     const advice = runAdvisoryEngine(starterRules, baseFacts, [], now);
     expect(advice).toHaveLength(1);
-    expect(advice[0].id).toBe("generic_fallback");
+    expect(advice[0]?.id).toBe("generic_fallback");
   });
 
   it("prioritizes suspect data rule", () => {
     const facts = { ...baseFacts, dataQuality: "suspect" as const };
     const advice = runAdvisoryEngine(starterRules, facts, [], now);
-    expect(advice[0].id).toBe("suspect_sensor_data");
+    expect(advice[0]?.id).toBe("suspect_sensor_data");
   });
 
   it("returns multiple rules sorted by priority", () => {
@@ -38,8 +38,8 @@ describe("runAdvisoryEngine", () => {
     };
     const advice = runAdvisoryEngine(starterRules, facts, [], now);
     expect(advice).toHaveLength(2);
-    expect(advice[0].id).toBe("suspect_sensor_data");
-    expect(advice[1].id).toBe("fast_depletion");
+    expect(advice[0]?.id).toBe("suspect_sensor_data");
+    expect(advice[1]?.id).toBe("fast_depletion");
   });
 
   it("respects cooldowns", () => {
@@ -47,14 +47,14 @@ describe("runAdvisoryEngine", () => {
     const history = [{ ruleId: "suspect_sensor_data", date: "2026-10-10T00:00:00Z" }]; // same day
     const advice = runAdvisoryEngine(starterRules, facts, history, now);
     // Should be filtered out by cooldown, fallback returns
-    expect(advice[0].id).toBe("generic_fallback");
+    expect(advice[0]?.id).toBe("generic_fallback");
   });
 
   it("allows rule if cooldown expired", () => {
     const facts = { ...baseFacts, dataQuality: "suspect" as const };
     const history = [{ ruleId: "suspect_sensor_data", date: "2026-10-05T00:00:00Z" }]; // 5 days ago (cooldown is 1)
     const advice = runAdvisoryEngine(starterRules, facts, history, now);
-    expect(advice[0].id).toBe("suspect_sensor_data");
+    expect(advice[0]?.id).toBe("suspect_sensor_data");
   });
 
   it("limits output to 3 rules maximum", () => {
@@ -101,8 +101,8 @@ describe("runAdvisoryEngine", () => {
 
     const advice = runAdvisoryEngine(manyRules, baseFacts, [], now);
     expect(advice).toHaveLength(3);
-    expect(advice[0].id).toBe("dummy1");
-    expect(advice[1].id).toBe("dummy2");
-    expect(advice[2].id).toBe("dummy3");
+    expect(advice[0]?.id).toBe("dummy1");
+    expect(advice[1]?.id).toBe("dummy2");
+    expect(advice[2]?.id).toBe("dummy3");
   });
 });

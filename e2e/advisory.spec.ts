@@ -1,3 +1,5 @@
-import { test } from '@playwright/test';
+import { test } from "@playwright/test";
 
-test.describe('Advisory UI', () => { test('shows advice card', async ({ page }) => {}); });
+test.describe("Advisory UI", () => {
+  test("shows advice card", async () => {});
+});
