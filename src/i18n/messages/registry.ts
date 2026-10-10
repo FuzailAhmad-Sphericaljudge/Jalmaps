@@ -26,6 +26,7 @@ const loaders = {
     shell: (await import("./en/shell.json")).default,
     errors: (await import("./en/errors.json")).default,
     wells: (await import("./en/wells.json")).default,
+    alerts: (await import("./en/alerts.json")).default,
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
@@ -38,6 +39,7 @@ const loaders = {
     shell: (await import("./hi/shell.json")).default,
     errors: (await import("./hi/errors.json")).default,
     wells: (await import("./hi/wells.json")).default,
+    alerts: (await import("./hi/alerts.json")).default,
   }),
   // `satisfies` ensures every locale in `config.ts` has a loader while
   // preserving the inferred message types above.
