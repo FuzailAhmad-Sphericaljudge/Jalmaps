@@ -34,7 +34,7 @@ describe("SpeechService", () => {
 
     // Simulate first utterance completing
     const utterance = speakMock.mock.calls[0][0] as SpeechSynthesisUtterance;
-    utterance.onend?.(new Event("end") as unknown as SpeechSynthesisEvent);
+    utterance?.onend?.(new Event("end") as unknown as SpeechSynthesisEvent);
 
     expect(speakMock).toHaveBeenCalledTimes(2);
   });

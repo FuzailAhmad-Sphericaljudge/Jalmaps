@@ -24,7 +24,7 @@ export function WellSettings({
   well: any;
   members: any[];
   availableCrops?: { id: string; name_en: string; name_hi: string }[];
-  wellCrop?: { crop: string; sowing_date: string } | null;
+  wellCrop?: { crop_id: string; sowing_date: string } | null;
 }) {
   const t = useTranslations("wells");
   const router = useRouter();
@@ -33,7 +33,7 @@ export function WellSettings({
 
   const [name, setName] = useState(well.name);
   const [notes, setNotes] = useState(well.notes || "");
-  const [crop, setCrop] = useState(wellCrop?.crop || "");
+  const [crop, setCrop] = useState(wellCrop?.crop_id || "");
   const [sowingDate, setSowingDate] = useState(wellCrop?.sowing_date || "");
   const [saving, setSaving] = useState(false);
 

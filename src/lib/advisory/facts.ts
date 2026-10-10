@@ -71,23 +71,24 @@ export async function buildFacts(
     const latest = sorted[0];
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     const closestTo7d = sorted.reduce((prev, curr) => {
-      const prevDiff = Math.abs(new Date(prev?.recorded_at).getTime() - sevenDaysAgo.getTime());
+      const prevDiff = Math.abs(new Date(prev?.recorded_at || "").getTime() - sevenDaysAgo.getTime());
       const currDiff = Math.abs(new Date(curr.recorded_at).getTime() - sevenDaysAgo.getTime());
       return currDiff < prevDiff ? curr : prev;
     }, latest);
 
     if (
-      new Date(latest?.recorded_at).getTime() - new Date(closestTo7d?.recorded_at).getTime() >
+      latest?.recorded_at && closestTo7d?.recorded_at &&
+      new Date(latest.recorded_at).getTime() - new Date(closestTo7d.recorded_at).getTime() >
       3 * 24 * 60 * 60 * 1000
     ) {
-      depthTrend7d = latest?.depth_to_water_m - closestTo7d?.depth_to_water_m;
+      depthTrend7d = (latest.depth_to_water_m || 0) - (closestTo7d.depth_to_water_m || 0);
     }
   }
 
   // 2. levelVsOwnHistoryPercentile
   let levelVsOwnHistoryPercentile = 50;
   if (historicalReadings.length > 0 && recentReadings.length > 0) {
-    const latestDepth = recentReadings[0].depth_to_water_m;
+    const latestDepth = recentReadings[0]?.depth_to_water_m || 0;
     const shallowerOrEqual = historicalReadings.filter(
       (r) => r.depth_to_water_m <= latestDepth,
     ).length;
@@ -97,7 +98,7 @@ export async function buildFacts(
   // 3. stressLevel
   let stressLevel: "normal" | "warning" | "critical" | "unknown" = "unknown";
   if (recentReadings.length > 0) {
-    const depth = recentReadings[0].depth_to_water_m;
+    const depth = recentReadings[0]?.depth_to_water_m || 0;
     if (thresholds.critical !== undefined && depth >= thresholds.critical) {
       stressLevel = "critical";
     } else if (thresholds.warning !== undefined && depth >= thresholds.warning) {
