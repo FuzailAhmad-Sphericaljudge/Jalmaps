@@ -17,12 +17,16 @@ export function LiveLatestReading({
   unit,
 }: {
   wellId: string;
-  initialReading: { recorded_at: string; depth_to_water_m: number | null } | null;
-  activeNode: {
-    last_seen_at?: string | null;
-    reporting_interval_sec?: number | null;
-    hang_depth_m?: number | null;
-  } | null;
+  initialReading:
+    { recorded_at?: string | null; depth_to_water_m: number | null } | null | undefined;
+  activeNode:
+    | {
+        last_seen_at?: string | null;
+        reporting_interval_sec?: number | null;
+        hang_depth_m?: number | null;
+      }
+    | null
+    | undefined;
   unit: string;
 }) {
   const t = useTranslations("wells");
@@ -48,7 +52,7 @@ export function LiveLatestReading({
       {activeNode && (
         <div className="w-full">
           <StaleBanner
-            lastSeenAt={reading?.recorded_at || activeNode.last_seen_at}
+            lastSeenAt={reading?.recorded_at || activeNode.last_seen_at || null}
             reportingIntervalSec={activeNode.reporting_interval_sec || 300}
           />
         </div>

@@ -37,6 +37,7 @@ export function useWellRealtime(wellId: string) {
 
       // Extract the latest reading
       const latestReading = readingsToProcess[readingsToProcess.length - 1];
+      if (!latestReading) return;
 
       // Update the latest reading cache (if you have one)
       queryClient.setQueryData(["latest_reading", wellId], (old: RealtimeReading | undefined) => {
