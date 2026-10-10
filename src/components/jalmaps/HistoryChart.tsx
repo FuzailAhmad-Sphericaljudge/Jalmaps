@@ -11,17 +11,25 @@ import {
   ResponsiveContainer,
   Tooltip,
   Area,
+  ReferenceLine,
+  Brush,
 } from "recharts";
 import { useSeries } from "@/lib/series/use-series";
 import type { TimeRangePreset } from "@/lib/series/ranges";
 import { ChartRangePicker } from "./ChartRangePicker";
 import { ChartTooltip } from "./ChartTooltip";
 
-interface HistoryChartProps {
-  wellId: string;
+interface AlertRule {
+  threshold: number | null;
+  severity: "info" | "warning" | "critical";
 }
 
-export function HistoryChart({ wellId }: HistoryChartProps) {
+interface HistoryChartProps {
+  wellId: string;
+  alertRules?: AlertRule[];
+}
+
+export function HistoryChart({ wellId, alertRules = [] }: HistoryChartProps) {
   const t = useTranslations("history");
   const [range, setRange] = useState<TimeRangePreset>("1y");
   const { data, isLoading, isError } = useSeries(wellId, range);
@@ -84,6 +92,36 @@ export function HistoryChart({ wellId }: HistoryChartProps) {
               dot={false}
               connectNulls={false}
               isAnimationActive={false}
+            />
+            {alertRules.map((rule, idx) =>
+              rule.threshold !== null ? (
+                <ReferenceLine
+                  key={idx}
+                  y={rule.threshold}
+                  stroke={
+                    rule.severity === "critical"
+                      ? "hsl(var(--destructive))"
+                      : "hsl(var(--warning, 38 92% 50%))"
+                  }
+                  strokeDasharray="4 4"
+                  label={{
+                    position: "insideBottomLeft",
+                    value: t(`alerts.${rule.severity}`),
+                    fill:
+                      rule.severity === "critical"
+                        ? "hsl(var(--destructive))"
+                        : "hsl(var(--warning, 38 92% 50%))",
+                    fontSize: 12,
+                  }}
+                />
+              ) : null,
+            )}
+            <Brush
+              dataKey="x"
+              height={30}
+              stroke="hsl(var(--border))"
+              fill="hsl(var(--muted))"
+              tickFormatter={() => ""}
             />
           </LineChart>
         </ResponsiveContainer>
