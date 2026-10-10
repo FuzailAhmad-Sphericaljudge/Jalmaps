@@ -20,7 +20,7 @@ export default async function HistoryPage({
   const t = await getTranslations("history");
   const supabase = await createServerComponentClient();
 
-  const [wellRes, alertRulesRes] = await Promise.all([
+  const [wellRes, alertRulesRes, allWellsRes] = await Promise.all([
     supabase.from("wells").select("name, id").eq("id", id).single(),
     supabase
       .from("alert_rules")
@@ -28,10 +28,12 @@ export default async function HistoryPage({
       .eq("well_id", id)
       .eq("metric", "depth_to_water")
       .eq("enabled", true),
+    supabase.from("wells").select("id, name").order("name"),
   ]);
 
   const { data: well, error } = wellRes;
   const alertRules = alertRulesRes.data || [];
+  const otherWells = (allWellsRes.data || []).filter((w) => w.id !== id);
 
   if (error || !well) {
     notFound();
@@ -43,7 +45,7 @@ export default async function HistoryPage({
         <PageHeader title={t("title", { name: well.name })} />
         <div className="mt-6 flex flex-col gap-4">
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          <HistoryChart wellId={id} alertRules={alertRules as any} />
+          <HistoryChart wellId={id} alertRules={alertRules as any} otherWells={otherWells} />
           <HistoryStats wellId={id} />
         </div>
       </PageContainer>

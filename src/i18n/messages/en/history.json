@@ -23,6 +23,12 @@
     "netChange": "Net Change",
     "summary": "Water {direction} {change} m in the last {days} days."
   },
+  "compareWith": "Compare with",
+  "thisWell": "This well",
+  "viewTable": "View Table",
+  "viewChart": "View Chart",
+  "prev": "Previous",
+  "next": "Next",
   "export": {
     "date": "Date",
     "depth": "Average Depth",

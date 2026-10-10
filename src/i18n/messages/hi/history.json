@@ -23,6 +23,8 @@
     "netChange": "कुल परिवर्तन",
     "summary": "पिछले {days} दिनों में पानी {change} मी {direction}।"
   },
+  "compareWith": "तुलना करें",
+  "thisWell": "यह कुआं",
   "export": {
     "date": "दिनांक",
     "depth": "औसत गहराई",
