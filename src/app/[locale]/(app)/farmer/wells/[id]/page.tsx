@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Settings, Plus, Droplets } from "lucide-react";
+import { Settings, Plus } from "lucide-react";
 
 import { PageContainer, PageHeader } from "@/components/layout/page-scaffolding";
 import { ProtectedAppShell } from "@/components/layout/protected-app-shell";
@@ -11,7 +11,7 @@ import { createServerComponentClient } from "@/server/supabase/server-component"
 import { getWell } from "@/server/db/wells";
 import { getNodeConnectionState } from "@/lib/wells/status";
 import { StatusPill } from "@/components/jalmaps/status-pill";
-import { WaterGauge } from "@/components/jalmaps/water-gauge";
+import { LiveLatestReading } from "@/features/wells/live-latest-reading";
 import { Button } from "@/components/ui/button";
 
 export default async function WellDetailPage({
@@ -127,42 +127,12 @@ export default async function WellDetailPage({
           </div>
 
           {/* Latest Reading */}
-          <div className="flex flex-col items-center justify-center space-y-6 rounded-xl border bg-card p-6">
-            <h3 className="text-lg font-semibold">{t("detail.lastReading")}</h3>
-
-            {latestReading ? (
-              <>
-                <WaterGauge
-                  value={latestReading.depth_to_water_m ?? 0}
-                  min={0}
-                  max={Number(activeNode?.hang_depth_m) || 100}
-                  name={t("detail.depth")}
-                  valueText={`${latestReading.depth_to_water_m}`}
-                  className="h-32 w-32"
-                />
-                <div className="text-center">
-                  <div className="text-3xl font-bold">
-                    {latestReading.depth_to_water_m
-                      ? (unit === "ft"
-                          ? latestReading.depth_to_water_m * 3.28084
-                          : latestReading.depth_to_water_m
-                        ).toFixed(2)
-                      : "-"}
-                  </div>
-                  <div className="text-muted-foreground">
-                    {t("detail.depth")} {"("}
-                    {unit}
-                    {")"}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="flex flex-col items-center text-center text-muted-foreground">
-                <Droplets className="mb-4 h-12 w-12 opacity-20" />
-                {t("detail.noReadings")}
-              </div>
-            )}
-          </div>
+          <LiveLatestReading
+            wellId={wellId}
+            initialReading={latestReading}
+            activeNode={activeNode}
+            unit={unit}
+          />
         </div>
       </PageContainer>
     </ProtectedAppShell>
