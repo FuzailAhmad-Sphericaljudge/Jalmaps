@@ -11,5 +11,9 @@
     "1y": "1 Year",
     "custom": "Custom"
   },
-  "error": "Failed to load data"
+  "error": "Failed to load data",
+  "unit": {
+    "m": "m",
+    "ft": "ft"
+  }
 }
