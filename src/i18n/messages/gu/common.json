@@ -1,0 +1,23 @@
+{
+  "appName": "JalMaps",
+  "tagline": "Groundwater monitoring for India",
+  "languageSwitcher": {
+    "label": "Change language",
+    "current": "Current language: {language}"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "toggle": "Switch between light and dark appearance"
+  },
+  "brand": {
+    "logoTitle": "JalMaps logo"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, we could not find that page."
+  },
+  "backHome": "Back to home",
+  "close": "Close",
+  "skipToContent": "Skip to main content"
+}

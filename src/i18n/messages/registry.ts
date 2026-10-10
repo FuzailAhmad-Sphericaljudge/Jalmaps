@@ -1,17 +1,3 @@
-/**
- * Messages registry — the single place that knows which namespace files exist.
- *
- * `loadMessages` aggregates the per-namespace files under
- * `src/i18n/messages/{locale}/`; the inferred shape of the English branch
- * flows into `AppConfig` (see `src/i18n/types.d.ts`), which is what `t("…")`
- * is checked against at compile time. Adding a key to any file here
- * automatically extends the allowed keys; missing translations in other
- * locales fail the `scripts/check-i18n.ts` CI gate instead.
- *
- * Note: the `satisfies` clause (not an annotated return type) keeps the JSON
- * inference intact — annotating would collapse it to `Record<string, unknown>`
- * and turn every `t()` key into `never`.
- */
 import type { AppLocale } from "../config";
 
 const loaders = {
@@ -41,14 +27,127 @@ const loaders = {
     wells: (await import("./hi/wells.json")).default,
     alerts: (await import("./hi/alerts.json")).default,
   }),
-  // `satisfies` ensures every locale in `config.ts` has a loader while
-  // preserving the inferred message types above.
+  pa: async () => ({
+    common: (await import("./pa/common.json")).default,
+    auth: (await import("./pa/auth.json")).default,
+    account: (await import("./pa/account.json")).default,
+    onboarding: (await import("./pa/onboarding.json")).default,
+    home: (await import("./pa/home.json")).default,
+    gallery: (await import("./pa/gallery.json")).default,
+    settings: (await import("./pa/settings.json")).default,
+    shell: (await import("./pa/shell.json")).default,
+    errors: (await import("./pa/errors.json")).default,
+    wells: (await import("./pa/wells.json")).default,
+    alerts: (await import("./pa/alerts.json")).default,
+  }),
+  mr: async () => ({
+    common: (await import("./mr/common.json")).default,
+    auth: (await import("./mr/auth.json")).default,
+    account: (await import("./mr/account.json")).default,
+    onboarding: (await import("./mr/onboarding.json")).default,
+    home: (await import("./mr/home.json")).default,
+    gallery: (await import("./mr/gallery.json")).default,
+    settings: (await import("./mr/settings.json")).default,
+    shell: (await import("./mr/shell.json")).default,
+    errors: (await import("./mr/errors.json")).default,
+    wells: (await import("./mr/wells.json")).default,
+    alerts: (await import("./mr/alerts.json")).default,
+  }),
+  gu: async () => ({
+    common: (await import("./gu/common.json")).default,
+    auth: (await import("./gu/auth.json")).default,
+    account: (await import("./gu/account.json")).default,
+    onboarding: (await import("./gu/onboarding.json")).default,
+    home: (await import("./gu/home.json")).default,
+    gallery: (await import("./gu/gallery.json")).default,
+    settings: (await import("./gu/settings.json")).default,
+    shell: (await import("./gu/shell.json")).default,
+    errors: (await import("./gu/errors.json")).default,
+    wells: (await import("./gu/wells.json")).default,
+    alerts: (await import("./gu/alerts.json")).default,
+  }),
+  bn: async () => ({
+    common: (await import("./bn/common.json")).default,
+    auth: (await import("./bn/auth.json")).default,
+    account: (await import("./bn/account.json")).default,
+    onboarding: (await import("./bn/onboarding.json")).default,
+    home: (await import("./bn/home.json")).default,
+    gallery: (await import("./bn/gallery.json")).default,
+    settings: (await import("./bn/settings.json")).default,
+    shell: (await import("./bn/shell.json")).default,
+    errors: (await import("./bn/errors.json")).default,
+    wells: (await import("./bn/wells.json")).default,
+    alerts: (await import("./bn/alerts.json")).default,
+  }),
+  ta: async () => ({
+    common: (await import("./ta/common.json")).default,
+    auth: (await import("./ta/auth.json")).default,
+    account: (await import("./ta/account.json")).default,
+    onboarding: (await import("./ta/onboarding.json")).default,
+    home: (await import("./ta/home.json")).default,
+    gallery: (await import("./ta/gallery.json")).default,
+    settings: (await import("./ta/settings.json")).default,
+    shell: (await import("./ta/shell.json")).default,
+    errors: (await import("./ta/errors.json")).default,
+    wells: (await import("./ta/wells.json")).default,
+    alerts: (await import("./ta/alerts.json")).default,
+  }),
+  te: async () => ({
+    common: (await import("./te/common.json")).default,
+    auth: (await import("./te/auth.json")).default,
+    account: (await import("./te/account.json")).default,
+    onboarding: (await import("./te/onboarding.json")).default,
+    home: (await import("./te/home.json")).default,
+    gallery: (await import("./te/gallery.json")).default,
+    settings: (await import("./te/settings.json")).default,
+    shell: (await import("./te/shell.json")).default,
+    errors: (await import("./te/errors.json")).default,
+    wells: (await import("./te/wells.json")).default,
+    alerts: (await import("./te/alerts.json")).default,
+  }),
+  kn: async () => ({
+    common: (await import("./kn/common.json")).default,
+    auth: (await import("./kn/auth.json")).default,
+    account: (await import("./kn/account.json")).default,
+    onboarding: (await import("./kn/onboarding.json")).default,
+    home: (await import("./kn/home.json")).default,
+    gallery: (await import("./kn/gallery.json")).default,
+    settings: (await import("./kn/settings.json")).default,
+    shell: (await import("./kn/shell.json")).default,
+    errors: (await import("./kn/errors.json")).default,
+    wells: (await import("./kn/wells.json")).default,
+    alerts: (await import("./kn/alerts.json")).default,
+  }),
+  ml: async () => ({
+    common: (await import("./ml/common.json")).default,
+    auth: (await import("./ml/auth.json")).default,
+    account: (await import("./ml/account.json")).default,
+    onboarding: (await import("./ml/onboarding.json")).default,
+    home: (await import("./ml/home.json")).default,
+    gallery: (await import("./ml/gallery.json")).default,
+    settings: (await import("./ml/settings.json")).default,
+    shell: (await import("./ml/shell.json")).default,
+    errors: (await import("./ml/errors.json")).default,
+    wells: (await import("./ml/wells.json")).default,
+    alerts: (await import("./ml/alerts.json")).default,
+  }),
+  or: async () => ({
+    common: (await import("./or/common.json")).default,
+    auth: (await import("./or/auth.json")).default,
+    account: (await import("./or/account.json")).default,
+    onboarding: (await import("./or/onboarding.json")).default,
+    home: (await import("./or/home.json")).default,
+    gallery: (await import("./or/gallery.json")).default,
+    settings: (await import("./or/settings.json")).default,
+    shell: (await import("./or/shell.json")).default,
+    errors: (await import("./or/errors.json")).default,
+    wells: (await import("./or/wells.json")).default,
+    alerts: (await import("./or/alerts.json")).default,
+  }),
 } satisfies Record<AppLocale, () => Promise<unknown>>;
 
-/** English message shape — the source of truth for translation key types. */
 export type EnglishMessages = Awaited<ReturnType<(typeof loaders)["en"]>>;
 
-/** Load all merged namespaces for a locale. Server-side only. */
 export async function loadMessages(locale: AppLocale) {
   const loader = loaders[locale];
   if (!loader) {

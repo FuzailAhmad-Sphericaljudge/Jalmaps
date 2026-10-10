@@ -240,9 +240,50 @@ html.text-large {
   font-size: 125%;
 }
 
-/* Devanagari pages (hi): native script first, Latin fallback for digits. */
-html[lang="hi"] {
+/* Devanagari/Indic pages: native script first, Latin fallback for digits. */
+html[lang="hi"],
+html[lang="mr"] {
   --font-sans: var(--font-noto-devanagari), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="pa"] {
+  --font-sans: var(--font-noto-gurmukhi), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="gu"] {
+  --font-sans: var(--font-noto-gujarati), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="bn"] {
+  --font-sans: var(--font-noto-bengali), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="ta"] {
+  --font-sans: var(--font-noto-tamil), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="te"] {
+  --font-sans: var(--font-noto-telugu), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="kn"] {
+  --font-sans: var(--font-noto-kannada), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="ml"] {
+  --font-sans: var(--font-noto-malayalam), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="or"] {
+  --font-sans: var(--font-noto-oriya), var(--font-inter), system-ui, sans-serif;
   --font-heading: var(--font-sans);
 }
 

@@ -1,0 +1,47 @@
+{
+  "navTitle": "Your groundwater workspace",
+  "loading": "Loading your workspace",
+  "workspaceStatus": "Workspace status",
+  "primaryNavigation": "Primary navigation",
+  "breadcrumbs": "Breadcrumbs",
+  "currentPage": "Current page",
+  "collapseSidebar": "Collapse sidebar",
+  "expandSidebar": "Expand sidebar",
+  "search": "Search pages",
+  "commandTitle": "Go to a page",
+  "commandDescription": "Search your available JalMaps destinations.",
+  "commandShortcut": "Ctrl / ⌘ K",
+  "noDestinations": "No matching pages.",
+  "notifications": "Notifications",
+  "unreadBadge": "{count}",
+  "unreadCount": "{count, plural, =0 {No unread notifications} one {# unread notification} other {# unread notifications}}",
+  "profile": "Edit profile",
+  "settings": "Settings",
+  "account": "Account",
+  "signOut": "Sign out",
+  "connectivity": {
+    "online": "Online",
+    "offline": "You are offline"
+  },
+  "nav": {
+    "farmerHome": "Overview",
+    "farmerWells": "My wells",
+    "wells": "Wells",
+    "readings": "Water readings",
+    "alerts": "Alerts",
+    "reports": "Reports",
+    "villageOverview": "Village overview",
+    "map": "Map",
+    "officialOverview": "Area overview",
+    "insurerOverview": "Portfolio overview",
+    "adminOverview": "Administration",
+    "users": "Users",
+    "systemStatus": "System status",
+    "security": "Security",
+    "settings": "Settings"
+  },
+  "empty": {
+    "title": "This space is ready",
+    "description": "Your {section} will appear here when information is available."
+  }
+}

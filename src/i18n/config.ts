@@ -1,39 +1,137 @@
-/**
- * Supported locales — the single source of truth for JalMaps i18n.
- *
- * Adding a language is a config + message-file change only:
- *   1. Add the code here (e.g. `"ta"` for Tamil).
- *   2. Create `src/i18n/messages/{code}/` with the same namespaces as `en/`.
- *   3. Add a native label + Devanagari-style font mapping if a new script is
- *      needed (see `src/i18n/fonts.ts`).
- *
- * Everything else (routing, detection, switching, typing, checks) derives from
- * this list. Keep codes lowercase BCP-47 language tags.
- */
-export const locales = ["en", "hi"] as const;
+export const locales = ["en", "hi", "pa", "mr", "gu", "bn", "ta", "te", "kn", "ml", "or"] as const;
 
 export type AppLocale = (typeof locales)[number];
 
-/** Locale served at `/en` when no preference is known. */
 export const defaultLocale: AppLocale = "en";
 
-/**
- * Locale used for number/date formatting. Kept separate from the routing
- * locale so Hindi can format with `hi-IN` conventions while the URL prefix
- * stays `hi`.
- */
+export interface LocaleMetadata {
+  code: AppLocale;
+  nativeName: string;
+  script: string;
+  intlLocale: string;
+  fontFamily: string;
+  defaultStates: string[];
+}
+
+export const localeMetadata: Record<AppLocale, LocaleMetadata> = {
+  en: {
+    code: "en",
+    nativeName: "English",
+    script: "Latn",
+    intlLocale: "en-IN",
+    fontFamily: "var(--font-inter)",
+    defaultStates: [],
+  },
+  hi: {
+    code: "hi",
+    nativeName: "हिन्दी",
+    script: "Deva",
+    intlLocale: "hi-IN",
+    fontFamily: "var(--font-noto-devanagari)",
+    defaultStates: ["DL", "UP", "HR", "BR", "MP", "RJ", "CG", "JH", "UK", "HP"],
+  },
+  pa: {
+    code: "pa",
+    nativeName: "ਪੰਜਾਬੀ",
+    script: "Guru",
+    intlLocale: "pa-IN",
+    fontFamily: "var(--font-noto-gurmukhi)",
+    defaultStates: ["PB", "CH"],
+  },
+  mr: {
+    code: "mr",
+    nativeName: "मराठी",
+    script: "Deva",
+    intlLocale: "mr-IN",
+    fontFamily: "var(--font-noto-devanagari)",
+    defaultStates: ["MH", "GA"],
+  },
+  gu: {
+    code: "gu",
+    nativeName: "ગુજરાતી",
+    script: "Gujr",
+    intlLocale: "gu-IN",
+    fontFamily: "var(--font-noto-gujarati)",
+    defaultStates: ["GJ", "DD", "DN"],
+  },
+  bn: {
+    code: "bn",
+    nativeName: "বাংলা",
+    script: "Beng",
+    intlLocale: "bn-IN",
+    fontFamily: "var(--font-noto-bengali)",
+    defaultStates: ["WB", "TR"],
+  },
+  ta: {
+    code: "ta",
+    nativeName: "தமிழ்",
+    script: "Taml",
+    intlLocale: "ta-IN",
+    fontFamily: "var(--font-noto-tamil)",
+    defaultStates: ["TN", "PY"],
+  },
+  te: {
+    code: "te",
+    nativeName: "తెలుగు",
+    script: "Telu",
+    intlLocale: "te-IN",
+    fontFamily: "var(--font-noto-telugu)",
+    defaultStates: ["AP", "TG"],
+  },
+  kn: {
+    code: "kn",
+    nativeName: "ಕನ್ನಡ",
+    script: "Knda",
+    intlLocale: "kn-IN",
+    fontFamily: "var(--font-noto-kannada)",
+    defaultStates: ["KA"],
+  },
+  ml: {
+    code: "ml",
+    nativeName: "മലയാളം",
+    script: "Mlym",
+    intlLocale: "ml-IN",
+    fontFamily: "var(--font-noto-malayalam)",
+    defaultStates: ["KL", "LD"],
+  },
+  or: {
+    code: "or",
+    nativeName: "ଓଡ଼ିଆ",
+    script: "Orya",
+    intlLocale: "or-IN",
+    fontFamily: "var(--font-noto-oriya)",
+    defaultStates: ["OR"],
+  },
+};
+
 export const localeToFormatLocale: Record<AppLocale, string> = {
   en: "en-IN",
   hi: "hi-IN",
+  pa: "pa-IN",
+  mr: "mr-IN",
+  gu: "gu-IN",
+  bn: "bn-IN",
+  ta: "ta-IN",
+  te: "te-IN",
+  kn: "kn-IN",
+  ml: "ml-IN",
+  or: "or-IN",
 };
 
-/** Native language names for switchers — never translated. */
 export const localeNativeNames: Record<AppLocale, string> = {
   en: "English",
   hi: "हिन्दी",
+  pa: "ਪੰਜਾਬੀ",
+  mr: "मराठी",
+  gu: "ગુજરાતી",
+  bn: "বাংলা",
+  ta: "தமிழ்",
+  te: "తెలుగు",
+  kn: "ಕನ್ನಡ",
+  ml: "മലയാളം",
+  or: "ଓଡ଼ିଆ",
 };
 
-/** Timezone all date/relative formatting defaults to (India Standard Time). */
 export const defaultTimeZone = "Asia/Kolkata";
 
 export function isAppLocale(candidate: unknown): candidate is AppLocale {
