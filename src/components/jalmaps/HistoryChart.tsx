@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   Tooltip,
+  Area,
 } from "recharts";
 import { useSeries } from "@/lib/series/use-series";
 import type { TimeRangePreset } from "@/lib/series/ranges";
@@ -65,6 +66,15 @@ export function HistoryChart({ wellId }: HistoryChartProps) {
                 strokeWidth: 1,
                 strokeDasharray: "3 3",
               }}
+            />
+            <Area
+              type="monotone"
+              dataKey="band"
+              stroke="none"
+              fill="hsl(var(--primary))"
+              fillOpacity={0.1}
+              connectNulls={false}
+              isAnimationActive={false}
             />
             <Line
               type="monotone"
