@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { createServerActionClient } from "@/server/supabase/server-action";
+import { createServerComponentClient } from "@/server/supabase/server-component";
 
 const FeedbackSchema = z.object({
   messageKey: z.string().min(1),
@@ -12,7 +12,7 @@ const FeedbackSchema = z.object({
 });
 
 export async function submitTranslationFeedback(data: z.infer<typeof FeedbackSchema>) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
 
   const {
     data: { user },
