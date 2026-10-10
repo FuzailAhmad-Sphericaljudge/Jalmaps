@@ -15,4 +15,31 @@ export class SpeechService {
       null
     );
   }
+
+  public speak(text: string, locale: string, config?: SpeechConfig) {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voice = this.discoverVoices(locale);
+    if (voice) utterance.voice = voice;
+    if (config) {
+      utterance.rate = config.rate;
+      utterance.pitch = config.pitch;
+    }
+    window.speechSynthesis.speak(utterance);
+  }
+
+  public stop() {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+  }
+
+  public pause() {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    window.speechSynthesis.pause();
+  }
+
+  public resume() {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    window.speechSynthesis.resume();
+  }
 }
