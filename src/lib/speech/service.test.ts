@@ -55,4 +55,26 @@ describe("SpeechService", () => {
 
     expect(speakMock).toHaveBeenCalledTimes(2);
   });
+
+  it("should resolve correct voices including fallbacks for Indian locales", () => {
+    // Add additional mock voices
+    getVoicesMock.mockReturnValue([
+      { lang: "en-US", name: "English Voice" },
+      { lang: "hi-IN", name: "Hindi Voice" },
+      { lang: "mr-IN", name: "Marathi Voice" },
+      { lang: "ta-IN", name: "Tamil Voice" },
+    ]);
+
+    // Exact match
+    const hiVoice = service.discoverVoices("hi-IN");
+    expect(hiVoice?.name).toBe("Hindi Voice");
+
+    // Prefix match
+    const mrVoice = service.discoverVoices("mr");
+    expect(mrVoice?.name).toBe("Marathi Voice");
+
+    // Fallback to first voice when unsupported
+    const unsupported = service.discoverVoices("xyz-IN");
+    expect(unsupported?.name).toBe("English Voice");
+  });
 });
