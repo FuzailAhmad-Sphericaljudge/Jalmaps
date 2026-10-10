@@ -1,6 +1,26 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+﻿export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
+  graphql_public: {
+    Tables: {
+      [_ in never]: never;
+    };
+    Views: {
+      [_ in never]: never;
+    };
+    Functions: {
+      graphql: {
+        Args: { extensions?: Json; operationName?: string; query?: string; variables?: Json };
+        Returns: Json;
+      };
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
+  };
   public: {
     Tables: {
       admin_areas: {
@@ -831,6 +851,53 @@ export type Database = {
           },
         ];
       };
+      translation_feedback: {
+        Row: {
+          audio_url: string | null;
+          created_at: string;
+          id: string;
+          locale: string;
+          message_key: string;
+          reported_text: string;
+          status: Database["public"]["Enums"]["translation_feedback_status"];
+          suggested_text: string | null;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          audio_url?: string | null;
+          created_at?: string;
+          id?: string;
+          locale: string;
+          message_key: string;
+          reported_text: string;
+          status?: Database["public"]["Enums"]["translation_feedback_status"];
+          suggested_text?: string | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          audio_url?: string | null;
+          created_at?: string;
+          id?: string;
+          locale?: string;
+          message_key?: string;
+          reported_text?: string;
+          status?: Database["public"]["Enums"]["translation_feedback_status"];
+          suggested_text?: string | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "translation_feedback_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       user_notification_channels: {
         Row: {
           channel: Database["public"]["Enums"]["notification_channel"];
@@ -1149,6 +1216,7 @@ export type Database = {
       notification_event: "opened" | "escalated" | "resolved" | "digest";
       notification_status: "pending" | "sending" | "sent" | "failed" | "skipped";
       reading_quality: "good" | "suspect" | "bad";
+      translation_feedback_status: "pending" | "reviewed" | "implemented" | "rejected";
       unit_preference: "m" | "ft";
       user_role: "farmer" | "village_admin" | "official" | "insurer" | "admin";
       well_status: "active" | "inactive" | "decommissioned" | "planned" | "dry";
@@ -1263,6 +1331,9 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       admin_area_level: ["state", "district", "block", "village"],
@@ -1279,6 +1350,7 @@ export const Constants = {
       notification_event: ["opened", "escalated", "resolved", "digest"],
       notification_status: ["pending", "sending", "sent", "failed", "skipped"],
       reading_quality: ["good", "suspect", "bad"],
+      translation_feedback_status: ["pending", "reviewed", "implemented", "rejected"],
       unit_preference: ["m", "ft"],
       user_role: ["farmer", "village_admin", "official", "insurer", "admin"],
       well_status: ["active", "inactive", "decommissioned", "planned", "dry"],
