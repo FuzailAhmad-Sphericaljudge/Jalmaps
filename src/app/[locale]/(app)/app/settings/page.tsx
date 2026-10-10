@@ -52,6 +52,7 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
                 settingsSchema.shape.theme.safeParse(current.profile.preferred_theme).data ??
                 parseThemeCookieValue(cookieStore.get(THEME_COOKIE_NAME)?.value)
               }
+              initialHighContrast={current.profile.preferred_high_contrast ?? false}
             />
           </div>
         </Section>
