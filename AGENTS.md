@@ -58,3 +58,4 @@ Users: Farmers (phones), Village Admins, Officials, Insurers.
 - **Phase 12**: Completed (Realtime Updates - WebSockets & Broadcasting)
 - **Phase 13**: Completed (Alerts Engine - Cron workers, Evaluators, State Machine)
 - **Phase 14**: Completed (Notifications - Outbox pattern, SMS/Push Providers, Routing Logic)
+- **Phase 15**: Completed (Advisory Engine - Facts builder, Deterministic rules, Next 3 days advice UI, Crop settings)

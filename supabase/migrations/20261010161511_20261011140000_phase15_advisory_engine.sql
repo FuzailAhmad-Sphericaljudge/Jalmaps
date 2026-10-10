@@ -122,3 +122,4 @@ INSERT INTO public.crop_profiles (id, name_en, name_hi, water_sensitivity, growt
   {"name_en": "Flowering/Fruiting", "name_hi": "फूल आना/फल बनना", "duration_days": 40, "water_sensitivity": "high"},
   {"name_en": "Harvesting", "name_hi": "तुड़ाई", "duration_days": 30, "water_sensitivity": "medium"}
 ]', '{"kharif": ["06-15", "07-30"], "rabi": ["10-15", "11-30"], "zaid": ["02-15", "03-31"]}');
+
