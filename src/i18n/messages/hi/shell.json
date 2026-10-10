@@ -1,0 +1,47 @@
+{
+  "navTitle": "आपका भूजल कार्यक्षेत्र",
+  "loading": "आपका कार्यक्षेत्र लोड हो रहा है",
+  "workspaceStatus": "कार्यक्षेत्र की स्थिति",
+  "primaryNavigation": "मुख्य नेविगेशन",
+  "breadcrumbs": "नेविगेशन पथ",
+  "currentPage": "वर्तमान पन्ना",
+  "collapseSidebar": "साइडबार समेटें",
+  "expandSidebar": "साइडबार फैलाएँ",
+  "search": "पन्ने खोजें",
+  "commandTitle": "पन्ने पर जाएँ",
+  "commandDescription": "जलमैप्स के उपलब्ध पन्नों में खोजें।",
+  "commandShortcut": "Ctrl / ⌘ K",
+  "noDestinations": "कोई मिलता-जुलता पन्ना नहीं मिला।",
+  "notifications": "सूचनाएँ",
+  "unreadBadge": "{count}",
+  "unreadCount": "{count, plural, =0 {कोई अपठित सूचना नहीं} one {# अपठित सूचना} other {# अपठित सूचनाएँ}}",
+  "profile": "प्रोफ़ाइल बदलें",
+  "settings": "सेटिंग",
+  "account": "खाता",
+  "signOut": "साइन आउट",
+  "connectivity": {
+    "online": "इंटरनेट जुड़ा है",
+    "offline": "आप ऑफ़लाइन हैं"
+  },
+  "nav": {
+    "farmerHome": "अवलोकन",
+    "farmerWells": "मेरे कुएँ",
+    "wells": "कुएँ",
+    "readings": "पानी का स्तर",
+    "alerts": "चेतावनियाँ",
+    "reports": "रिपोर्ट",
+    "villageOverview": "गाँव का अवलोकन",
+    "map": "नक्शा",
+    "officialOverview": "क्षेत्र का अवलोकन",
+    "insurerOverview": "पोर्टफ़ोलियो का अवलोकन",
+    "adminOverview": "प्रशासन",
+    "users": "उपयोगकर्ता",
+    "systemStatus": "सिस्टम स्थिति",
+    "security": "सुरक्षा",
+    "settings": "सेटिंग"
+  },
+  "empty": {
+    "title": "यह जगह तैयार है",
+    "description": "जानकारी उपलब्ध होने पर यहाँ {section} दिखेगा।"
+  }
+}

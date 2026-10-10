@@ -1,6 +1,6 @@
 # Phase 04 — Database schema and Supabase
 
-- **Status:** Implemented; local Docker-backed verification pending
+- **Status:** Implemented and locally verified
 - **Branch:** `phase/04-database`
 - **Date:** 2026-10-01
 
@@ -21,6 +21,8 @@
   tests and verifies generated types.
 - Documented the entity model, policy roadmap, migration guidance and no-partitioning
   decision in `docs/database.md`, `docs/rls-plan.md` and ADR 0002.
+- Phase 5 has since replaced the default-deny policy placeholder with the implemented
+  role policies; see `docs/rls.md`.
 
 ## Decisions
 
@@ -32,6 +34,5 @@
 ## Verification
 
 Run `pnpm db:start`, `pnpm db:reset`, `pnpm db:test`, `pnpm db:types:check` and
-`pnpm db:stop` with Docker running. CI performs those database checks on Ubuntu.
-The local Docker engine was unavailable during this implementation session, so
-container-backed migration/seed/pgTAP/type-generation checks still need a run.
+`pnpm db:stop` with Docker running. These checks pass locally and CI repeats the
+database tests on Ubuntu.

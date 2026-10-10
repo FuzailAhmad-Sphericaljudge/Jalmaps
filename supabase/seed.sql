@@ -156,58 +156,158 @@ on conflict (code) do update set
   centroid_lng = excluded.centroid_lng,
   population = excluded.population;
 
-with sample_people (email, full_name, role, area_code, preferred_locale) as (
+with sample_people (email, phone, full_name, role, area_code, preferred_locale) as (
   values
-    ('farmer.one@jalmaps.test', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('farmer.two@jalmaps.test', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
-    ('village.admin@jalmaps.test', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('district.official@jalmaps.test', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
-    ('insurer@jalmaps.test', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
-    ('platform.admin@jalmaps.test', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
+    ('farmer.one@jalmaps.test', '+919000000001', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('farmer.two@jalmaps.test', '+919000000002', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
+    ('village.admin@jalmaps.test', '+919000000003', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('district.official@jalmaps.test', '+919000000004', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
+    ('insurer@jalmaps.test', '+919000000005', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
+    ('platform.admin@jalmaps.test', '+919000000006', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
 )
 insert into auth.users (
-  id, aud, role, email, encrypted_password, email_confirmed_at,
+  id, instance_id, aud, role, email, phone, encrypted_password, email_confirmed_at, phone_confirmed_at,
+  confirmation_token, recovery_token, email_change_token_new, email_change,
   raw_app_meta_data, raw_user_meta_data, created_at, updated_at
 )
+-- Local Supabase's test-OTP identities are stored without the leading plus.
 select
   md5(email)::uuid,
+  '00000000-0000-0000-0000-000000000000'::uuid,
   'authenticated',
   'authenticated',
   email,
+  ltrim(phone, '+'),
   '',
   now(),
-  '{"provider":"email","providers":["email"]}'::jsonb,
-  jsonb_build_object('full_name', full_name),
+  now(),
+  '',
+  '',
+  '',
+  '',
+  '{"provider":"phone","providers":["phone","email"]}'::jsonb,
+  jsonb_build_object('full_name', full_name, 'preferred_locale', preferred_locale),
   now(),
   now()
 from sample_people
 on conflict (id) do update set
+  instance_id = excluded.instance_id,
   email = excluded.email,
+  phone = excluded.phone,
+  phone_confirmed_at = excluded.phone_confirmed_at,
+  confirmation_token = excluded.confirmation_token,
+  recovery_token = excluded.recovery_token,
+  email_change_token_new = excluded.email_change_token_new,
+  email_change = excluded.email_change,
+  raw_app_meta_data = excluded.raw_app_meta_data,
   raw_user_meta_data = excluded.raw_user_meta_data,
   updated_at = now();
 
-with sample_people (email, full_name, role, area_code, preferred_locale) as (
+with sample_people (email, phone, full_name, role, area_code, preferred_locale) as (
   values
-    ('farmer.one@jalmaps.test', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('farmer.two@jalmaps.test', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
-    ('village.admin@jalmaps.test', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
-    ('district.official@jalmaps.test', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
-    ('insurer@jalmaps.test', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
-    ('platform.admin@jalmaps.test', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
+    ('farmer.one@jalmaps.test', '+919000000001', 'Ravi Kumar', 'farmer'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('farmer.two@jalmaps.test', '+919000000002', 'Sita Devi', 'farmer'::public.user_role, 'village-papampeta', 'hi'),
+    ('village.admin@jalmaps.test', '+919000000003', 'Anil Reddy', 'village_admin'::public.user_role, 'village-lakshmipuram', 'te'),
+    ('district.official@jalmaps.test', '+919000000004', 'Meena Rao', 'official'::public.user_role, 'district-anantapur', 'en'),
+    ('insurer@jalmaps.test', '+919000000005', 'Arjun Shah', 'insurer'::public.user_role, 'state-andhra-pradesh', 'en'),
+    ('platform.admin@jalmaps.test', '+919000000006', 'Kavita Sharma', 'admin'::public.user_role, 'state-telangana', 'hi')
 )
-insert into public.profiles (id, full_name, role, admin_area_id, preferred_locale)
+insert into public.profiles (
+  id, full_name, phone, role, admin_area_id, preferred_locale, crops, onboarding_completed_at
+)
 select
   md5(person.email)::uuid,
   person.full_name,
+  person.phone,
   person.role,
   md5(person.area_code)::uuid,
-  person.preferred_locale
+  person.preferred_locale,
+  array['millet', 'groundnut'],
+  now()
 from sample_people as person
 on conflict (id) do update set
   full_name = excluded.full_name,
+  phone = excluded.phone,
   role = excluded.role,
   admin_area_id = excluded.admin_area_id,
-  preferred_locale = excluded.preferred_locale;
+  preferred_locale = excluded.preferred_locale,
+  crops = excluded.crops,
+  onboarding_completed_at = excluded.onboarding_completed_at;
+
+insert into auth.users (
+  id, instance_id, aud, role, email, phone, encrypted_password, email_confirmed_at, phone_confirmed_at,
+  confirmation_token, recovery_token, email_change_token_new, email_change,
+  raw_app_meta_data, raw_user_meta_data, created_at, updated_at
+)
+values (
+  md5('onboarding@jalmaps.test')::uuid,
+  '00000000-0000-0000-0000-000000000000'::uuid,
+  'authenticated',
+  'authenticated',
+  'onboarding@jalmaps.test',
+  '919000000007',
+  '',
+  now(),
+  now(),
+  '',
+  '',
+  '',
+  '',
+  '{"provider":"phone","providers":["phone","email"]}'::jsonb,
+  '{"full_name":"Onboarding Test Farmer","preferred_locale":"hi"}'::jsonb,
+  now(),
+  now()
+)
+on conflict (id) do update set
+  instance_id = excluded.instance_id,
+  email = excluded.email,
+  phone = excluded.phone,
+  phone_confirmed_at = excluded.phone_confirmed_at,
+  confirmation_token = excluded.confirmation_token,
+  recovery_token = excluded.recovery_token,
+  email_change_token_new = excluded.email_change_token_new,
+  email_change = excluded.email_change,
+  raw_app_meta_data = excluded.raw_app_meta_data,
+  raw_user_meta_data = excluded.raw_user_meta_data,
+  updated_at = now();
+
+insert into auth.identities (
+  provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at
+)
+select
+  id::text,
+  id,
+  jsonb_build_object('sub', id::text, 'phone', phone, 'phone_verified', true),
+  'phone',
+  now(),
+  created_at,
+  updated_at
+from auth.users
+where phone like '91900000000%'
+on conflict (provider_id, provider) do update set
+  user_id = excluded.user_id,
+  identity_data = excluded.identity_data,
+  last_sign_in_at = excluded.last_sign_in_at,
+  updated_at = excluded.updated_at;
+
+insert into auth.identities (
+  provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at
+)
+select
+  id::text,
+  id,
+  jsonb_build_object('sub', id::text, 'email', email, 'email_verified', true),
+  'email',
+  now(),
+  created_at,
+  updated_at
+from auth.users
+where email like '%@jalmaps.test'
+on conflict (provider_id, provider) do update set
+  user_id = excluded.user_id,
+  identity_data = excluded.identity_data,
+  last_sign_in_at = excluded.last_sign_in_at,
+  updated_at = excluded.updated_at;
 
 insert into public.wells (
   id, owner_id, admin_area_id, name, well_type, latitude, longitude,
@@ -281,3 +381,165 @@ on conflict (id) do update set
   last_seen_at = excluded.last_seen_at,
   status = excluded.status,
   is_simulated = excluded.is_simulated;
+
+insert into public.alert_rules (
+  id, scope, created_by, well_id, rule_type, params, severity
+)
+values (
+  md5('alert-rule-farmer-one')::uuid,
+  'well',
+  md5('farmer.one@jalmaps.test')::uuid,
+  md5('well-1')::uuid,
+  'level_below',
+  '{"threshold_m": 25}'::jsonb,
+  'warning'
+)
+on conflict (id) do update set
+  scope = excluded.scope,
+  created_by = excluded.created_by,
+  well_id = excluded.well_id,
+  rule_type = excluded.rule_type,
+  params = excluded.params,
+  severity = excluded.severity;
+
+insert into public.alert_rules (
+  id, scope, created_by, well_id, rule_type, params, severity
+)
+values
+  (
+    md5('alert-rule-farmer-two-anantapur')::uuid,
+    'well',
+    md5('farmer.two@jalmaps.test')::uuid,
+    md5('well-2')::uuid,
+    'low_battery',
+    '{"threshold_v": 3}'::jsonb,
+    'critical'
+  ),
+  (
+    md5('alert-rule-farmer-two-lakshmipuram')::uuid,
+    'well',
+    md5('farmer.two@jalmaps.test')::uuid,
+    md5('well-18')::uuid,
+    'level_below',
+    '{"threshold_m": 28}'::jsonb,
+    'warning'
+  )
+on conflict (id) do update set
+  scope = excluded.scope,
+  created_by = excluded.created_by,
+  well_id = excluded.well_id,
+  rule_type = excluded.rule_type,
+  params = excluded.params,
+  severity = excluded.severity;
+
+insert into public.alerts (
+  id, rule_id, well_id, node_id, severity, message_key, payload, dedupe_key
+)
+values (
+  md5('alert-farmer-one')::uuid,
+  md5('alert-rule-farmer-one')::uuid,
+  md5('well-1')::uuid,
+  md5('node-1')::uuid,
+  'warning',
+  'alerts.depthThreshold',
+  '{"source":"development_seed"}'::jsonb,
+  'level_below_' || md5('well-1')
+)
+on conflict (id) do update set
+  rule_id = excluded.rule_id,
+  well_id = excluded.well_id,
+  node_id = excluded.node_id,
+  severity = excluded.severity,
+  message_key = excluded.message_key,
+  payload = excluded.payload,
+  dedupe_key = excluded.dedupe_key;
+
+insert into public.alerts (
+  id, rule_id, well_id, node_id, severity, message_key, payload, dedupe_key
+)
+values
+  (
+    md5('alert-anantapur')::uuid,
+    md5('alert-rule-farmer-two-anantapur')::uuid,
+    md5('well-2')::uuid,
+    md5('node-2')::uuid,
+    'critical',
+    'alerts.lowBattery',
+    '{"source":"development_seed"}'::jsonb,
+    'low_battery_' || md5('well-2')
+  ),
+  (
+    md5('alert-lakshmipuram')::uuid,
+    md5('alert-rule-farmer-two-lakshmipuram')::uuid,
+    md5('well-18')::uuid,
+    md5('node-18')::uuid,
+    'warning',
+    'alerts.depthThreshold',
+    '{"source":"development_seed"}'::jsonb,
+    'level_below_' || md5('well-18')
+  )
+on conflict (id) do update set
+  rule_id = excluded.rule_id,
+  well_id = excluded.well_id,
+  node_id = excluded.node_id,
+  severity = excluded.severity,
+  message_key = excluded.message_key,
+  payload = excluded.payload,
+  dedupe_key = excluded.dedupe_key;
+
+with sample_profiles as (
+  select profile.id as profile_id, profile.phone
+  from public.profiles
+  as profile
+)
+insert into public.notification_prefs (id, profile_id, channel, enabled, destination)
+select
+  md5('notification-' || sample_profiles.profile_id::text)::uuid,
+  sample_profiles.profile_id,
+  'sms',
+  true,
+  substring(sample_profiles.phone, 1, 5) || '******'
+from sample_profiles
+on conflict (profile_id, channel) do update set
+  enabled = excluded.enabled,
+  destination = excluded.destination;
+
+with sample_profiles as (
+  select profile.id as profile_id, auth_user.email
+  from public.profiles
+  as profile
+  join auth.users as auth_user on auth_user.id = profile.id
+)
+insert into public.api_keys (
+  id, profile_id, label, key_hash, scopes, requests_per_minute, requests_per_day
+)
+select
+  md5('api-key-' || sample_profiles.profile_id::text)::uuid,
+  sample_profiles.profile_id,
+  'Development fixture key',
+  encode(extensions.digest(email, 'sha256'), 'hex'),
+  array['wells:read'],
+  60,
+  1000
+from sample_profiles
+on conflict (id) do update set
+  profile_id = excluded.profile_id,
+  label = excluded.label,
+  key_hash = excluded.key_hash,
+  scopes = excluded.scopes,
+  requests_per_minute = excluded.requests_per_minute,
+  requests_per_day = excluded.requests_per_day;
+
+insert into public.audit_log (actor_id, action, entity_type, entity_id, details)
+select
+  md5('platform.admin@jalmaps.test')::uuid,
+  'seed_fixture',
+  'phase_5_test',
+  md5('seed-audit-event')::uuid,
+  '{"source":"development_seed"}'::jsonb
+where not exists (
+  select 1
+  from public.audit_log
+  where entity_type = 'phase_5_test'
+    and entity_id = md5('seed-audit-event')::uuid
+);

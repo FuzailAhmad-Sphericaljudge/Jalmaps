@@ -1,0 +1,48 @@
+{
+  "title": "{name} History",
+  "loading": "Loading...",
+  "ranges": {
+    "24h": "24h",
+    "7d": "7 Days",
+    "30d": "30 Days",
+    "kharif": "Kharif",
+    "rabi": "Rabi",
+    "zaid": "Zaid",
+    "1y": "1 Year",
+    "custom": "Custom"
+  },
+  "error": "Failed to load data",
+  "unit": {
+    "m": "m",
+    "ft": "ft"
+  },
+  "stats": {
+    "min": "Min Depth",
+    "max": "Max Depth",
+    "avg": "Average Depth",
+    "netChange": "Net Change",
+    "summary": "Water {direction} {change} m in the last {days} days.",
+    "rose": "rose",
+    "fell": "fell"
+  },
+  "compareWith": "Compare with",
+  "thisWell": "This well",
+  "viewTable": "View Table",
+  "viewChart": "View Chart",
+  "prev": "Previous",
+  "next": "Next",
+  "pageOf": "of",
+  "export": {
+    "date": "Date",
+    "depth": "Average Depth",
+    "minDepth": "Min Depth",
+    "maxDepth": "Max Depth",
+    "readingCount": "Reading Count"
+  },
+  "alerts": {
+    "info": "Info",
+    "warning": "Warning",
+    "critical": "Critical",
+    "alert": "Alert"
+  }
+}

@@ -17,17 +17,29 @@ import type { AppLocale } from "../config";
 const loaders = {
   en: async () => ({
     common: (await import("./en/common.json")).default,
+    auth: (await import("./en/auth.json")).default,
+    account: (await import("./en/account.json")).default,
+    onboarding: (await import("./en/onboarding.json")).default,
     home: (await import("./en/home.json")).default,
     gallery: (await import("./en/gallery.json")).default,
     settings: (await import("./en/settings.json")).default,
+    shell: (await import("./en/shell.json")).default,
     errors: (await import("./en/errors.json")).default,
+    wells: (await import("./en/wells.json")).default,
+    alerts: (await import("./en/alerts.json")).default,
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
+    auth: (await import("./hi/auth.json")).default,
+    account: (await import("./hi/account.json")).default,
+    onboarding: (await import("./hi/onboarding.json")).default,
     home: (await import("./hi/home.json")).default,
     gallery: (await import("./hi/gallery.json")).default,
     settings: (await import("./hi/settings.json")).default,
+    shell: (await import("./hi/shell.json")).default,
     errors: (await import("./hi/errors.json")).default,
+    wells: (await import("./hi/wells.json")).default,
+    alerts: (await import("./hi/alerts.json")).default,
   }),
   // `satisfies` ensures every locale in `config.ts` has a loader while
   // preserving the inferred message types above.
