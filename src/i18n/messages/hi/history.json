@@ -25,6 +25,11 @@
   },
   "compareWith": "तुलना करें",
   "thisWell": "यह कुआं",
+  "viewTable": "तालिका देखें",
+  "viewChart": "चार्ट देखें",
+  "prev": "पिछला",
+  "next": "अगला",
+  "pageOf": "/",
   "export": {
     "date": "दिनांक",
     "depth": "औसत गहराई",
@@ -35,6 +40,7 @@
   "alerts": {
     "info": "जानकारी",
     "warning": "चेतावनी",
-    "critical": "गंभीर"
+    "critical": "गंभीर",
+    "alert": "चेतावनी घटना"
   }
 }

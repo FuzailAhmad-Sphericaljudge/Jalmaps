@@ -29,6 +29,7 @@
   "viewChart": "View Chart",
   "prev": "Previous",
   "next": "Next",
+  "pageOf": "of",
   "export": {
     "date": "Date",
     "depth": "Average Depth",
@@ -39,6 +40,7 @@
   "alerts": {
     "info": "Info",
     "warning": "Warning",
-    "critical": "Critical"
+    "critical": "Critical",
+    "alert": "Alert"
   }
 }

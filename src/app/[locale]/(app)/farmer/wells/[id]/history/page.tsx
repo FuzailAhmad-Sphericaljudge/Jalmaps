@@ -20,7 +20,7 @@ export default async function HistoryPage({
   const t = await getTranslations("history");
   const supabase = await createServerComponentClient();
 
-  const [wellRes, alertRulesRes, allWellsRes] = await Promise.all([
+  const [wellRes, alertRulesRes, allWellsRes, alertsRes] = await Promise.all([
     supabase.from("wells").select("name, id").eq("id", id).single(),
     supabase
       .from("alert_rules")
@@ -29,11 +29,22 @@ export default async function HistoryPage({
       .eq("metric", "depth_to_water")
       .eq("enabled", true),
     supabase.from("wells").select("id, name").order("name"),
+    supabase
+      .from("alerts")
+      .select("id, metric, severity, status, message_key, triggered_at")
+      .eq("well_id", id)
+      .eq("status", "resolved"),
   ]);
 
   const { data: well, error } = wellRes;
   const alertRules = alertRulesRes.data || [];
   const otherWells = (allWellsRes.data || []).filter((w) => w.id !== id);
+  const events = (alertsRes.data || []).map((a) => ({
+    type: "alert" as const,
+    timestamp: a.triggered_at,
+    severity: a.severity,
+    message: a.message_key,
+  }));
 
   if (error || !well) {
     notFound();
@@ -44,8 +55,12 @@ export default async function HistoryPage({
       <PageContainer>
         <PageHeader title={t("title", { name: well.name })} />
         <div className="mt-6 flex flex-col gap-4">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          <HistoryChart wellId={id} alertRules={alertRules as any} otherWells={otherWells} />
+          <HistoryChart
+            wellId={id}
+            alertRules={alertRules}
+            otherWells={otherWells}
+            events={events}
+          />
           <HistoryStats wellId={id} />
         </div>
       </PageContainer>
