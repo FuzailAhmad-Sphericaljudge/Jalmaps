@@ -8,6 +8,7 @@ export interface SeriesQueryData extends DataPoint {
   min_depth: number | null;
   max_depth: number | null;
   reading_count: number;
+  band?: [number, number] | null;
 }
 
 export function useSeries(wellId: string, range: TimeRangePreset) {
@@ -24,7 +25,11 @@ export function useSeries(wellId: string, range: TimeRangePreset) {
       if (!res.ok) {
         throw new Error("Failed to fetch series data");
       }
-      return res.json();
+      const json = await res.json();
+      return json.map((d: SeriesQueryData) => ({
+        ...d,
+        band: d.min_depth !== null && d.max_depth !== null ? [d.min_depth, d.max_depth] : null,
+      }));
     },
   });
 }
