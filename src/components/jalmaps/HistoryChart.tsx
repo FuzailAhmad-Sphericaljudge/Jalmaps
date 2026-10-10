@@ -2,10 +2,19 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import { useSeries } from "@/lib/series/use-series";
 import type { TimeRangePreset } from "@/lib/series/ranges";
 import { ChartRangePicker } from "./ChartRangePicker";
+import { ChartTooltip } from "./ChartTooltip";
 
 interface HistoryChartProps {
   wellId: string;
@@ -49,6 +58,14 @@ export function HistoryChart({ wellId }: HistoryChartProps) {
             />
             {/* The user requested an INVERTED y-axis so deeper water is lower on the chart */}
             <YAxis reversed stroke="hsl(var(--muted-foreground))" fontSize={12} />
+            <Tooltip
+              content={<ChartTooltip />}
+              cursor={{
+                stroke: "hsl(var(--muted-foreground))",
+                strokeWidth: 1,
+                strokeDasharray: "3 3",
+              }}
+            />
             <Line
               type="monotone"
               dataKey="y"
