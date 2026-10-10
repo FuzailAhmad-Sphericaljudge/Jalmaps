@@ -57,6 +57,8 @@ export function useWellRealtime(wellId: string) {
           const idx = newData.findIndex((p) => p.bucket_time === reading.recorded_at);
 
           const newPoint = {
+            x: new Date(reading.recorded_at).getTime(),
+            y: reading.depth_to_water_m,
             bucket_time: reading.recorded_at,
             avg_depth: reading.depth_to_water_m,
             min_depth: reading.depth_to_water_m,

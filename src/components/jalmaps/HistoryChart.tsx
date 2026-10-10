@@ -16,6 +16,7 @@ import {
 } from "recharts";
 import { useSeries } from "@/lib/series/use-series";
 import { useCompareSeries } from "@/lib/series/use-compare-series";
+import { useWellRealtime } from "@/lib/realtime/use-well-realtime";
 import type { TimeRangePreset } from "@/lib/series/ranges";
 import { ChartRangePicker } from "./ChartRangePicker";
 import { ChartTooltip } from "./ChartTooltip";
@@ -53,6 +54,9 @@ export function HistoryChart({
   const t = useTranslations("history");
   const [range, setRange] = useState<TimeRangePreset>("1y");
   const [compareWellIds, setCompareWellIds] = useState<string[]>([]);
+
+  // Wire up realtime updates for the base well
+  useWellRealtime(wellId);
 
   const {
     data: baseData,
