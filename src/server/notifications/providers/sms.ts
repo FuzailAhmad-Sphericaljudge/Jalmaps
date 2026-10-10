@@ -17,7 +17,8 @@ export class SmsProvider implements NotificationProvider {
     }
 
     const maskedTo = to.length > 4 ? `***${to.slice(-4)}` : "***";
-    console.log(`[SMS Sandbox] To: ${maskedTo} | Msg: ${payload.message}`);
+    const data = payload as { message?: string };
+    console.log(`[SMS Sandbox] To: ${maskedTo} | Msg: ${data.message}`);
 
     return {
       success: true,
@@ -31,7 +32,7 @@ export class SmsProvider implements NotificationProvider {
   }
 }
 
-export class WhatsAppProvider extends SmsProvider {
+export class WhatsAppProvider implements NotificationProvider {
   channel = "whatsapp" as const;
 
   async send(to: string, payload: unknown): Promise<SendResult> {
@@ -40,11 +41,16 @@ export class WhatsAppProvider extends SmsProvider {
     }
 
     const maskedTo = to.length > 4 ? `***${to.slice(-4)}` : "***";
-    console.log(`[WhatsApp Sandbox] To: ${maskedTo} | Msg: ${payload.message}`);
+    const data = payload as { message?: string };
+    console.log(`[WhatsApp Sandbox] To: ${maskedTo} | Msg: ${data.message}`);
 
     return {
       success: true,
       providerMessageId: `wa-sandbox-${Date.now()}`,
     };
+  }
+
+  validateConfig(): boolean {
+    return process.env.ENABLE_SMS_SANDBOX === "true";
   }
 }

@@ -1,7 +1,7 @@
 -- Phase 14: Notifications
 
 -- Notification channels enum
-CREATE TYPE notification_channel AS ENUM ('push', 'telegram', 'sms', 'whatsapp', 'email');
+ALTER TYPE notification_channel ADD VALUE IF NOT EXISTS 'telegram';
 
 -- Notification events enum
 CREATE TYPE notification_event AS ENUM ('opened', 'escalated', 'resolved', 'digest');

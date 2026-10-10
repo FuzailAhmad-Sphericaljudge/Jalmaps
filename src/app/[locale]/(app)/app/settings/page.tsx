@@ -12,14 +12,14 @@ import { parseThemeCookieValue, THEME_COOKIE_NAME } from "@/server/theme";
 import { NotificationPreferences } from "@/features/notifications/components/preferences";
 import { DeliveryHistory } from "@/features/notifications/components/delivery-history";
 import { SettingsForm } from "./settings-form";
-import { createClient } from "@/server/supabase";
+import { createServerComponentClient } from "@/server/supabase/server-component";
 
 export default async function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: requestedLocale } = await params;
   if (!isAppLocale(requestedLocale)) notFound();
   const locale = requestedLocale;
   const current = await requireUser(locale);
-  const supabase = createClient();
+  const supabase = await createServerComponentClient();
   const [t, cookieStore, channelsRes, prefsRes, historyRes] = await Promise.all([
     getTranslations({ locale, namespace: "settings" }),
     cookies(),

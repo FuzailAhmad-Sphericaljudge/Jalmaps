@@ -9,6 +9,7 @@ export class TelegramProvider implements NotificationProvider {
     }
 
     try {
+      const dataPayload = payload as { message?: string };
       const res = await fetch(
         `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
         {
@@ -16,7 +17,7 @@ export class TelegramProvider implements NotificationProvider {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: to,
-            text: payload.message,
+            text: dataPayload.message,
             parse_mode: "HTML",
           }),
         },
@@ -32,7 +33,7 @@ export class TelegramProvider implements NotificationProvider {
         providerMessageId: data.result.message_id.toString(),
       };
     } catch (err: unknown) {
-      return { success: false, error: err.message };
+      return { success: false, error: err instanceof Error ? err.message : String(err) };
     }
   }
 

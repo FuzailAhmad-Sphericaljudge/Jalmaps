@@ -2,7 +2,11 @@
 
 import { useTranslations } from "next-intl";
 
-export function DeliveryHistory({ history }: { history: unknown[] }) {
+export function DeliveryHistory({
+  history,
+}: {
+  history: { id: string; channel: string; event: string; status: string; created_at: string }[];
+}) {
   const t = useTranslations("notifications");
 
   return (

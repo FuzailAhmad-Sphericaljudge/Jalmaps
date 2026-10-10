@@ -37,43 +37,9 @@ type ExportReading = Pick<
   | "raw"
 >;
 
-type ExportAlertRule = Pick<
-  Database["public"]["Tables"]["alert_rules"]["Row"],
-  | "id"
-  | "created_by"
-  | "well_id"
-  | "admin_area_id"
-  | "metric"
-  | "operator"
-  | "threshold"
-  | "severity"
-  | "enabled"
-  | "channels"
-  | "cooldown_minutes"
-  | "created_at"
-  | "updated_at"
->;
-
-type ExportAlert = Pick<
-  Database["public"]["Tables"]["alerts"]["Row"],
-  | "id"
-  | "rule_id"
-  | "well_id"
-  | "node_id"
-  | "metric"
-  | "severity"
-  | "status"
-  | "message_key"
-  | "details"
-  | "triggered_at"
-  | "acknowledged_at"
-  | "acknowledged_by"
-  | "resolved_at"
-  | "created_at"
-  | "updated_at"
->;
-
-type ExportNotificationPreference = Database["public"]["Tables"]["notification_prefs"]["Row"];
+type ExportAlertRule = Database["public"]["Tables"]["alert_rules"]["Row"];
+type ExportAlert = Database["public"]["Tables"]["alerts"]["Row"];
+type ExportNotificationPreference = Database["public"]["Tables"]["user_notification_prefs"]["Row"];
 
 type ExportApiKey = Pick<
   Database["public"]["Tables"]["api_keys"]["Row"],
@@ -180,9 +146,7 @@ export async function getAccountExportData(
     (start, end) =>
       client
         .from("alert_rules")
-        .select(
-          "id,created_by,well_id,admin_area_id,metric,operator,threshold,severity,enabled,channels,cooldown_minutes,created_at,updated_at",
-        )
+        .select("*")
         .eq("created_by", userId)
         .order("created_at")
         .order("id")
@@ -198,9 +162,7 @@ export async function getAccountExportData(
         (pageStart, pageEnd) =>
           client
             .from("alerts")
-            .select(
-              "id,rule_id,well_id,node_id,metric,severity,status,message_key,details,triggered_at,acknowledged_at,acknowledged_by,resolved_at,created_at,updated_at",
-            )
+            .select("*")
             .in("well_id", wellIdBatch)
             .order("triggered_at")
             .order("id")
@@ -213,11 +175,11 @@ export async function getAccountExportData(
   const notificationPreferences = await collectPages<ExportNotificationPreference>(
     (start, end) =>
       client
-        .from("notification_prefs")
-        .select("id,profile_id,channel,enabled,destination,created_at,updated_at")
-        .eq("profile_id", userId)
+        .from("user_notification_prefs")
+        .select("*")
+        .eq("user_id", userId)
         .order("created_at")
-        .order("id")
+        .order("user_id")
         .range(start, end),
     "export account notification preferences",
   );

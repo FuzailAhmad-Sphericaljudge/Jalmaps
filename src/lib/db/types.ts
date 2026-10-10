@@ -53,60 +53,130 @@ export type Database = {
           },
         ];
       };
+      alert_events: {
+        Row: {
+          alert_id: string;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          new_status: Database["public"]["Enums"]["alert_status"];
+          previous_status: Database["public"]["Enums"]["alert_status"] | null;
+          reason: string | null;
+        };
+        Insert: {
+          alert_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          new_status: Database["public"]["Enums"]["alert_status"];
+          previous_status?: Database["public"]["Enums"]["alert_status"] | null;
+          reason?: string | null;
+        };
+        Update: {
+          alert_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          new_status?: Database["public"]["Enums"]["alert_status"];
+          previous_status?: Database["public"]["Enums"]["alert_status"] | null;
+          reason?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "alert_events_alert_id_fkey";
+            columns: ["alert_id"];
+            isOneToOne: false;
+            referencedRelation: "alerts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "alert_events_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      alert_jobs: {
+        Row: {
+          attempts: number;
+          id: string;
+          locked_at: string | null;
+          locked_by: string | null;
+          max_attempts: number;
+          queued_at: string;
+          well_id: string;
+        };
+        Insert: {
+          attempts?: number;
+          id?: string;
+          locked_at?: string | null;
+          locked_by?: string | null;
+          max_attempts?: number;
+          queued_at?: string;
+          well_id: string;
+        };
+        Update: {
+          attempts?: number;
+          id?: string;
+          locked_at?: string | null;
+          locked_by?: string | null;
+          max_attempts?: number;
+          queued_at?: string;
+          well_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "alert_jobs_well_id_fkey";
+            columns: ["well_id"];
+            isOneToOne: false;
+            referencedRelation: "wells";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       alert_rules: {
         Row: {
-          admin_area_id: string | null;
-          channels: Database["public"]["Enums"]["notification_channel"][];
           cooldown_minutes: number;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           enabled: boolean;
           id: string;
-          metric: Database["public"]["Enums"]["alert_metric"];
-          operator: Database["public"]["Enums"]["comparison_operator"] | null;
+          params: NonNullable<Json>;
+          rule_type: Database["public"]["Enums"]["alert_rule_type"];
+          scope: Database["public"]["Enums"]["alert_rule_scope"];
           severity: Database["public"]["Enums"]["alert_severity"];
-          threshold: number | null;
           updated_at: string;
           well_id: string | null;
         };
         Insert: {
-          admin_area_id?: string | null;
-          channels?: Database["public"]["Enums"]["notification_channel"][];
           cooldown_minutes?: number;
           created_at?: string;
-          created_by: string;
+          created_by?: string | null;
           enabled?: boolean;
           id?: string;
-          metric: Database["public"]["Enums"]["alert_metric"];
-          operator?: Database["public"]["Enums"]["comparison_operator"] | null;
+          params?: NonNullable<Json>;
+          rule_type: Database["public"]["Enums"]["alert_rule_type"];
+          scope?: Database["public"]["Enums"]["alert_rule_scope"];
           severity?: Database["public"]["Enums"]["alert_severity"];
-          threshold?: number | null;
           updated_at?: string;
           well_id?: string | null;
         };
         Update: {
-          admin_area_id?: string | null;
-          channels?: Database["public"]["Enums"]["notification_channel"][];
           cooldown_minutes?: number;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           enabled?: boolean;
           id?: string;
-          metric?: Database["public"]["Enums"]["alert_metric"];
-          operator?: Database["public"]["Enums"]["comparison_operator"] | null;
+          params?: NonNullable<Json>;
+          rule_type?: Database["public"]["Enums"]["alert_rule_type"];
+          scope?: Database["public"]["Enums"]["alert_rule_scope"];
           severity?: Database["public"]["Enums"]["alert_severity"];
-          threshold?: number | null;
           updated_at?: string;
           well_id?: string | null;
         };
         Relationships: [
-          {
-            foreignKeyName: "alert_rules_admin_area_id_fkey";
-            columns: ["admin_area_id"];
-            isOneToOne: false;
-            referencedRelation: "admin_areas";
-            referencedColumns: ["id"];
-          },
           {
             foreignKeyName: "alert_rules_created_by_fkey";
             columns: ["created_by"];
@@ -128,14 +198,17 @@ export type Database = {
           acknowledged_at: string | null;
           acknowledged_by: string | null;
           created_at: string;
-          details: NonNullable<Json>;
+          dedupe_key: string;
+          escalated_at: string | null;
           id: string;
           message_key: string;
-          metric: Database["public"]["Enums"]["alert_metric"];
           node_id: string | null;
+          payload: NonNullable<Json>;
           resolved_at: string | null;
+          resolved_reason: Database["public"]["Enums"]["alert_resolved_reason"] | null;
           rule_id: string | null;
           severity: Database["public"]["Enums"]["alert_severity"];
+          snoozed_until: string | null;
           status: Database["public"]["Enums"]["alert_status"];
           triggered_at: string;
           updated_at: string;
@@ -145,14 +218,17 @@ export type Database = {
           acknowledged_at?: string | null;
           acknowledged_by?: string | null;
           created_at?: string;
-          details?: NonNullable<Json>;
+          dedupe_key: string;
+          escalated_at?: string | null;
           id?: string;
           message_key: string;
-          metric: Database["public"]["Enums"]["alert_metric"];
           node_id?: string | null;
+          payload?: NonNullable<Json>;
           resolved_at?: string | null;
+          resolved_reason?: Database["public"]["Enums"]["alert_resolved_reason"] | null;
           rule_id?: string | null;
           severity: Database["public"]["Enums"]["alert_severity"];
+          snoozed_until?: string | null;
           status?: Database["public"]["Enums"]["alert_status"];
           triggered_at?: string;
           updated_at?: string;
@@ -162,14 +238,17 @@ export type Database = {
           acknowledged_at?: string | null;
           acknowledged_by?: string | null;
           created_at?: string;
-          details?: NonNullable<Json>;
+          dedupe_key?: string;
+          escalated_at?: string | null;
           id?: string;
           message_key?: string;
-          metric?: Database["public"]["Enums"]["alert_metric"];
           node_id?: string | null;
+          payload?: NonNullable<Json>;
           resolved_at?: string | null;
+          resolved_reason?: Database["public"]["Enums"]["alert_resolved_reason"] | null;
           rule_id?: string | null;
           severity?: Database["public"]["Enums"]["alert_severity"];
+          snoozed_until?: string | null;
           status?: Database["public"]["Enums"]["alert_status"];
           triggered_at?: string;
           updated_at?: string;
@@ -426,6 +505,57 @@ export type Database = {
           },
         ];
       };
+      notification_outbox: {
+        Row: {
+          alert_id: string;
+          attempts: number;
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at: string;
+          error: string | null;
+          event: Database["public"]["Enums"]["notification_event"];
+          id: string;
+          locale: string;
+          next_attempt_at: string;
+          payload: NonNullable<Json>;
+          provider_message_id: string | null;
+          sent_at: string | null;
+          status: Database["public"]["Enums"]["notification_status"];
+          user_id: string;
+        };
+        Insert: {
+          alert_id: string;
+          attempts?: number;
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          error?: string | null;
+          event: Database["public"]["Enums"]["notification_event"];
+          id?: string;
+          locale?: string;
+          next_attempt_at?: string;
+          payload?: NonNullable<Json>;
+          provider_message_id?: string | null;
+          sent_at?: string | null;
+          status?: Database["public"]["Enums"]["notification_status"];
+          user_id: string;
+        };
+        Update: {
+          alert_id?: string;
+          attempts?: number;
+          channel?: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          error?: string | null;
+          event?: Database["public"]["Enums"]["notification_event"];
+          id?: string;
+          locale?: string;
+          next_attempt_at?: string;
+          payload?: NonNullable<Json>;
+          provider_message_id?: string | null;
+          sent_at?: string | null;
+          status?: Database["public"]["Enums"]["notification_status"];
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       notification_prefs: {
         Row: {
           channel: Database["public"]["Enums"]["notification_channel"];
@@ -594,6 +724,75 @@ export type Database = {
           },
         ];
       };
+      user_notification_channels: {
+        Row: {
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at: string;
+          enabled: boolean;
+          id: string;
+          provider_token: string | null;
+          updated_at: string;
+          user_id: string;
+          verified_at: string | null;
+        };
+        Insert: {
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          enabled?: boolean;
+          id?: string;
+          provider_token?: string | null;
+          updated_at?: string;
+          user_id: string;
+          verified_at?: string | null;
+        };
+        Update: {
+          channel?: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          enabled?: boolean;
+          id?: string;
+          provider_token?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          verified_at?: string | null;
+        };
+        Relationships: [];
+      };
+      user_notification_prefs: {
+        Row: {
+          created_at: string;
+          critical_bypasses_quiet_hours: boolean;
+          daily_digest: boolean;
+          quiet_hours_end: string | null;
+          quiet_hours_start: string | null;
+          quiet_hours_tz: string;
+          severity_routing: NonNullable<Json>;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          critical_bypasses_quiet_hours?: boolean;
+          daily_digest?: boolean;
+          quiet_hours_end?: string | null;
+          quiet_hours_start?: string | null;
+          quiet_hours_tz?: string;
+          severity_routing?: NonNullable<Json>;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          critical_bypasses_quiet_hours?: boolean;
+          daily_digest?: boolean;
+          quiet_hours_end?: string | null;
+          quiet_hours_start?: string | null;
+          quiet_hours_tz?: string;
+          severity_routing?: NonNullable<Json>;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       well_members: {
         Row: {
           created_at: string | null;
@@ -737,6 +936,31 @@ export type Database = {
       can_manage_well: { Args: { target_well_id: string }; Returns: boolean };
       can_read_well: { Args: { target_well_id: string }; Returns: boolean };
       check_node_rate_limit: { Args: { p_max_reqs: number; p_node_id: string }; Returns: boolean };
+      claim_notification_outbox: {
+        Args: { batch_size: number };
+        Returns: {
+          alert_id: string;
+          attempts: number;
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at: string;
+          error: string | null;
+          event: Database["public"]["Enums"]["notification_event"];
+          id: string;
+          locale: string;
+          next_attempt_at: string;
+          payload: NonNullable<Json>;
+          provider_message_id: string | null;
+          sent_at: string | null;
+          status: Database["public"]["Enums"]["notification_status"];
+          user_id: string;
+        }[];
+        SetofOptions: {
+          from: "*";
+          to: "notification_outbox";
+          isOneToOne: false;
+          isSetofReturn: true;
+        };
+      };
       consume_otp_rate_limit: {
         Args: { p_destination_hash: string; p_destination_type: string; p_ip_hash: string };
         Returns: boolean;
@@ -770,12 +994,17 @@ export type Database = {
     Enums: {
       admin_area_level: "state" | "district" | "block" | "village";
       alert_metric: "depth_to_water" | "battery" | "node_offline";
+      alert_resolved_reason: "auto" | "manual";
+      alert_rule_scope: "well" | "area_default" | "global_default";
+      alert_rule_type: "level_below" | "drop_rate" | "no_data" | "low_battery" | "sensor_fault";
       alert_severity: "info" | "warning" | "critical";
-      alert_status: "open" | "acknowledged" | "resolved";
+      alert_status: "open" | "acknowledged" | "snoozed" | "resolved";
       bucket_interval: "raw" | "hourly" | "daily";
       comparison_operator: "above" | "below";
       node_status: "provisioning" | "active" | "offline" | "fault" | "retired";
-      notification_channel: "sms" | "email" | "push" | "whatsapp";
+      notification_channel: "sms" | "email" | "push" | "whatsapp" | "telegram";
+      notification_event: "opened" | "escalated" | "resolved" | "digest";
+      notification_status: "pending" | "sending" | "sent" | "failed" | "skipped";
       reading_quality: "good" | "suspect" | "bad";
       unit_preference: "m" | "ft";
       user_role: "farmer" | "village_admin" | "official" | "insurer" | "admin";
@@ -895,12 +1124,17 @@ export const Constants = {
     Enums: {
       admin_area_level: ["state", "district", "block", "village"],
       alert_metric: ["depth_to_water", "battery", "node_offline"],
+      alert_resolved_reason: ["auto", "manual"],
+      alert_rule_scope: ["well", "area_default", "global_default"],
+      alert_rule_type: ["level_below", "drop_rate", "no_data", "low_battery", "sensor_fault"],
       alert_severity: ["info", "warning", "critical"],
-      alert_status: ["open", "acknowledged", "resolved"],
+      alert_status: ["open", "acknowledged", "snoozed", "resolved"],
       bucket_interval: ["raw", "hourly", "daily"],
       comparison_operator: ["above", "below"],
       node_status: ["provisioning", "active", "offline", "fault", "retired"],
-      notification_channel: ["sms", "email", "push", "whatsapp"],
+      notification_channel: ["sms", "email", "push", "whatsapp", "telegram"],
+      notification_event: ["opened", "escalated", "resolved", "digest"],
+      notification_status: ["pending", "sending", "sent", "failed", "skipped"],
       reading_quality: ["good", "suspect", "bad"],
       unit_preference: ["m", "ft"],
       user_role: ["farmer", "village_admin", "official", "insurer", "admin"],

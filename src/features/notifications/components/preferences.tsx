@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 
 export function NotificationPreferences({
   initialPrefs,
-  initialChannels: _initialChannels,
 }: {
   initialPrefs: Record<string, unknown>;
   initialChannels: unknown[];
@@ -24,7 +23,7 @@ export function NotificationPreferences({
           daily_digest: dailyDigest,
         }),
       });
-    } catch (_err) {
+    } catch {
       console.error("Failed to save prefs");
     }
   };

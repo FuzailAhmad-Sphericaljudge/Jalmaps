@@ -3,7 +3,7 @@ import { planNotifications } from "./planner";
 import { getEnv } from "@/lib/env";
 
 export async function queueAlertNotifications(
-  alert: unknown,
+  alert: { id: string; well_id: string; severity: string },
   event: "opened" | "escalated" | "resolved",
 ) {
   const env = getEnv();

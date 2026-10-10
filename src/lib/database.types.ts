@@ -1,26 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
-  graphql_public: {
-    Tables: {
-      [_ in never]: never;
-    };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      graphql: {
-        Args: { extensions?: Json; operationName?: string; query?: string; variables?: Json };
-        Returns: Json;
-      };
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
   public: {
     Tables: {
       admin_areas: {
@@ -525,6 +505,57 @@ export type Database = {
           },
         ];
       };
+      notification_outbox: {
+        Row: {
+          alert_id: string;
+          attempts: number;
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at: string;
+          error: string | null;
+          event: Database["public"]["Enums"]["notification_event"];
+          id: string;
+          locale: string;
+          next_attempt_at: string;
+          payload: NonNullable<Json>;
+          provider_message_id: string | null;
+          sent_at: string | null;
+          status: Database["public"]["Enums"]["notification_status"];
+          user_id: string;
+        };
+        Insert: {
+          alert_id: string;
+          attempts?: number;
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          error?: string | null;
+          event: Database["public"]["Enums"]["notification_event"];
+          id?: string;
+          locale?: string;
+          next_attempt_at?: string;
+          payload?: NonNullable<Json>;
+          provider_message_id?: string | null;
+          sent_at?: string | null;
+          status?: Database["public"]["Enums"]["notification_status"];
+          user_id: string;
+        };
+        Update: {
+          alert_id?: string;
+          attempts?: number;
+          channel?: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          error?: string | null;
+          event?: Database["public"]["Enums"]["notification_event"];
+          id?: string;
+          locale?: string;
+          next_attempt_at?: string;
+          payload?: NonNullable<Json>;
+          provider_message_id?: string | null;
+          sent_at?: string | null;
+          status?: Database["public"]["Enums"]["notification_status"];
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       notification_prefs: {
         Row: {
           channel: Database["public"]["Enums"]["notification_channel"];
@@ -693,6 +724,75 @@ export type Database = {
           },
         ];
       };
+      user_notification_channels: {
+        Row: {
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at: string;
+          enabled: boolean;
+          id: string;
+          provider_token: string | null;
+          updated_at: string;
+          user_id: string;
+          verified_at: string | null;
+        };
+        Insert: {
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          enabled?: boolean;
+          id?: string;
+          provider_token?: string | null;
+          updated_at?: string;
+          user_id: string;
+          verified_at?: string | null;
+        };
+        Update: {
+          channel?: Database["public"]["Enums"]["notification_channel"];
+          created_at?: string;
+          enabled?: boolean;
+          id?: string;
+          provider_token?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          verified_at?: string | null;
+        };
+        Relationships: [];
+      };
+      user_notification_prefs: {
+        Row: {
+          created_at: string;
+          critical_bypasses_quiet_hours: boolean;
+          daily_digest: boolean;
+          quiet_hours_end: string | null;
+          quiet_hours_start: string | null;
+          quiet_hours_tz: string;
+          severity_routing: NonNullable<Json>;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          critical_bypasses_quiet_hours?: boolean;
+          daily_digest?: boolean;
+          quiet_hours_end?: string | null;
+          quiet_hours_start?: string | null;
+          quiet_hours_tz?: string;
+          severity_routing?: NonNullable<Json>;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          critical_bypasses_quiet_hours?: boolean;
+          daily_digest?: boolean;
+          quiet_hours_end?: string | null;
+          quiet_hours_start?: string | null;
+          quiet_hours_tz?: string;
+          severity_routing?: NonNullable<Json>;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       well_members: {
         Row: {
           created_at: string | null;
@@ -836,6 +936,31 @@ export type Database = {
       can_manage_well: { Args: { target_well_id: string }; Returns: boolean };
       can_read_well: { Args: { target_well_id: string }; Returns: boolean };
       check_node_rate_limit: { Args: { p_max_reqs: number; p_node_id: string }; Returns: boolean };
+      claim_notification_outbox: {
+        Args: { batch_size: number };
+        Returns: {
+          alert_id: string;
+          attempts: number;
+          channel: Database["public"]["Enums"]["notification_channel"];
+          created_at: string;
+          error: string | null;
+          event: Database["public"]["Enums"]["notification_event"];
+          id: string;
+          locale: string;
+          next_attempt_at: string;
+          payload: NonNullable<Json>;
+          provider_message_id: string | null;
+          sent_at: string | null;
+          status: Database["public"]["Enums"]["notification_status"];
+          user_id: string;
+        }[];
+        SetofOptions: {
+          from: "*";
+          to: "notification_outbox";
+          isOneToOne: false;
+          isSetofReturn: true;
+        };
+      };
       consume_otp_rate_limit: {
         Args: { p_destination_hash: string; p_destination_type: string; p_ip_hash: string };
         Returns: boolean;
@@ -877,7 +1002,9 @@ export type Database = {
       bucket_interval: "raw" | "hourly" | "daily";
       comparison_operator: "above" | "below";
       node_status: "provisioning" | "active" | "offline" | "fault" | "retired";
-      notification_channel: "sms" | "email" | "push" | "whatsapp";
+      notification_channel: "sms" | "email" | "push" | "whatsapp" | "telegram";
+      notification_event: "opened" | "escalated" | "resolved" | "digest";
+      notification_status: "pending" | "sending" | "sent" | "failed" | "skipped";
       reading_quality: "good" | "suspect" | "bad";
       unit_preference: "m" | "ft";
       user_role: "farmer" | "village_admin" | "official" | "insurer" | "admin";
@@ -993,9 +1120,6 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       admin_area_level: ["state", "district", "block", "village"],
@@ -1008,7 +1132,9 @@ export const Constants = {
       bucket_interval: ["raw", "hourly", "daily"],
       comparison_operator: ["above", "below"],
       node_status: ["provisioning", "active", "offline", "fault", "retired"],
-      notification_channel: ["sms", "email", "push", "whatsapp"],
+      notification_channel: ["sms", "email", "push", "whatsapp", "telegram"],
+      notification_event: ["opened", "escalated", "resolved", "digest"],
+      notification_status: ["pending", "sending", "sent", "failed", "skipped"],
       reading_quality: ["good", "suspect", "bad"],
       unit_preference: ["m", "ft"],
       user_role: ["farmer", "village_admin", "official", "insurer", "admin"],

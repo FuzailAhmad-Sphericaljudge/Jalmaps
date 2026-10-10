@@ -1,5 +1,4 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createRouteHandlerClient } from "@/server/supabase/route-handler";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -11,7 +10,7 @@ const channelSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createRouteHandlerClient();
     const {
       data: { session },
     } = await supabase.auth.getSession();
@@ -47,7 +46,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (_error) {
+  } catch {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

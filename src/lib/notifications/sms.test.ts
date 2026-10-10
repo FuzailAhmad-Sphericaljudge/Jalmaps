@@ -21,6 +21,6 @@ describe("estimateSmsSegments", () => {
     expect(estimateSmsSegments(hindiMsg)).toBe(1);
 
     const longHindiMsg = "चे".repeat(71);
-    expect(estimateSmsSegments(longHindiMsg)).toBe(2);
+    expect(estimateSmsSegments(longHindiMsg)).toBe(3);
   });
 });

@@ -1,4 +1,4 @@
-import { Database } from "@/lib/database.types";
+import { Database } from "@/lib/db/types";
 
 export type OutboxInsert = Database["public"]["Tables"]["notification_outbox"]["Insert"];
 export type NotificationPrefs = Database["public"]["Tables"]["user_notification_prefs"]["Row"];
@@ -19,43 +19,37 @@ export function isQuietHours(now: Date, prefs: NotificationPrefs): boolean {
 }
 
 export function planNotifications(
-  alert: unknown,
-  recipients: Array<{ id: string; channels: string[] }>,
-  prefsMap: Map<string, NotificationPrefs>,
+  alert: { id: string; severity: string },
+  userId: string,
+  prefs: NotificationPrefs,
   now: Date,
+  event: "opened" | "escalated" | "resolved" | "digest",
 ): OutboxInsert[] {
   const outbox: OutboxInsert[] = [];
 
-  for (const user of recipients) {
-    const prefs = prefsMap.get(user.id);
-    if (!prefs) continue;
+  const quiet = isQuietHours(now, prefs);
+  const severity = alert.severity as "critical" | "warning" | "info";
 
-    const quiet = isQuietHours(now, prefs);
-    const severity = alert.severity as "critical" | "warning" | "info";
+  // Check if we should bypass quiet hours
+  if (quiet && !(severity === "critical" && prefs.critical_bypasses_quiet_hours)) {
+    return outbox; // Skip or queue for digest
+  }
 
-    // Check if we should bypass quiet hours
-    if (quiet && !(severity === "critical" && prefs.critical_bypasses_quiet_hours)) {
-      continue; // Skip or queue for digest
-    }
+  const routingObj = (prefs.severity_routing as Record<string, string[]>) || {
+    critical: ["push", "sms"],
+    warning: ["push"],
+    info: ["push"],
+  };
 
-    const routingObj = (prefs.severity_routing as Record<string, string[]>) || {
-      critical: ["push", "sms"],
-      warning: ["push"],
-      info: ["push"],
-    };
+  const allowedChannels = routingObj[severity] || ["push"];
 
-    const allowedChannels = routingObj[severity] || ["push"];
-
-    for (const channel of allowedChannels) {
-      if (user.channels.includes(channel)) {
-        outbox.push({
-          alert_id: alert.id,
-          user_id: user.id,
-          channel: channel as "push" | "telegram" | "sms" | "whatsapp" | "email",
-          event: "opened",
-        });
-      }
-    }
+  for (const channel of allowedChannels) {
+    outbox.push({
+      alert_id: alert.id,
+      user_id: userId,
+      channel: channel as "push" | "telegram" | "sms" | "whatsapp" | "email",
+      event,
+    });
   }
 
   return outbox;

@@ -25,7 +25,7 @@ export class WebPushProvider implements NotificationProvider {
     } catch (err: unknown) {
       return {
         success: false,
-        error: err.message,
+        error: err instanceof Error ? err.message : String(err),
       };
     }
   }

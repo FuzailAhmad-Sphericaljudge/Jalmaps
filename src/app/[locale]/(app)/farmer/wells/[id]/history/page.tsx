@@ -24,20 +24,23 @@ export default async function HistoryPage({
     supabase.from("wells").select("name, id").eq("id", id).single(),
     supabase
       .from("alert_rules")
-      .select("threshold, severity")
+      .select("params, severity")
       .eq("well_id", id)
-      .eq("metric", "depth_to_water")
+      .eq("rule_type", "level_below")
       .eq("enabled", true),
     supabase.from("wells").select("id, name").order("name"),
     supabase
       .from("alerts")
-      .select("id, metric, severity, status, message_key, triggered_at")
+      .select("id, severity, status, message_key, triggered_at")
       .eq("well_id", id)
       .eq("status", "resolved"),
   ]);
 
   const { data: well, error } = wellRes;
-  const alertRules = alertRulesRes.data || [];
+  const alertRules = (alertRulesRes.data || []).map((r) => ({
+    threshold: (r.params as { threshold?: number })?.threshold ?? null,
+    severity: r.severity,
+  }));
   const otherWells = (allWellsRes.data || []).filter((w) => w.id !== id);
   const events = (alertsRes.data || []).map((a) => ({
     type: "alert" as const,

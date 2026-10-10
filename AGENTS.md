@@ -46,7 +46,15 @@ Users: Farmers (phones), Village Admins, Officials, Insurers.
 
 ## Roadmap Phases
 
+<!--
+  PITCH / SUMMARY OF PHASES:
+  Phases 1-11: Built the core foundation. Farmers can log in (OTP), see their wells, check water levels on a dashboard, manage settings, and view maps.
+  Phase 12: Realtime Updates. The dashboard now updates instantly via WebSockets when new sensor readings arrive.
+  Phase 13: Alerts Engine. A smart system that constantly evaluates readings to detect issues like low water, fast depletion, or sensor faults.
+  Phase 14: Notifications. The system now takes those alerts and reliably delivers them via SMS, WhatsApp, Web Push, etc., respecting quiet hours and user preferences.
+-->
+
 - **Phase 1-11**: Completed (Foundation, Auth, Navigation, Settings, Admin, Dashboard, Map, etc.)
 - **Phase 12**: Completed (Realtime Updates - WebSockets & Broadcasting)
 - **Phase 13**: Completed (Alerts Engine - Cron workers, Evaluators, State Machine)
-- **Phase 14**: Ongoing (Notifications - Outbox pattern, SMS/Push Providers, Routing Logic)
+- **Phase 14**: Completed (Notifications - Outbox pattern, SMS/Push Providers, Routing Logic)

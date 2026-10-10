@@ -8,11 +8,14 @@ export class EmailProvider implements NotificationProvider {
       return { success: false, error: "Email provider configured improperly" };
     }
 
-    const [localPart, domain] = to.split("@");
+    const parts = to.split("@");
+    const localPart = parts[0] || "";
+    const domain = parts[1] || "";
     const maskedLocal = localPart.length > 2 ? `${localPart.slice(0, 2)}***` : "***";
     const maskedTo = `${maskedLocal}@${domain}`;
 
-    console.log(`[Email Sandbox] To: ${maskedTo} | Subject: ${payload.subject}`);
+    const data = payload as { subject?: string };
+    console.log(`[Email Sandbox] To: ${maskedTo} | Subject: ${data.subject}`);
 
     return {
       success: true,
