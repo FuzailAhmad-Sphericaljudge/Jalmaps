@@ -5,8 +5,8 @@ import { useState } from "react";
 
  
 export function AlertRuleSimulator({
-  wellId,
-  rule,
+  
+  
 }: {
   wellId: string;
   rule: Record<string, unknown>;
