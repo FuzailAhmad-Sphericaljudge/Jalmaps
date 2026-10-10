@@ -5,7 +5,7 @@ export type NotificationPrefs = Database["public"]["Tables"]["user_notification_
 
 export function isQuietHours(now: Date, prefs: NotificationPrefs): boolean {
   if (!prefs.quiet_hours_start || !prefs.quiet_hours_end) return false;
-  
+
   // Implementation of quiet hours check (assuming UTC/simple matching for MVP)
   const currentHour = now.getUTCHours();
   const startHour = parseInt(prefs.quiet_hours_start.split(":")[0] || "22");
@@ -19,10 +19,10 @@ export function isQuietHours(now: Date, prefs: NotificationPrefs): boolean {
 }
 
 export function planNotifications(
-  alert: any,
+  alert: unknown,
   recipients: Array<{ id: string; channels: string[] }>,
   prefsMap: Map<string, NotificationPrefs>,
-  now: Date
+  now: Date,
 ): OutboxInsert[] {
   const outbox: OutboxInsert[] = [];
 
@@ -32,13 +32,13 @@ export function planNotifications(
 
     const quiet = isQuietHours(now, prefs);
     const severity = alert.severity as "critical" | "warning" | "info";
-    
+
     // Check if we should bypass quiet hours
     if (quiet && !(severity === "critical" && prefs.critical_bypasses_quiet_hours)) {
       continue; // Skip or queue for digest
     }
 
-    const routingObj = (prefs.severity_routing as any) || {
+    const routingObj = (prefs.severity_routing as Record<string, string[]>) || {
       critical: ["push", "sms"],
       warning: ["push"],
       info: ["push"],
@@ -51,7 +51,7 @@ export function planNotifications(
         outbox.push({
           alert_id: alert.id,
           user_id: user.id,
-          channel: channel as any,
+          channel: channel as "push" | "telegram" | "sms" | "whatsapp" | "email",
           event: "opened",
         });
       }

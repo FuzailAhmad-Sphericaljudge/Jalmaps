@@ -16,13 +16,21 @@ export function getNotificationProvider(channel: NotificationChannel): Notificat
     case "push":
       return process.env.ENABLE_PUSH === "true" ? new WebPushProvider() : new MockProvider(channel);
     case "telegram":
-      return process.env.ENABLE_TELEGRAM === "true" ? new TelegramProvider() : new MockProvider(channel);
+      return process.env.ENABLE_TELEGRAM === "true"
+        ? new TelegramProvider()
+        : new MockProvider(channel);
     case "sms":
-      return process.env.ENABLE_SMS_SANDBOX === "true" ? new SmsProvider() : new MockProvider(channel);
+      return process.env.ENABLE_SMS_SANDBOX === "true"
+        ? new SmsProvider()
+        : new MockProvider(channel);
     case "whatsapp":
-      return process.env.ENABLE_SMS_SANDBOX === "true" ? new WhatsAppProvider() : new MockProvider(channel);
+      return process.env.ENABLE_SMS_SANDBOX === "true"
+        ? new WhatsAppProvider()
+        : new MockProvider(channel);
     case "email":
-      return process.env.ENABLE_EMAIL_SANDBOX === "true" ? new EmailProvider() : new MockProvider(channel);
+      return process.env.ENABLE_EMAIL_SANDBOX === "true"
+        ? new EmailProvider()
+        : new MockProvider(channel);
     default:
       return new MockProvider(channel);
   }

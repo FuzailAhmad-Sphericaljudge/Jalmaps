@@ -9,16 +9,28 @@ import { settingsSchema } from "@/lib/schemas/settings";
 import { requireUser } from "@/server/auth";
 import { parseThemeCookieValue, THEME_COOKIE_NAME } from "@/server/theme";
 
+import { NotificationPreferences } from "@/features/notifications/components/preferences";
+import { DeliveryHistory } from "@/features/notifications/components/delivery-history";
 import { SettingsForm } from "./settings-form";
+import { createClient } from "@/server/supabase";
 
 export default async function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: requestedLocale } = await params;
   if (!isAppLocale(requestedLocale)) notFound();
   const locale = requestedLocale;
   const current = await requireUser(locale);
-  const [t, cookieStore] = await Promise.all([
+  const supabase = createClient();
+  const [t, cookieStore, channelsRes, prefsRes, historyRes] = await Promise.all([
     getTranslations({ locale, namespace: "settings" }),
     cookies(),
+    supabase.from("user_notification_channels").select("*").eq("user_id", current.user.id),
+    supabase.from("user_notification_prefs").select("*").eq("user_id", current.user.id).single(),
+    supabase
+      .from("notification_outbox")
+      .select("*")
+      .eq("user_id", current.user.id)
+      .order("created_at", { ascending: false })
+      .limit(20),
   ]);
   const textSize = settingsSchema.shape.text_size.safeParse(current.profile.preferred_text_size);
   const preferredLocale = isAppLocale(current.profile.preferred_locale)
@@ -41,6 +53,15 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
                 parseThemeCookieValue(cookieStore.get(THEME_COOKIE_NAME)?.value)
               }
             />
+          </div>
+        </Section>
+        <Section title="Notifications" className="mt-8 max-w-4xl">
+          <div className="space-y-8 rounded-xl border border-border bg-card p-5 sm:p-7">
+            <NotificationPreferences
+              initialPrefs={prefsRes.data || {}}
+              initialChannels={channelsRes.data || []}
+            />
+            <DeliveryHistory history={historyRes.data || []} />
           </div>
         </Section>
       </PageContainer>

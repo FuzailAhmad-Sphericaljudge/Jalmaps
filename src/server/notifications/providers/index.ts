@@ -10,6 +10,6 @@ export interface SendResult {
 
 export interface NotificationProvider {
   channel: NotificationChannel;
-  send(to: string, payload: any): Promise<SendResult>;
+  send(to: string, payload: unknown): Promise<SendResult>;
   validateConfig(): boolean;
 }

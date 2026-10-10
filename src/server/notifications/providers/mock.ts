@@ -8,11 +8,11 @@ import { randomUUID } from "crypto";
 export class MockProvider implements NotificationProvider {
   constructor(public channel: NotificationChannel) {}
 
-  async send(to: string, payload: any): Promise<SendResult> {
+  async send(to: string, payload: unknown): Promise<SendResult> {
     // Mask destination for safe logging
     const maskedTo = to.length > 4 ? `***${to.slice(-4)}` : "***";
     console.log(`[MockProvider:${this.channel}] Sending to ${maskedTo}`, payload);
-    
+
     return {
       success: true,
       providerMessageId: `mock-${randomUUID()}`,

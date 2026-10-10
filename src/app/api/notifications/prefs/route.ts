@@ -14,8 +14,10 @@ const prefsSchema = z.object({
 
 export async function GET() {
   const supabase = createRouteHandlerClient({ cookies });
-  const { data: { session } } = await supabase.auth.getSession();
-  
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   if (!session) return new NextResponse("Unauthorized", { status: 401 });
 
   const { data: prefs } = await supabase
@@ -35,8 +37,10 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const supabase = createRouteHandlerClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
-    
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     if (!session) return new NextResponse("Unauthorized", { status: 401 });
 
     const body = await request.json();
@@ -44,13 +48,11 @@ export async function POST(request: Request) {
 
     if (!result.success) return new NextResponse("Invalid prefs payload", { status: 400 });
 
-    const { error } = await supabase
-      .from("user_notification_prefs")
-      .upsert({
-        user_id: session.user.id,
-        ...result.data,
-        updated_at: new Date().toISOString(),
-      });
+    const { error } = await supabase.from("user_notification_prefs").upsert({
+      user_id: session.user.id,
+      ...result.data,
+      updated_at: new Date().toISOString(),
+    });
 
     if (error) {
       console.error("[Prefs API] DB Error", error);
@@ -58,7 +60,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

@@ -9,12 +9,12 @@ export class WebPushProvider implements NotificationProvider {
       webpush.setVapidDetails(
         "mailto:admin@jalmaps.example.com",
         process.env.VAPID_PUBLIC_KEY!,
-        process.env.VAPID_PRIVATE_KEY!
+        process.env.VAPID_PRIVATE_KEY!,
       );
     }
   }
 
-  async send(to: string, payload: any): Promise<SendResult> {
+  async send(to: string, payload: unknown): Promise<SendResult> {
     try {
       const subscription = JSON.parse(to);
       const res = await webpush.sendNotification(subscription, JSON.stringify(payload));
@@ -22,7 +22,7 @@ export class WebPushProvider implements NotificationProvider {
         success: true,
         providerMessageId: res.headers["apns-id"] || "web-push-sent",
       };
-    } catch (err: any) {
+    } catch (err: unknown) {
       return {
         success: false,
         error: err.message,

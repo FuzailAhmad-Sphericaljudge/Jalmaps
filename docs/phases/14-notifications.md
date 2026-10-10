@@ -1,12 +1,14 @@
 # Phase 14: Notifications
 
 ## Architecture
+
 - Transactional Outbox pattern (`notification_outbox`).
 - Pure function `planNotifications()` routes alerts to the outbox.
 - Worker claims rows `FOR UPDATE SKIP LOCKED` to send messages.
 - Provider abstractions behind feature flags, defaulting to a `MockProvider`.
 
 ## Checklist
+
 - [ ] 1. Outbox Migration and Types
 - [ ] 2. Provider Abstractions (Mock, Push, Telegram, SMS, Email)
 - [ ] 3. Channel Linking & Consent

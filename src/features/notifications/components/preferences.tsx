@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 
 export function NotificationPreferences({
   initialPrefs,
-  initialChannels,
+  initialChannels: _initialChannels,
 }: {
   initialPrefs: Record<string, unknown>;
-  initialChannels: any[];
+  initialChannels: unknown[];
 }) {
   const t = useTranslations("notifications");
   const [dailyDigest, setDailyDigest] = useState(!!initialPrefs.daily_digest);
@@ -24,13 +24,13 @@ export function NotificationPreferences({
           daily_digest: dailyDigest,
         }),
       });
-    } catch (err) {
+    } catch (_err) {
       console.error("Failed to save prefs");
     }
   };
 
   return (
-    <div className="space-y-6 max-w-lg p-4 border rounded-lg shadow-sm">
+    <div className="max-w-lg space-y-6 rounded-lg border p-4 shadow-sm">
       <h2 className="text-xl font-semibold">{t("preferences.title")}</h2>
       <p className="text-sm text-muted-foreground">{t("preferences.description")}</p>
 

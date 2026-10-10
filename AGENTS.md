@@ -43,3 +43,10 @@ Users: Farmers (phones), Village Admins, Officials, Insurers.
 - `pnpm db:test`: Run pgTAP / DB tests
 - `pnpm check`: Run lint, typecheck, unit tests, i18n checks (MUST RUN BEFORE PUSH)
 - `pnpm test:e2e`: Playwright
+
+## Roadmap Phases
+
+- **Phase 1-11**: Completed (Foundation, Auth, Navigation, Settings, Admin, Dashboard, Map, etc.)
+- **Phase 12**: Completed (Realtime Updates - WebSockets & Broadcasting)
+- **Phase 13**: Completed (Alerts Engine - Cron workers, Evaluators, State Machine)
+- **Phase 14**: Ongoing (Notifications - Outbox pattern, SMS/Push Providers, Routing Logic)

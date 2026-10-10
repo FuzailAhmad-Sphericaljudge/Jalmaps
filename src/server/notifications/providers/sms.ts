@@ -2,7 +2,7 @@ import { NotificationProvider, SendResult } from "./index";
 
 /**
  * SMS/WhatsApp Provider (Sandbox Mode)
- * 
+ *
  * IMPORTANT COMPLIANCE NOTICE FOR INDIA:
  * - SMS: Sender IDs and templates MUST be registered on DLT portals (e.g. TRAI) before going live.
  * - WhatsApp: Message templates must be pre-approved by Meta for business APIs.
@@ -11,7 +11,7 @@ import { NotificationProvider, SendResult } from "./index";
 export class SmsProvider implements NotificationProvider {
   channel = "sms" as const;
 
-  async send(to: string, payload: any): Promise<SendResult> {
+  async send(to: string, payload: unknown): Promise<SendResult> {
     if (!this.validateConfig()) {
       return { success: false, error: "SMS provider token missing" };
     }
@@ -34,7 +34,7 @@ export class SmsProvider implements NotificationProvider {
 export class WhatsAppProvider extends SmsProvider {
   channel = "whatsapp" as const;
 
-  async send(to: string, payload: any): Promise<SendResult> {
+  async send(to: string, payload: unknown): Promise<SendResult> {
     if (!this.validateConfig()) {
       return { success: false, error: "WhatsApp provider token missing" };
     }

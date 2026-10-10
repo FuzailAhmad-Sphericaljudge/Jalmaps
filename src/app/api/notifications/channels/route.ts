@@ -12,8 +12,10 @@ const channelSchema = z.object({
 export async function POST(request: Request) {
   try {
     const supabase = createRouteHandlerClient({ cookies });
-    const { data: { session } } = await supabase.auth.getSession();
-    
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     if (!session) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -28,15 +30,16 @@ export async function POST(request: Request) {
     const { channel, enabled, provider_token } = result.data;
 
     // Upsert user_notification_channels
-    const { error } = await supabase
-      .from("user_notification_channels")
-      .upsert({
+    const { error } = await supabase.from("user_notification_channels").upsert(
+      {
         user_id: session.user.id,
         channel,
         enabled,
         provider_token: provider_token || null,
         updated_at: new Date().toISOString(),
-      }, { onConflict: 'user_id, channel' });
+      },
+      { onConflict: "user_id, channel" },
+    );
 
     if (error) {
       console.error("[Channel API] DB Error", error);
@@ -44,7 +47,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (_error) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }

@@ -78,3 +78,4 @@ ALTER TABLE user_notification_prefs ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can manage their own prefs"
     ON user_notification_prefs FOR ALL
     USING (auth.uid() = user_id);
+
