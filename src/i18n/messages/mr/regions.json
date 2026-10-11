@@ -1,0 +1,41 @@
+{
+  "title": "प्रशासकीय रचना",
+  "subtitle": "राज्ये, जिल्हे, तालुके आणि गावांमधील भूजल देखरेखीची आकडेवारी.",
+  "allStates": "सर्व राज्ये",
+  "levels": {
+    "state": "राज्य",
+    "district": "जिल्हा",
+    "block": "तालुका",
+    "village": "गाव"
+  },
+  "metrics": {
+    "wells": "एकूण विहिरी",
+    "nodesOnline": "सक्रिय नोड्स",
+    "avgDepth": "सरासरी खोली",
+    "medianDepth": "मध्यक खोली",
+    "criticalPct": "गंभीर",
+    "warningPct": "चेतावणी",
+    "offlinePct": "ऑफलाइन",
+    "change30d": "30 दिवसांचा बदल"
+  },
+  "privacy": {
+    "badge": "गोपनीयता सुरक्षित",
+    "notice": "वैयक्तिक गोपनीयता राखण्यासाठी आकडे लपवले आहेत कारण या भागात {min} पेक्षा कमी विहिरी आहेत."
+  },
+  "actions": {
+    "exportCsv": "CSV निर्यात करा",
+    "compare": "तुलना करा",
+    "comparing": "तुलना चालू",
+    "clearCompare": "तुलना रद्द करा",
+    "viewDrilldown": "तपशील पहा",
+    "back": "मागे"
+  },
+  "searchPlaceholder": "नाव किंवा कोडने शोधा...",
+  "noRegions": "कोणताही प्रदेश आढळला नाही.",
+  "historyTitle": "30 दिवसांचा खोली आणि स्थिती कल",
+  "compareTitle": "प्रदेश तुलना",
+  "viewMode": {
+    "table": "तक्ता",
+    "choropleth": "कोरोप्लेथ नकाशा"
+  }
+}

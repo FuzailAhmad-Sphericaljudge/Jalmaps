@@ -13,6 +13,7 @@ const loaders = {
     errors: (await import("./en/errors.json")).default,
     wells: (await import("./en/wells.json")).default,
     alerts: (await import("./en/alerts.json")).default,
+    regions: (await import("./en/regions.json")).default,
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
@@ -26,6 +27,7 @@ const loaders = {
     errors: (await import("./hi/errors.json")).default,
     wells: (await import("./hi/wells.json")).default,
     alerts: (await import("./hi/alerts.json")).default,
+    regions: (await import("./hi/regions.json")).default,
   }),
   pa: async () => ({
     common: (await import("./pa/common.json")).default,
@@ -39,6 +41,7 @@ const loaders = {
     errors: (await import("./pa/errors.json")).default,
     wells: (await import("./pa/wells.json")).default,
     alerts: (await import("./pa/alerts.json")).default,
+    regions: (await import("./pa/regions.json")).default,
   }),
   mr: async () => ({
     common: (await import("./mr/common.json")).default,
@@ -52,6 +55,7 @@ const loaders = {
     errors: (await import("./mr/errors.json")).default,
     wells: (await import("./mr/wells.json")).default,
     alerts: (await import("./mr/alerts.json")).default,
+    regions: (await import("./mr/regions.json")).default,
   }),
   gu: async () => ({
     common: (await import("./gu/common.json")).default,
@@ -65,6 +69,7 @@ const loaders = {
     errors: (await import("./gu/errors.json")).default,
     wells: (await import("./gu/wells.json")).default,
     alerts: (await import("./gu/alerts.json")).default,
+    regions: (await import("./gu/regions.json")).default,
   }),
   bn: async () => ({
     common: (await import("./bn/common.json")).default,
@@ -78,6 +83,7 @@ const loaders = {
     errors: (await import("./bn/errors.json")).default,
     wells: (await import("./bn/wells.json")).default,
     alerts: (await import("./bn/alerts.json")).default,
+    regions: (await import("./bn/regions.json")).default,
   }),
   ta: async () => ({
     common: (await import("./ta/common.json")).default,
@@ -91,6 +97,7 @@ const loaders = {
     errors: (await import("./ta/errors.json")).default,
     wells: (await import("./ta/wells.json")).default,
     alerts: (await import("./ta/alerts.json")).default,
+    regions: (await import("./ta/regions.json")).default,
   }),
   te: async () => ({
     common: (await import("./te/common.json")).default,
@@ -104,6 +111,7 @@ const loaders = {
     errors: (await import("./te/errors.json")).default,
     wells: (await import("./te/wells.json")).default,
     alerts: (await import("./te/alerts.json")).default,
+    regions: (await import("./te/regions.json")).default,
   }),
   kn: async () => ({
     common: (await import("./kn/common.json")).default,
@@ -117,6 +125,7 @@ const loaders = {
     errors: (await import("./kn/errors.json")).default,
     wells: (await import("./kn/wells.json")).default,
     alerts: (await import("./kn/alerts.json")).default,
+    regions: (await import("./kn/regions.json")).default,
   }),
   ml: async () => ({
     common: (await import("./ml/common.json")).default,
@@ -130,6 +139,7 @@ const loaders = {
     errors: (await import("./ml/errors.json")).default,
     wells: (await import("./ml/wells.json")).default,
     alerts: (await import("./ml/alerts.json")).default,
+    regions: (await import("./ml/regions.json")).default,
   }),
   or: async () => ({
     common: (await import("./or/common.json")).default,
@@ -143,6 +153,7 @@ const loaders = {
     errors: (await import("./or/errors.json")).default,
     wells: (await import("./or/wells.json")).default,
     alerts: (await import("./or/alerts.json")).default,
+    regions: (await import("./or/regions.json")).default,
   }),
 } satisfies Record<AppLocale, () => Promise<unknown>>;
 

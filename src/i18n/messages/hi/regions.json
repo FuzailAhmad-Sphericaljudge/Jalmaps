@@ -1,0 +1,41 @@
+{
+  "title": "प्रशासनिक पदानुक्रम",
+  "subtitle": "राज्यों, जिलों, ब्लॉकों और गांवों में भूजल निगरानी के आंकड़े।",
+  "allStates": "सभी राज्य",
+  "levels": {
+    "state": "राज्य",
+    "district": "जिला",
+    "block": "ब्लॉक",
+    "village": "गांव"
+  },
+  "metrics": {
+    "wells": "कुल कुएं",
+    "nodesOnline": "सक्रिय नोड्स",
+    "avgDepth": "औसत गहराई",
+    "medianDepth": "मध्यिका गहराई",
+    "criticalPct": "गंभीर",
+    "warningPct": "चेतावनी",
+    "offlinePct": "ऑफलाइन",
+    "change30d": "30 दिन का बदलाव"
+  },
+  "privacy": {
+    "badge": "गोपनीयता सुरक्षित",
+    "notice": "व्यक्तिगत गोपनीयता बनाए रखने के लिए आंकड़े छिपाए गए हैं क्योंकि इस क्षेत्र में {min} से कम कुएं हैं।"
+  },
+  "actions": {
+    "exportCsv": "CSV निर्यात करें",
+    "compare": "तुलना करें",
+    "comparing": "तुलना जारी",
+    "clearCompare": "तुलना हटाएं",
+    "viewDrilldown": "विवरण देखें",
+    "back": "वापस"
+  },
+  "searchPlaceholder": "नाम या कोड से खोजें...",
+  "noRegions": "कोई क्षेत्र नहीं मिला।",
+  "historyTitle": "30 दिनों का गहराई और स्तर रुझान",
+  "compareTitle": "क्षेत्रों की तुलना",
+  "viewMode": {
+    "table": "तालिका",
+    "choropleth": "कोरोप्लेथ मानचित्र"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "title": "વહીવટી માળખું",
+  "subtitle": "રાજ્યો, જિલ્લાઓ, તાલુકાઓ અને ગામોમાં ભૂગર્ભજળ મોનિટરિંગના આંકડા.",
+  "allStates": "બધા રાજ્યો",
+  "levels": {
+    "state": "રાજ્ય",
+    "district": "જિલ્લો",
+    "block": "તાલુકો",
+    "village": "ગામ"
+  },
+  "metrics": {
+    "wells": "કુલ કૂવાઓ",
+    "nodesOnline": "સક્રિય નોડ્સ",
+    "avgDepth": "સરેરાશ ઊંડાઈ",
+    "medianDepth": "મધ્યસ્થ ઊંડાઈ",
+    "criticalPct": "ગંભીર",
+    "warningPct": "ચેતવણી",
+    "offlinePct": "ઓફલાઇન",
+    "change30d": "30 દિવસનો ફેરફાર"
+  },
+  "privacy": {
+    "badge": "ગોપનીયતા સુરક્ષિત",
+    "notice": "વ્યક્તિગત ગોપનીયતા જાળવવા આંકડા છુપાવેલ છે કારણ કે આ વિસ્તારમાં {min} કરતાં ઓછા કૂવાઓ છે."
+  },
+  "actions": {
+    "exportCsv": "CSV નિકાસ કરો",
+    "compare": "સરખામણી કરો",
+    "comparing": "સરખામણી ચાલુ",
+    "clearCompare": "સરખામણી સાફ કરો",
+    "viewDrilldown": "વિગતો જુઓ",
+    "back": "પાછા"
+  },
+  "searchPlaceholder": "નામ અથવા કોડ દ્વારા શોધો...",
+  "noRegions": "કોઈ પ્રદેશ મળ્યો નથી.",
+  "historyTitle": "30 દિવસનો ઊંડાઈ અને સ્થિતિ વલણ",
+  "compareTitle": "પ્રદેશ સરખામણી",
+  "viewMode": {
+    "table": "કોષ્ટક",
+    "choropleth": "કોરોપ્લેથ નકશો"
+  }
+}

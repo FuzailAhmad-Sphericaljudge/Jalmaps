@@ -1,0 +1,41 @@
+{
+  "title": "ਪ੍ਰਸ਼ਾਸਕੀ ਦਰਜਾਬੰਦੀ",
+  "subtitle": "ਰਾਜਾਂ, ਜ਼ਿਲ੍ਹਿਆਂ, ਬਲਾਕਾਂ ਅਤੇ ਪਿੰਡਾਂ ਵਿੱਚ ਧਰਤੀ ਹੇਠਲੇ ਪਾਣੀ ਦੇ ਅੰਕੜੇ।",
+  "allStates": "ਸਾਰੇ ਰਾਜ",
+  "levels": {
+    "state": "ਰਾਜ",
+    "district": "ਜ਼ਿਲ੍ਹਾ",
+    "block": "ਬਲਾਕ",
+    "village": "ਪਿੰਡ"
+  },
+  "metrics": {
+    "wells": "ਕੁੱਲ ਖੂਹ",
+    "nodesOnline": "ਸਰਗਰਮ ਨੋਡਜ਼",
+    "avgDepth": "ਔਸਤ ਡੂੰਘਾਈ",
+    "medianDepth": "ਦਰਮਿਆਨੀ ਡੂੰਘਾਈ",
+    "criticalPct": "ਨਾਜ਼ੁਕ",
+    "warningPct": "ਚੇਤਾਵਨੀ",
+    "offlinePct": "ਔਫਲਾਈਨ",
+    "change30d": "30 ਦਿਨਾਂ ਦੀ ਤਬਦੀਲੀ"
+  },
+  "privacy": {
+    "badge": "ਗੋਪਨੀਯਤਾ ਸੁਰੱਖਿਅਤ",
+    "notice": "ਗੋਪਨੀਯਤਾ ਦੀ ਰੱਖਿਆ ਲਈ ਅੰਕੜੇ ਲੁਕਾਏ ਗਏ ਹਨ ਕਿਉਂਕਿ ਇਸ ਖੇਤਰ ਵਿੱਚ {min} ਤੋਂ ਘੱਟ ਖੂਹ ਹਨ।"
+  },
+  "actions": {
+    "exportCsv": "CSV ਐਕਸਪੋਰਟ ਕਰੋ",
+    "compare": "ਤੁਲਨਾ ਕਰੋ",
+    "comparing": "ਤੁਲਨਾ ਜਾਰੀ",
+    "clearCompare": "ਤੁਲਨਾ ਸਾਫ਼ ਕਰੋ",
+    "viewDrilldown": "ਵੇਰਵੇ ਦੇਖੋ",
+    "back": "ਵਾਪਸ"
+  },
+  "searchPlaceholder": "ਨਾਮ ਜਾਂ ਕੋਡ ਦੁਆਰਾ ਖੋਜੋ...",
+  "noRegions": "ਕੋਈ ਖੇਤਰ ਨਹੀਂ ਮਿਲਿਆ।",
+  "historyTitle": "30 ਦਿਨਾਂ ਦਾ ਡੂੰਘਾਈ ਅਤੇ ਪੱਧਰ ਰੁਝਾਨ",
+  "compareTitle": "ਖੇਤਰਾਂ ਦੀ ਤੁਲਨਾ",
+  "viewMode": {
+    "table": "ਸਾਰਣੀ",
+    "choropleth": "ਕੋਰੋਪਲੇਥ ਨਕਸ਼ਾ"
+  }
+}

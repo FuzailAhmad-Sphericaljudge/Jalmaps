@@ -1,0 +1,41 @@
+{
+  "title": "Administrative Hierarchy",
+  "subtitle": "Groundwater monitoring roll-ups across states, districts, blocks, and villages.",
+  "allStates": "All States",
+  "levels": {
+    "state": "State",
+    "district": "District",
+    "block": "Block",
+    "village": "Village"
+  },
+  "metrics": {
+    "wells": "Total Wells",
+    "nodesOnline": "Nodes Online",
+    "avgDepth": "Avg Depth",
+    "medianDepth": "Median Depth",
+    "criticalPct": "Critical",
+    "warningPct": "Warning",
+    "offlinePct": "Offline",
+    "change30d": "30-Day Change"
+  },
+  "privacy": {
+    "badge": "Privacy Masked",
+    "notice": "Statistics are masked because this area has fewer than {min} wells to protect owner privacy."
+  },
+  "actions": {
+    "exportCsv": "Export CSV",
+    "compare": "Compare",
+    "comparing": "Comparing",
+    "clearCompare": "Clear Comparison",
+    "viewDrilldown": "Drill down",
+    "back": "Back"
+  },
+  "searchPlaceholder": "Search region by name or code...",
+  "noRegions": "No regions found.",
+  "historyTitle": "30-Day Depth & Criticality Trend",
+  "compareTitle": "Region Comparison",
+  "viewMode": {
+    "table": "Table",
+    "choropleth": "Choropleth"
+  }
+}
