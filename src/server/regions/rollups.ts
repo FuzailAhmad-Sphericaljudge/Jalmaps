@@ -7,6 +7,7 @@ export interface RankedRegionItem {
   level: "state" | "district" | "block" | "village";
   stats: RegionStats;
   isPrivacySuppressed: boolean;
+  simplified_geojson?: Record<string, unknown> | null;
 }
 
 export type RegionSortKey = "name" | "wells" | "critical" | "depth" | "change";

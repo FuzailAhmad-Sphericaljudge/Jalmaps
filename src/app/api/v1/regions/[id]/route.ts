@@ -34,7 +34,7 @@ export async function GET(request: Request, context: { params: Promise<{ id: str
     .eq("id", session.user.id)
     .maybeSingle();
 
-  const isSuperUser = profile?.role === "super_admin";
+  const isSuperUser = profile?.role === "admin";
 
   try {
     const detail = await getRegionDetail(supabase, parsedParams.data.id, {

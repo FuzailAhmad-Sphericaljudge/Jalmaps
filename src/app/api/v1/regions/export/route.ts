@@ -40,7 +40,7 @@ export async function GET(request: Request) {
     .eq("id", session.user.id)
     .maybeSingle();
 
-  const isSuperUser = profile?.role === "super_admin";
+  const isSuperUser = profile?.role === "admin";
 
   try {
     const regions = await listRegions(supabase, {
@@ -66,4 +66,3 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
-

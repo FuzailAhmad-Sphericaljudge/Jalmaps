@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/server/auth";
-import { createServerClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/server/supabase/server-component";
 import { getRegionDetail, listRegions } from "@/server/regions/service";
 import { RegionDetailView } from "@/features/regions/RegionDetailView";
 
@@ -12,11 +12,11 @@ export default async function OfficialRegionDetailPage({ params }: PageProps) {
   const { locale, id } = await params;
   const session = await getSession();
 
-  if (!session || !["official", "admin"].includes(session.user.role)) {
+  if (!session || !session.user.role || !["official", "admin"].includes(session.user.role)) {
     redirect(`/${locale}/auth/login`);
   }
 
-  const supabase = await createServerClient();
+  const supabase = await createServerComponentClient();
   const region = await getRegionDetail(supabase, id, {
     locale,
     bypassPrivacy: session.user.role === "admin",

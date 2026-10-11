@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/server/auth";
-import { createServerClient } from "@/lib/supabase/server";
+import { createServerComponentClient } from "@/server/supabase/server-component";
 import { listRegions } from "@/server/regions/service";
 import { RegionsOverviewView } from "@/features/regions/RegionsOverviewView";
 import type { RegionStats } from "@/server/regions/privacy";
@@ -13,11 +13,11 @@ export default async function OfficialRegionsPage({ params }: PageProps) {
   const { locale } = await params;
   const session = await getSession();
 
-  if (!session || !["official", "admin"].includes(session.user.role)) {
+  if (!session || !session.user.role || !["official", "admin"].includes(session.user.role)) {
     redirect(`/${locale}/auth/login`);
   }
 
-  const supabase = await createServerClient();
+  const supabase = await createServerComponentClient();
   const regions = await listRegions(supabase, {
     level: "state",
     locale,
@@ -47,6 +47,7 @@ export default async function OfficialRegionsPage({ params }: PageProps) {
     pct_critical: totalWells > 0 ? weightedCriticalSum / totalWells : 0,
     pct_warning: 0,
     pct_offline: 0,
+    avg_change_30d_m: 0,
   };
 
   return (
