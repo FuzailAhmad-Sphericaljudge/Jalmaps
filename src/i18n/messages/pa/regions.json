@@ -52,5 +52,10 @@
     "critical": "Critical %",
     "status": "Status",
     "actions": "Actions"
+  },
+  "legend": {
+    "low": "< 15%",
+    "medium": "15% - 30%",
+    "high": "> 30%"
   }
 }
