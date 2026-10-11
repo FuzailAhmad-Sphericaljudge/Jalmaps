@@ -170,8 +170,8 @@ export async function importBoundariesFromFile(
         level: item.level,
         names: item.names,
         // PostGIS geometry will be parsed from GeoJSON text via PostgREST / Supabase
-        boundary: JSON.stringify(item.geometry) as unknown as string,
-        boundary_simplified: JSON.stringify(item.simplifiedGeometry) as unknown as string,
+        boundary: JSON.stringify(item.geometry) as unknown as never,
+        boundary_simplified: JSON.stringify(item.simplifiedGeometry) as unknown as never,
       },
       { onConflict: "code" },
     );
@@ -185,11 +185,13 @@ export async function importBoundariesFromFile(
 
   // Trigger well point-in-polygon backfill and refresh area stats
   console.log("Triggering well-to-area assignment and area stats refresh...");
-  const { error: backfillErr } = await client.rpc("backfill_well_admin_areas");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error: backfillErr } = await (client as any).rpc("backfill_well_admin_areas");
   if (backfillErr) {
     console.warn("Backfill warning:", backfillErr.message);
   }
-  const { error: refreshErr } = await client.rpc("refresh_area_stats");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error: refreshErr } = await (client as any).rpc("refresh_area_stats");
   if (refreshErr) {
     console.warn("Refresh stats warning:", refreshErr.message);
   }

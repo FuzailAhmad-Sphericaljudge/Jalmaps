@@ -1,4 +1,4 @@
-import { createServiceRoleClient } from "@/lib/supabase/service-role";
+import { createServiceRoleClient } from "../../src/server/supabase/service-role";
 
 /**
  * Synthetic Demo Generator for Administrative Hierarchy & Aggregation.
@@ -175,7 +175,8 @@ export async function seedGeoDemo(): Promise<void> {
   ];
 
   for (const stat of areaStats) {
-    await supabase.from("area_stats").upsert(stat, { onConflict: "area_id" });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase as any).from("area_stats").upsert(stat, { onConflict: "area_id" });
   }
 
   // 6. Seed 30-day daily history for District & Village A
@@ -203,7 +204,8 @@ export async function seedGeoDemo(): Promise<void> {
     });
   }
 
-  await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (supabase as any)
     .from("area_stats_daily")
     .upsert(dailyHistoryEntries, { onConflict: "area_id,recorded_date" });
 
@@ -216,4 +218,3 @@ if (process.argv[1]?.endsWith("geo-demo.ts")) {
     process.exit(1);
   });
 }
-
