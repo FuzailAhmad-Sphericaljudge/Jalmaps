@@ -11,6 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { isAppLocale, locales } from "@/i18n/config";
 import { getFontClassName } from "@/i18n/fonts";
 import { THEME_COOKIE_NAME, parseThemeCookieValue } from "@/server/theme";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 import "../globals.css";
 
@@ -79,9 +80,11 @@ export default async function LocaleLayout({
       <body className="flex min-h-full flex-col font-sans">
         <ThemeProvider initialTheme={parseThemeCookieValue(themeCookie)}>
           <NextIntlClientProvider messages={messages}>
-            <AppHeader />
-            {children}
-            <Toaster />
+            <QueryProvider>
+              <AppHeader />
+              {children}
+              <Toaster />
+            </QueryProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
