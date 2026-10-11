@@ -107,9 +107,8 @@ export function runScenarioBacktest(
     sufficiency,
     monsoon,
     depletion,
-    maxDrySeasonDepthM: 18.0,
-    totalWellDepthM: 35.0,
-    pumpStress,
+    peakDrySeasonDepthM: 18.0,
+    wellDepthOrCriticalThresholdM: 35.0,
   });
 
   const estimatedTrend = depletion.depletionRateMPerYear ?? null;
