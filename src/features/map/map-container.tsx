@@ -206,7 +206,11 @@ export function MapContainer({
   }, []);
 
   return (
-    <div className="relative flex h-[calc(100vh-140px)] min-h-[500px] w-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-slate-50 shadow-sm">
+    <div
+      role="region"
+      aria-label={t("title")}
+      className="relative flex h-[calc(100vh-140px)] min-h-[500px] w-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-slate-50 shadow-sm"
+    >
       {/* Top Floating Controls */}
       <div className="pointer-events-auto absolute top-3 right-3 left-3 z-10">
         <MapFilters

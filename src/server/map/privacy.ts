@@ -1,5 +1,6 @@
 import type { Profile } from "@/server/auth";
 import type { WellStatusType } from "./types";
+export type { WellStatusType } from "./types";
 
 export interface RawWell {
   id: string;

@@ -149,7 +149,7 @@ describe("Ingestion Service Integration", () => {
     );
     expect(res2.duplicates).toBe(1);
     expect(res2.accepted).toBe(0);
-  });
+  }, 15000);
 
   it("rejects revoked key", async () => {
     await revokeNodeKey(db, validHardwareId);

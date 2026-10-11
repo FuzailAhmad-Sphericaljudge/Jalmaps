@@ -3,7 +3,7 @@
  * Demonstrates smooth grid-based clustering under dense multi-well conditions.
  */
 import { clusterFeatures } from "../../src/server/map/cluster";
-import type { SanitizedWellFeature } from "../../src/server/map/privacy";
+import type { SanitizedWellFeature, WellStatusType } from "../../src/server/map/privacy";
 
 function generateSyntheticWells(count: number): SanitizedWellFeature[] {
   const minLng = 68.7;
@@ -11,20 +11,14 @@ function generateSyntheticWells(count: number): SanitizedWellFeature[] {
   const minLat = 8.4;
   const maxLat = 37.6;
 
-  const statuses: ("critical" | "warning" | "normal" | "unknown")[] = [
-    "critical",
-    "warning",
-    "normal",
-    "normal",
-    "unknown",
-  ];
+  const statuses: WellStatusType[] = ["critical", "warning", "normal", "normal", "unknown"];
 
   const features: SanitizedWellFeature[] = [];
 
   for (let i = 0; i < count; i++) {
     const lng = minLng + Math.random() * (maxLng - minLng);
     const lat = minLat + Math.random() * (maxLat - minLat);
-    const status = statuses[i % statuses.length];
+    const status = statuses[i % statuses.length]!;
 
     features.push({
       id: `synthetic-well-${i + 1}`,
