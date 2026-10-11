@@ -2,8 +2,9 @@ import { z } from "zod";
 
 import { uuidSchema } from "./ids";
 
-const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
-type JsonValue = string | number | boolean | null | { [key: string]: JsonValue } | JsonValue[];
+const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null(), z.undefined()]);
+type JsonValue =
+  string | number | boolean | null | undefined | { [key: string]: JsonValue } | JsonValue[];
 const jsonSchema: z.ZodType<JsonValue> = z.lazy(() =>
   z.union([literalSchema, z.array(jsonSchema), z.record(z.string(), jsonSchema)]),
 );

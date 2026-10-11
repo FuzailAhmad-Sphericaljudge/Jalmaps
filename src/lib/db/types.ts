@@ -454,6 +454,59 @@ export type Database = {
         };
         Relationships: [];
       };
+      area_insights: {
+        Row: {
+          area_id: string;
+          as_of: string;
+          avg_depletion_rate_m_per_year: number | null;
+          avg_health_score: number | null;
+          created_at: string;
+          dominant_health_band: string | null;
+          id: string;
+          insights: NonNullable<Json>;
+          is_sufficient: boolean;
+          total_recharge_volume_mcm: number | null;
+          wells_count: number;
+          worst_health_score: number | null;
+        };
+        Insert: {
+          area_id: string;
+          as_of: string;
+          avg_depletion_rate_m_per_year?: number | null;
+          avg_health_score?: number | null;
+          created_at?: string;
+          dominant_health_band?: string | null;
+          id?: string;
+          insights?: NonNullable<Json>;
+          is_sufficient?: boolean;
+          total_recharge_volume_mcm?: number | null;
+          wells_count?: number;
+          worst_health_score?: number | null;
+        };
+        Update: {
+          area_id?: string;
+          as_of?: string;
+          avg_depletion_rate_m_per_year?: number | null;
+          avg_health_score?: number | null;
+          created_at?: string;
+          dominant_health_band?: string | null;
+          id?: string;
+          insights?: NonNullable<Json>;
+          is_sufficient?: boolean;
+          total_recharge_volume_mcm?: number | null;
+          wells_count?: number;
+          worst_health_score?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "area_insights_area_id_fkey";
+            columns: ["area_id"];
+            isOneToOne: false;
+            referencedRelation: "admin_areas";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       area_stats: {
         Row: {
           area_id: string;
@@ -1119,6 +1172,68 @@ export type Database = {
           },
           {
             foreignKeyName: "well_crops_well_id_fkey";
+            columns: ["well_id"];
+            isOneToOne: false;
+            referencedRelation: "wells";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      well_insights: {
+        Row: {
+          as_of: string;
+          created_at: string;
+          depletion: NonNullable<Json>;
+          health: NonNullable<Json>;
+          health_band: string | null;
+          health_score: number | null;
+          id: string;
+          is_sufficient: boolean;
+          monsoon: NonNullable<Json>;
+          pumping: NonNullable<Json>;
+          recharge: NonNullable<Json>;
+          seasonal: NonNullable<Json>;
+          sufficiency: NonNullable<Json>;
+          updated_at: string;
+          well_id: string;
+        };
+        Insert: {
+          as_of: string;
+          created_at?: string;
+          depletion?: NonNullable<Json>;
+          health?: NonNullable<Json>;
+          health_band?: string | null;
+          health_score?: number | null;
+          id?: string;
+          is_sufficient?: boolean;
+          monsoon?: NonNullable<Json>;
+          pumping?: NonNullable<Json>;
+          recharge?: NonNullable<Json>;
+          seasonal?: NonNullable<Json>;
+          sufficiency?: NonNullable<Json>;
+          updated_at?: string;
+          well_id: string;
+        };
+        Update: {
+          as_of?: string;
+          created_at?: string;
+          depletion?: NonNullable<Json>;
+          health?: NonNullable<Json>;
+          health_band?: string | null;
+          health_score?: number | null;
+          id?: string;
+          is_sufficient?: boolean;
+          monsoon?: NonNullable<Json>;
+          pumping?: NonNullable<Json>;
+          recharge?: NonNullable<Json>;
+          seasonal?: NonNullable<Json>;
+          sufficiency?: NonNullable<Json>;
+          updated_at?: string;
+          well_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "well_insights_well_id_fkey";
             columns: ["well_id"];
             isOneToOne: false;
             referencedRelation: "wells";
