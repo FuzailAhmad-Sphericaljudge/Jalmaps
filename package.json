@@ -34,7 +34,8 @@
     "node:key": "tsx scripts/node/key.ts",
     "geo:import": "tsx scripts/geo/import-boundaries.ts",
     "sim:geo-demo": "tsx scripts/sim/geo-demo.ts",
-    "insights:refresh": "tsx scripts/insights/refresh.ts"
+    "insights:refresh": "tsx scripts/insights/refresh.ts",
+    "test:insights": "tsx scripts/insights/backtest.ts"
   },
   "dependencies": {
     "@serwist/next": "^9.5.13",
