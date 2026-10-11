@@ -1,4 +1,7 @@
-import { createServiceRoleClient } from "../../src/server/supabase/service-role";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+require("@next/env").loadEnvConfig(process.cwd());
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "../../src/lib/db/types";
 
 /**
  * Synthetic Demo Generator for Administrative Hierarchy & Aggregation.
@@ -7,7 +10,12 @@ import { createServiceRoleClient } from "../../src/server/supabase/service-role"
  * then triggers recalculation of aggregate area_stats and area_stats_daily.
  */
 export async function seedGeoDemo(): Promise<void> {
-  const supabase = createServiceRoleClient();
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "http://127.0.0.1:54321";
+  const serviceKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy";
+  const supabase = createClient<Database>(supabaseUrl, serviceKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 
   console.log("Seeding synthetic geographic hierarchy and aggregation demo data...");
 
