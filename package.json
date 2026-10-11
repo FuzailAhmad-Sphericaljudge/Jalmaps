@@ -31,7 +31,9 @@
     "sim:reset": "tsx scripts/sim/reset.ts",
     "sim:status": "tsx scripts/sim/status.ts",
     "sim:export": "tsx scripts/sim/export.ts",
-    "node:key": "tsx scripts/node/key.ts"
+    "node:key": "tsx scripts/node/key.ts",
+    "geo:import": "tsx scripts/geo/import-boundaries.ts",
+    "sim:geo-demo": "tsx scripts/sim/geo-demo.ts"
   },
   "dependencies": {
     "@serwist/next": "^9.5.13",
