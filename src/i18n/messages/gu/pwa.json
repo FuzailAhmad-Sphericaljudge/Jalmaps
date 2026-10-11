@@ -6,5 +6,11 @@
   "shortcutAlerts": "Alerts",
   "updateAvailable": "Update available. Reload to apply.",
   "reload": "Reload",
-  "offlineMessage": "Last updated {time}, you are offline"
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "જલમેપ્સ ઇન્સ્ટોલ કરો",
+  "installText": "ઑફલાઇન ઍક્સેસ અને બહેતર પ્રદર્શન માટે ઇન્સ્ટોલ કરો.",
+  "installIosText": "ઇન્સ્ટોલ કરવા માટે શેર અને પછી 'હોમ સ્ક્રીન પર ઉમેરો' પર ટૅપ કરો.",
+  "close": "બંધ કરો",
+  "notNow": "હમણાં નહીં",
+  "install": "ઇન્સ્ટોલ કરો"
 }

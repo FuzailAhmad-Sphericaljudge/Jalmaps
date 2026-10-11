@@ -6,5 +6,11 @@
   "shortcutAlerts": "Alerts",
   "updateAvailable": "Update available. Reload to apply.",
   "reload": "Reload",
-  "offlineMessage": "Last updated {time}, you are offline"
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "జల్‌మ్యాప్స్ ఇన్‌స్టాల్ చేయండి",
+  "installText": "ఆఫ్‌లైన్ యాక్సెస్ మరియు మెరుగైన పనితీరు కోసం ఇన్‌స్టాల్ చేయండి.",
+  "installIosText": "ఇన్‌స్టాల్ చేయడానికి షేర్ ఆపై 'హోమ్ స్క్రీన్‌కు జోడించు' నొక్కండి.",
+  "close": "మూసివేయి",
+  "notNow": "ఇప్పుడు కాదు",
+  "install": "ఇన్‌స్టాల్ చేయండి"
 }

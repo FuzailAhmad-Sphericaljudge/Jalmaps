@@ -6,5 +6,11 @@
   "shortcutAlerts": "Alerts",
   "updateAvailable": "Update available. Reload to apply.",
   "reload": "Reload",
-  "offlineMessage": "Last updated {time}, you are offline"
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "जलमैप्स इंस्टॉल करें",
+  "installText": "ऑफ़लाइन पहुँच और बेहतर प्रदर्शन के लिए इंस्टॉल करें।",
+  "installIosText": "इंस्टॉल करने के लिए शेयर और फिर 'होम स्क्रीन में जोड़ें' पर टैप करें।",
+  "close": "बंद करें",
+  "notNow": "अभी नहीं",
+  "install": "इंस्टॉल करें"
 }

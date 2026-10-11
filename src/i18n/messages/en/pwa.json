@@ -6,5 +6,11 @@
   "shortcutAlerts": "Alerts",
   "updateAvailable": "Update available. Reload to apply.",
   "reload": "Reload",
-  "offlineMessage": "Last updated {time}, you are offline"
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "Install JalMaps",
+  "installText": "Install for offline access and better performance.",
+  "installIosText": "Tap Share then 'Add to Home Screen' to install.",
+  "close": "Close",
+  "notNow": "Not now",
+  "install": "Install"
 }

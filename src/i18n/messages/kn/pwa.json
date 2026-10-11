@@ -6,5 +6,11 @@
   "shortcutAlerts": "Alerts",
   "updateAvailable": "Update available. Reload to apply.",
   "reload": "Reload",
-  "offlineMessage": "Last updated {time}, you are offline"
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "ಜಲಮ್ಯಾಪ್ಸ್ ಸ್ಥಾಪಿಸಿ",
+  "installText": "ಆಫ್‌ಲೈನ್ ಪ್ರವೇಶ ಮತ್ತು ಉತ್ತಮ ಕಾರ್ಯಕ್ಷಮತೆಗಾಗಿ ಸ್ಥಾಪಿಸಿ.",
+  "installIosText": "ಸ್ಥಾಪಿಸಲು ಹಂಚಿಕೊಳ್ಳಿ ನಂತರ 'ಮುಖಪುಟ ಪರದೆಗೆ ಸೇರಿಸಿ' ಟ್ಯಾಪ್ ಮಾಡಿ.",
+  "close": "ಮುಚ್ಚಿ",
+  "notNow": "ಈಗ ಬೇಡ",
+  "install": "ಸ್ಥಾಪಿಸಿ"
 }

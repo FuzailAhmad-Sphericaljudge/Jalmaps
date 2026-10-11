@@ -6,5 +6,11 @@
   "shortcutAlerts": "Alerts",
   "updateAvailable": "Update available. Reload to apply.",
   "reload": "Reload",
-  "offlineMessage": "Last updated {time}, you are offline"
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "ஜல்மேப்ஸ் நிறுவவும்",
+  "installText": "ஆஃப்லைன் அணுகல் மற்றும் சிறந்த செயல்திறனுக்காக நிறுவவும்.",
+  "installIosText": "நிறுவ பகிர் என்பதைத் தட்டி 'முகப்புத் திரையில் சேர்' என்பதைத் தேர்ந்தெடுக்கவும்.",
+  "close": "மூடு",
+  "notNow": "இப்போது வேண்டாம்",
+  "install": "நிறுவு"
 }
