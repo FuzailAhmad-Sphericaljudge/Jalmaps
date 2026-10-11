@@ -19,6 +19,7 @@ import { MapPopup } from "./map-popup";
 import { MapFilters } from "./map-filters";
 import { MapListView } from "./map-list-view";
 import { LocateButton } from "./locate-button";
+import { MapLegend } from "./map-legend";
 import type {
   MapFeatureCollection,
   MapPointProperties,
@@ -302,8 +303,9 @@ export function MapContainer({
             </div>
           )}
 
-          {/* Locate Button */}
-          <div className="pointer-events-auto absolute right-2.5 bottom-28 z-10">
+          {/* Controls: Legend & Locate Button */}
+          <div className="pointer-events-auto absolute right-2.5 bottom-28 z-10 flex flex-col items-end gap-2">
+            <MapLegend />
             <LocateButton onLocationFound={handleLocateFound} />
           </div>
         </div>

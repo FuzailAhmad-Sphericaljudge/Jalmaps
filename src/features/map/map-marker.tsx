@@ -4,6 +4,34 @@ import React from "react";
 import { AlertTriangle, AlertCircle, Droplets, HelpCircle } from "lucide-react";
 import type { WellStatusType } from "@/server/map/types";
 
+export function getStatusColor(status: WellStatusType): string {
+  switch (status) {
+    case "critical":
+      return "#dc2626"; // red-600
+    case "warning":
+      return "#f59e0b"; // amber-500
+    case "normal":
+      return "#059669"; // emerald-600
+    case "unknown":
+    default:
+      return "#64748b"; // slate-500
+  }
+}
+
+export function getStatusShape(status: WellStatusType): string {
+  switch (status) {
+    case "critical":
+      return "[clip-path:polygon(30%_0%,70%_0%,100%_30%,100%_70%,70%_100%,30%_100%,0%_70%,0%_30%)]";
+    case "warning":
+      return "[clip-path:polygon(50%_0%,100%_50%,50%_100%,0%_50%)]";
+    case "normal":
+      return "rounded-full";
+    case "unknown":
+    default:
+      return "rounded-md";
+  }
+}
+
 export interface MapMarkerProps {
   status: WellStatusType;
   isCluster?: boolean;
