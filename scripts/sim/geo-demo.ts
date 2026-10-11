@@ -128,6 +128,20 @@ export async function seedGeoDemo(): Promise<void> {
     throw new Error(`Failed to insert villages: ${vAErr?.message || vBErr?.message}`);
   }
 
+  // 4b. Assign simulated wells to villages: 5 to Village A (passes k>=3), 2 to Village B (privacy masked)
+  const { data: simWells } = await supabase.from("wells").select("id").limit(10);
+  if (simWells && simWells.length >= 7) {
+    for (let i = 0; i < 5; i++) {
+      await supabase.from("wells").update({ admin_area_id: villageA.id }).eq("id", simWells[i]!.id);
+    }
+    for (let i = 5; i < 7; i++) {
+      await supabase.from("wells").update({ admin_area_id: villageB.id }).eq("id", simWells[i]!.id);
+    }
+    console.log(
+      `Assigned 5 wells to Village A (${villageA.id}) and 2 wells to Village B (${villageB.id}).`,
+    );
+  }
+
   // 5. Seed area_stats directly for the demo hierarchy
   const areaStats = [
     {

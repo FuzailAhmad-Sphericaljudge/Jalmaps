@@ -178,7 +178,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
       raw_sim: {
         scenario: config.scenario,
         truth_depth_m: truthDepthM,
-        injected_fault: injectedFault || undefined,
+        ...(injectedFault ? { injected_fault: injectedFault } : {}),
       },
     };
   }
@@ -237,7 +237,7 @@ export function generateReading(config: NodeSimConfig, date: Date, prng: PRNG): 
     raw_sim: {
       scenario: config.scenario,
       truth_depth_m: truthDepthM,
-      injected_fault: injectedFault || undefined,
+      ...(injectedFault ? { injected_fault: injectedFault } : {}),
     },
   };
 }
