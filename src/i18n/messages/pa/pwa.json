@@ -1,0 +1,10 @@
+{
+  "name": "JalMaps",
+  "shortName": "JalMaps",
+  "description": "Groundwater monitoring platform",
+  "shortcutMyWells": "My Wells",
+  "shortcutAlerts": "Alerts",
+  "updateAvailable": "Update available. Reload to apply.",
+  "reload": "Reload",
+  "offlineMessage": "Last updated {time}, you are offline"
+}
