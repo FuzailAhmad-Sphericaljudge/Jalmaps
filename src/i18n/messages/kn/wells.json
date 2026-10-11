@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "ಅಂತರ್ಜಲ ನಕ್ಷೆ",
+    "myWell": "ನನ್ನ ಬಾವಿ",
+    "approxLocation": "ಅಂದಾಜು ಸ್ಥಳ",
+    "depthToWater": "ನೀರಿನ ಆಳ:",
+    "trend7d": "7-ದಿನಗಳ ಪ್ರವೃತ್ತಿ:",
+    "falling": "ಇಳಿಯುತ್ತಿದೆ",
+    "rising": "ಏರುತ್ತಿದೆ",
+    "stable": "ಸ್ಥಿರವಾಗಿದೆ",
+    "lastReading": "ಕೊನೆಯ ಓದುವಿಕೆ:",
+    "viewDetails": "ವಿವರಗಳನ್ನು ನೋಡಿ",
+    "noData": "ಮಾಹಿತಿ ಇಲ್ಲ",
+    "status": {
+      "critical": "ಗಂಭೀರ",
+      "warning": "ಎಚ್ಚರಿಕೆ",
+      "normal": "ಸಾಮಾನ್ಯ",
+      "unknown": "ತಿಳಿದಿಲ್ಲ"
+    },
+    "filterStatus": "ಸ್ಥಿತಿ",
+    "filterType": "ವಿಧ",
+    "all": "ಎಲ್ಲಾ",
+    "locateMe": "ನನ್ನ ಸ್ಥಳ",
+    "viewList": "ಪಟ್ಟಿ ನೋಟ",
+    "viewMap": "ನಕ್ಷೆ ನೋಟ",
+    "clusterAria": "{count} ಬಾವಿಗಳ ಸಮೂಹ, ಕೆಟ್ಟ ಸ್ಥಿತಿ {status}",
+    "markerAria": "ಬಾವಿ: {name}, ಸ್ಥಿತಿ {status}",
+    "offlineFallback": "ಆಫ್‌ಲೈನ್ ನಕ್ಷೆ ಸಕ್ರಿಯವಾಗಿದೆ",
+    "wellsInView": "{count, plural, =0 {ನೋಟದಲ್ಲಿ ಬಾವಿಗಳಿಲ್ಲ} one {ನೋಟದಲ್ಲಿ # ಬಾವಿ} other {ನೋಟದಲ್ಲಿ # ಬಾವಿಗಳು}}",
+    "nameHeader": "ಬಾವಿಯ ಹೆಸರು",
+    "villageHeader": "ಗ್ರಾಮ",
+    "depthHeader": "ಆಳ",
+    "statusHeader": "ಸ್ಥಿತಿ",
+    "updatedHeader": "ಕೊನೆಯ ಅಪ್ಡೇಟ್",
+    "close": "ಮುಚ್ಚಿ"
   }
 }

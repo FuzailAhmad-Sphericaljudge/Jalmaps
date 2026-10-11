@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "நிலத்தடி நீர் வரைபடம்",
+    "myWell": "என் கிணறு",
+    "approxLocation": "தோராயமான இடம்",
+    "depthToWater": "நீரின் ஆழம்:",
+    "trend7d": "7-நாள் போக்கு:",
+    "falling": "குறைகிறது",
+    "rising": "அதிகரிக்கிறது",
+    "stable": "நிலையானது",
+    "lastReading": "கடைசி அளவீடு:",
+    "viewDetails": "விவரங்களைக் காண்க",
+    "noData": "தரவு இல்லை",
+    "status": {
+      "critical": "முக்கியமானது",
+      "warning": "எச்சரிக்கை",
+      "normal": "இயல்பானது",
+      "unknown": "தெரியவில்லை"
+    },
+    "filterStatus": "நிலை",
+    "filterType": "வகை",
+    "all": "அனைத்தும்",
+    "locateMe": "என் இருப்பிடம்",
+    "viewList": "பட்டியல் காட்சி",
+    "viewMap": "வரைபடக் காட்சி",
+    "clusterAria": "{count} கிணறுகளின் தொகுப்பு, மோசமான நிலை {status}",
+    "markerAria": "கிணறு: {name}, நிலை {status}",
+    "offlineFallback": "ஆஃப்லைன் வரைபடம் செயலில் உள்ளது",
+    "wellsInView": "{count, plural, =0 {காட்சியில் கிணறுகள் இல்லை} one {காட்சியில் # கிணறு} other {காட்சியில் # கிணறுகள்}}",
+    "nameHeader": "கிணற்றின் பெயர்",
+    "villageHeader": "கிராமம்",
+    "depthHeader": "ஆழம்",
+    "statusHeader": "நிலை",
+    "updatedHeader": "கடைசியாக புதுப்பிக்கப்பட்டது",
+    "close": "மூடு"
   }
 }

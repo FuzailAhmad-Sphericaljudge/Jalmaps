@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "ভূগর্ভস্থ জল মানচিত্র",
+    "myWell": "আমার নলকূপ",
+    "approxLocation": "আনুমানিক অবস্থান",
+    "depthToWater": "জলের গভীরতা:",
+    "trend7d": "৭ দিনের গতিধারা:",
+    "falling": "হ্রাস পাচ্ছে",
+    "rising": "বৃদ্ধি পাচ্ছে",
+    "stable": "স্থিতিশীল",
+    "lastReading": "সর্বশেষ পাঠ:",
+    "viewDetails": "বিবরণ দেখুন",
+    "noData": "কোনো তথ্য নেই",
+    "status": {
+      "critical": "সংকটজনক",
+      "warning": "সতর্কতা",
+      "normal": "স্বাভাবিক",
+      "unknown": "অজানা"
+    },
+    "filterStatus": "অবস্থা",
+    "filterType": "ধরন",
+    "all": "সব",
+    "locateMe": "আমার অবস্থান",
+    "viewList": "তালিকা দৃশ্য",
+    "viewMap": "মানচিত্র দৃশ্য",
+    "clusterAria": "{count}টি কূপের দল, সবচেয়ে খারাপ অবস্থা {status}",
+    "markerAria": "কূপ: {name}, অবস্থা {status}",
+    "offlineFallback": "অফলাইন মানচিত্র সক্রিয়",
+    "wellsInView": "{count, plural, =0 {দৃশ্যপটে কোনো কূপ নেই} one {দৃশ্যপটে #টি কূপ} other {দৃশ্যপটে #টি কূপ}}",
+    "nameHeader": "কূপের নাম",
+    "villageHeader": "গ্রাম",
+    "depthHeader": "গভীরতা",
+    "statusHeader": "অবস্থা",
+    "updatedHeader": "সর্বশেষ আপডেট",
+    "close": "বন্ধ করুন"
   }
 }

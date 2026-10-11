@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "ଭୂତଳ ଜଳ ମାନଚିତ୍ର",
+    "myWell": "ମୋର କୂଅ",
+    "approxLocation": "ଆନୁମାନିକ ସ୍ଥାନ",
+    "depthToWater": "ଜଳର ଗଭୀରତା:",
+    "trend7d": "୭-ଦିନର ଧାରା:",
+    "falling": "କମୁଛି",
+    "rising": "ବଢୁଛି",
+    "stable": "ସ୍ଥିର",
+    "lastReading": "ଶେଷ ରିଡିଂ:",
+    "viewDetails": "ବିବରଣୀ ଦେଖନ୍ତୁ",
+    "noData": "ତଥ୍ୟ ନାହିଁ",
+    "status": {
+      "critical": "ଗମ୍ଭୀର",
+      "warning": "ଚେତାବନୀ",
+      "normal": "ସାଧାରଣ",
+      "unknown": "ଅଜ୍ଞାତ"
+    },
+    "filterStatus": "ସ୍ଥିତି",
+    "filterType": "ପ୍ରକାର",
+    "all": "ସମସ୍ତ",
+    "locateMe": "ମୋର ସ୍ଥାନ",
+    "viewList": "ତାଲିକା ଦୃଶ୍ୟ",
+    "viewMap": "ମାନଚିତ୍ର ଦୃଶ୍ୟ",
+    "clusterAria": "{count} କୂଅର ଗୋଷ୍ଠୀ, ଖରାପ ସ୍ଥିତି {status}",
+    "markerAria": "କୂଅ: {name}, ସ୍ଥିତି {status}",
+    "offlineFallback": "ଅଫଲାଇନ୍ ମାନଚିତ୍ର ସକ୍ରିୟ ଅଛି",
+    "wellsInView": "{count, plural, =0 {ଦୃଶ୍ୟରେ କୌଣସି କୂଅ ନାହିଁ} one {ଦୃଶ୍ୟରେ # କୂଅ} other {ଦୃଶ୍ୟରେ # କୂଅ}}",
+    "nameHeader": "କୂଅର ନାମ",
+    "villageHeader": "ଗ୍ରାମ",
+    "depthHeader": "ଗଭୀରତା",
+    "statusHeader": "ସ୍ଥିତି",
+    "updatedHeader": "ଶେଷ ଅପଡେଟ୍",
+    "close": "ବନ୍ଦ କରନ୍ତୁ"
   }
 }

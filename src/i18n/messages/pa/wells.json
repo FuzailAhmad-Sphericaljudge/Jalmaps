@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "ਭੂਮੀਗਤ ਪਾਣੀ ਦਾ ਨਕਸ਼ਾ",
+    "myWell": "ਮੇਰਾ ਖੂਹ",
+    "approxLocation": "ਲਗਭਗ ਸਥਾਨ",
+    "depthToWater": "ਪਾਣੀ ਦੀ ਡੂੰਘਾਈ:",
+    "trend7d": "7-ਦਿਨ ਦਾ ਰੁਝਾਨ:",
+    "falling": "ਘਟ ਰਿਹਾ ਹੈ",
+    "rising": "ਵਧ ਰਿਹਾ ਹੈ",
+    "stable": "ਸਥਿਰ",
+    "lastReading": "ਆਖਰੀ ਰੀਡਿੰਗ:",
+    "viewDetails": "ਵੇਰਵੇ ਵੇਖੋ",
+    "noData": "ਕੋਈ ਡਾਟਾ ਨਹੀਂ",
+    "status": {
+      "critical": "ਨਾਜ਼ੁਕ",
+      "warning": "ਚੇਤਾਵਨੀ",
+      "normal": "ਆਮ",
+      "unknown": "ਅਣਜਾਣ"
+    },
+    "filterStatus": "ਸਥਿਤੀ",
+    "filterType": "ਕਿਸਮ",
+    "all": "ਸਾਰੇ",
+    "locateMe": "ਮੇਰਾ ਸਥਾਨ",
+    "viewList": "ਸੂਚੀ ਦ੍ਰਿਸ਼",
+    "viewMap": "ਨਕਸ਼ਾ ਦ੍ਰਿਸ਼",
+    "clusterAria": "{count} ਖੂਹਾਂ ਦਾ ਸਮੂਹ, ਸਭ ਤੋਂ ਮਾੜੀ ਸਥਿਤੀ {status}",
+    "markerAria": "ਖੂਹ: {name}, ਸਥਿਤੀ {status}",
+    "offlineFallback": "ਔਫਲਾਈਨ ਨਕਸ਼ਾ ਸਰਗਰਮ ਹੈ",
+    "wellsInView": "{count, plural, =0 {ਦ੍ਰਿਸ਼ ਵਿੱਚ ਕੋਈ ਖੂਹ ਨਹੀਂ} one {ਦ੍ਰਿਸ਼ ਵਿੱਚ # ਖੂਹ} other {ਦ੍ਰਿਸ਼ ਵਿੱਚ # ਖੂਹ}}",
+    "nameHeader": "ਖੂਹ ਦਾ ਨਾਮ",
+    "villageHeader": "ਪਿੰਡ",
+    "depthHeader": "ਡੂੰਘਾਈ",
+    "statusHeader": "ਸਥਿਤੀ",
+    "updatedHeader": "ਆਖਰੀ ਅੱਪਡੇਟ",
+    "close": "ਬੰਦ ਕਰੋ"
   }
 }

@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "भूजल नकाशा",
+    "myWell": "माझी विहीर",
+    "approxLocation": "अंदाजे स्थान",
+    "depthToWater": "पाण्याची खोली:",
+    "trend7d": "7-दिवसांचा कल:",
+    "falling": "घसरत आहे",
+    "rising": "वाढत आहे",
+    "stable": "स्थिर",
+    "lastReading": "शेवटचे वाचन:",
+    "viewDetails": "तपशील पहा",
+    "noData": "माहिती उपलब्ध नाही",
+    "status": {
+      "critical": "गंभीर",
+      "warning": "इशारा",
+      "normal": "सामान्य",
+      "unknown": "अज्ञात"
+    },
+    "filterStatus": "स्थिती",
+    "filterType": "प्रकार",
+    "all": "सर्व",
+    "locateMe": "माझे स्थान",
+    "viewList": "यादी दृश्य",
+    "viewMap": "नकाशा दृश्य",
+    "clusterAria": "{count} विहिरींचा गट, सर्वात वाईट स्थिती {status}",
+    "markerAria": "विहीर: {name}, स्थिती {status}",
+    "offlineFallback": "ऑफलाइन नकाशा सक्रिय आहे",
+    "wellsInView": "{count, plural, =0 {दृश्यात विहिरी नाहीत} one {दृश्यात # विहीर} other {दृश्यात # विहिरी}}",
+    "nameHeader": "विहिरीचे नाव",
+    "villageHeader": "गाव",
+    "depthHeader": "खोली",
+    "statusHeader": "स्थिती",
+    "updatedHeader": "शेवटचे अपडेट",
+    "close": "बंद करा"
   }
 }

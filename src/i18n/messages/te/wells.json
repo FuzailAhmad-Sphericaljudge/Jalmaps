@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "భూగర్భ జల పటం",
+    "myWell": "నా బావి",
+    "approxLocation": "సుమారు స్థానం",
+    "depthToWater": "నీటి లోతు:",
+    "trend7d": "7-రోజుల ట్రెండ్:",
+    "falling": "తగ్గుతోంది",
+    "rising": "పెరుగుతోంది",
+    "stable": "స్థిరంగా ఉంది",
+    "lastReading": "చివరి రీడింగ్:",
+    "viewDetails": "వివరాలను వీక్షించండి",
+    "noData": "డేటా లేదు",
+    "status": {
+      "critical": "క్లిష్టమైనది",
+      "warning": "హెచ్చరిక",
+      "normal": "సాధారణం",
+      "unknown": "తెలియదు"
+    },
+    "filterStatus": "స్థితి",
+    "filterType": "రకం",
+    "all": "అన్నీ",
+    "locateMe": "నా స్థానం",
+    "viewList": "జాబితా వీక్షణ",
+    "viewMap": "మ్యాప్ వీక్షణ",
+    "clusterAria": "{count} బావుల సమూహం, అధ్వాన్నమైన స్థితి {status}",
+    "markerAria": "బావి: {name}, స్థితి {status}",
+    "offlineFallback": "ఆఫ్‌లైన్ మ్యాప్ క్రియాశీలంగా ఉంది",
+    "wellsInView": "{count, plural, =0 {వీక్షణలో బావులు లేవు} one {వీక్షణలో # బావి} other {వీక్షణలో # బావులు}}",
+    "nameHeader": "బావి పేరు",
+    "villageHeader": "గ్రామం",
+    "depthHeader": "లోతు",
+    "statusHeader": "స్థితి",
+    "updatedHeader": "చివరిగా నవీకరించబడింది",
+    "close": "మూసివేయి"
   }
 }

@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "Groundwater Map",
+    "myWell": "My Well",
+    "approxLocation": "Approx. location",
+    "depthToWater": "Depth to water:",
+    "trend7d": "7-day trend:",
+    "falling": "Falling",
+    "rising": "Rising",
+    "stable": "Stable",
+    "lastReading": "Last reading:",
+    "viewDetails": "View details",
+    "noData": "No data",
+    "status": {
+      "critical": "Critical",
+      "warning": "Warning",
+      "normal": "Normal",
+      "unknown": "Unknown"
+    },
+    "filterStatus": "Status",
+    "filterType": "Type",
+    "all": "All",
+    "locateMe": "Locate me",
+    "viewList": "List view",
+    "viewMap": "Map view",
+    "clusterAria": "Cluster of {count} wells, worst status {status}",
+    "markerAria": "Well: {name}, status {status}",
+    "offlineFallback": "Offline map outline active",
+    "wellsInView": "{count, plural, =0 {No wells in view} one {# well in view} other {# wells in view}}",
+    "nameHeader": "Well Name",
+    "villageHeader": "Village",
+    "depthHeader": "Depth",
+    "statusHeader": "Status",
+    "updatedHeader": "Last Updated",
+    "close": "Close"
   }
 }

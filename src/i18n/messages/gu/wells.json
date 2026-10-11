@@ -130,5 +130,40 @@
     "markDry": "Mark as dry",
     "overview": "Overview",
     "moreDetails": "More details"
+  },
+  "map": {
+    "title": "ભૂગર્ભજળ નકશો",
+    "myWell": "મારો કૂવો",
+    "approxLocation": "આશરે સ્થાન",
+    "depthToWater": "પાણીની ઊંડાઈ:",
+    "trend7d": "7-દિવસનો પ્રવાહ:",
+    "falling": "ઘટી રહ્યું છે",
+    "rising": "વધી રહ્યું છે",
+    "stable": "સ્થિર",
+    "lastReading": "છેલ્લું રીડિંગ:",
+    "viewDetails": "વિગતો જુઓ",
+    "noData": "કોઈ ડેટા નથી",
+    "status": {
+      "critical": "ગંભીર",
+      "warning": "ચેતવણી",
+      "normal": "સામાન્ય",
+      "unknown": "અજ્ઞાત"
+    },
+    "filterStatus": "સ્થિતિ",
+    "filterType": "પ્રકાર",
+    "all": "બધા",
+    "locateMe": "મારું સ્થાન",
+    "viewList": "સૂચિ દૃશ્ય",
+    "viewMap": "નકશો દૃશ્ય",
+    "clusterAria": "{count} કૂવાઓનું જૂથ, સૌથી ખરાબ સ્થિતિ {status}",
+    "markerAria": "કૂવો: {name}, સ્થિતિ {status}",
+    "offlineFallback": "ઑફલાઇન નકશો સક્રિય છે",
+    "wellsInView": "{count, plural, =0 {દૃશ્યમાં કોઈ કૂવા નથી} one {દૃશ્યમાં # કૂવો} other {દૃશ્યમાં # કૂવાઓ}}",
+    "nameHeader": "કૂવાનું નામ",
+    "villageHeader": "ગામ",
+    "depthHeader": "ઊંડાઈ",
+    "statusHeader": "સ્થિતિ",
+    "updatedHeader": "છેલ્લે અપડેટ",
+    "close": "બંધ કરો"
   }
 }
