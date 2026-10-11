@@ -1,4 +1,6 @@
 export type WellStatusType = "critical" | "warning" | "normal" | "unknown";
+export type WellStatus = WellStatusType;
+export type WellType = "open_well" | "borewell";
 
 export interface MapPointProperties {
   id: string;

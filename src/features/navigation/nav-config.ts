@@ -51,20 +51,12 @@ export const navigationItems: readonly NavigationItem[] = [
     order: 2,
   },
   {
-    id: "farmer-map",
-    labelKey: "map",
-    icon: Map,
-    href: "/farmer/map",
-    allowedRoles: ["farmer"],
-    order: 3,
-  },
-  {
     id: "farmer-alerts",
     labelKey: "alerts",
     icon: Bell,
     href: "/farmer/alerts",
     allowedRoles: ["farmer"],
-    order: 4,
+    order: 3,
   },
   {
     id: "farmer-reports",
@@ -72,7 +64,7 @@ export const navigationItems: readonly NavigationItem[] = [
     icon: ClipboardList,
     href: "/farmer/reports",
     allowedRoles: ["farmer"],
-    order: 5,
+    order: 4,
   },
   {
     id: "village-home",

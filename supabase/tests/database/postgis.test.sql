@@ -32,3 +32,4 @@ SELECT is(
 
 SELECT * FROM finish();
 ROLLBACK;
+

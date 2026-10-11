@@ -15,6 +15,7 @@ describe("parsePublicEnv", () => {
       NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:54321",
       NEXT_PUBLIC_SUPABASE_ANON_KEY: "local-anon-key",
       NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED: false,
+      NEXT_PUBLIC_MAP_STYLE_URL: "https://demotiles.maplibre.org/style.json",
     });
   });
 

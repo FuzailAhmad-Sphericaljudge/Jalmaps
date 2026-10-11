@@ -17,9 +17,11 @@ function renderWithIntl(ui: React.ReactNode) {
 describe("MapListView", () => {
   const mockData: MapFeatureCollection = {
     type: "FeatureCollection",
+    metadata: { totalFeatures: 2, isClustered: false, zoom: 12 },
     features: [
       {
         type: "Feature",
+        id: "w-1",
         geometry: {
           type: "Point",
           coordinates: [77.209, 28.6139],
@@ -38,6 +40,7 @@ describe("MapListView", () => {
       },
       {
         type: "Feature",
+        id: "w-2",
         geometry: {
           type: "Point",
           coordinates: [77.21, 28.62],
@@ -73,7 +76,16 @@ describe("MapListView", () => {
   });
 
   it("renders empty state when there are no features", () => {
-    renderWithIntl(<MapListView data={{ type: "FeatureCollection", features: [] }} locale="en" />);
+    renderWithIntl(
+      <MapListView
+        data={{
+          type: "FeatureCollection",
+          features: [],
+          metadata: { totalFeatures: 0, isClustered: false, zoom: 10 },
+        }}
+        locale="en"
+      />,
+    );
 
     expect(screen.getByText("No wells in view")).toBeDefined();
   });

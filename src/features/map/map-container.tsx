@@ -223,7 +223,13 @@ export function MapContainer({
       {viewMode === "list" ? (
         <div className="mt-20 flex-1 overflow-y-auto p-4">
           <MapListView
-            data={featureCollection || { type: "FeatureCollection", features: [] }}
+            data={
+              featureCollection || {
+                type: "FeatureCollection",
+                features: [],
+                metadata: { totalFeatures: 0, isClustered: false, zoom: viewState.zoom },
+              }
+            }
             locale={locale}
             unit={unit}
           />
@@ -238,7 +244,6 @@ export function MapContainer({
             style={{ width: "100%", height: "100%" }}
             maxZoom={18}
             minZoom={3}
-            attributionControl={true}
           >
             <NavigationControl position="bottom-right" showCompass={false} />
 
@@ -262,7 +267,12 @@ export function MapContainer({
               return (
                 <Marker key={props.id} longitude={lng} latitude={lat} anchor="center">
                   <MapMarker
-                    properties={props}
+                    status={props.status}
+                    isCluster={props.isCluster}
+                    count={props.count}
+                    isOwned={props.isOwned}
+                    name={props.name}
+                    isSelected={selectedPoint?.id === props.id}
                     onClick={() => {
                       if (props.isCluster) {
                         handleClusterClick(lng, lat);
@@ -290,7 +300,7 @@ export function MapContainer({
 
           {/* Locate Button */}
           <div className="pointer-events-auto absolute right-2.5 bottom-28 z-10">
-            <LocateButton onLocationFound={handleLocateFound} label={t("locateMe")} />
+            <LocateButton onLocationFound={handleLocateFound} />
           </div>
         </div>
       )}

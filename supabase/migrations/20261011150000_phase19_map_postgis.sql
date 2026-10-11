@@ -32,3 +32,4 @@ BEFORE INSERT OR UPDATE OF latitude, longitude
 ON wells
 FOR EACH ROW
 EXECUTE FUNCTION update_well_geom();
+
