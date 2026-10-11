@@ -132,7 +132,7 @@ export function calculateAquiferHealthScore(input: HealthScoreInput): AquiferHea
   // Component 4: Data Confidence Factor (Max: 10 points)
   let confidencePoints = 5;
   let confidenceExplanationKey = "health_confidence_partial";
-  const coverageRatio = sufficiency.stats.coverageRatio;
+  const coverageRatio = sufficiency.coverageRatio;
 
   if (sufficiency.isSufficient && coverageRatio >= 0.8) {
     confidencePoints = 10;

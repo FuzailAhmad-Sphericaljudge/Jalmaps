@@ -6,15 +6,11 @@ import type { DepletionEstimate } from "./depletion";
 
 const mockSufficiency: DataSufficiencyResult = {
   isSufficient: true,
-  missingRequirements: [],
-  stats: {
-    totalReadingsCount: 300,
-    goodReadingsCount: 290,
-    firstReadingDate: "2024-01-01",
-    lastReadingDate: "2025-01-01",
-    spanDays: 365,
-    coverageRatio: 0.92,
-  },
+  missingCriteria: [],
+  totalReadings: 300,
+  goodReadingsCount: 290,
+  coverageRatio: 0.92,
+  spanMonths: 12,
 };
 
 describe("calculateAquiferHealthScore", () => {
@@ -97,4 +93,3 @@ describe("calculateAquiferHealthScore", () => {
     expect(result.score).toBeLessThan(35);
   });
 });
-
