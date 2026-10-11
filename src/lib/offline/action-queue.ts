@@ -28,8 +28,10 @@ export async function enqueueAction(type: string, payload: unknown): Promise<voi
   if ("serviceWorker" in navigator && "SyncManager" in window) {
     try {
       const registration = await navigator.serviceWorker.ready;
-      // @ts-expect-error - TS doesn't know about sync yet
-      await registration.sync.register("sync-actions");
+      interface SyncRegistration {
+        sync: { register(tag: string): Promise<void> };
+      }
+      await (registration as unknown as SyncRegistration).sync.register("sync-actions");
     } catch (err) {
       console.warn("Background sync could not be registered", err);
     }

@@ -1,3 +1,4 @@
+/// <reference lib="webworker" />
 import { defaultCache } from "@serwist/next/worker";
 import { type PrecacheEntry, Serwist } from "serwist";
 
@@ -32,21 +33,26 @@ self.addEventListener("sync", (event: SyncEvent) => {
   }
 });
 
+interface CustomNotificationOptions extends NotificationOptions {
+  actions?: Array<{ action: string; title: string; icon?: string }>;
+}
+
 self.addEventListener("push", (event: PushEvent) => {
   if (!event.data) return;
 
   try {
     const data = event.data.json();
+    const options: CustomNotificationOptions = {
+      body: data.body,
+      icon: "/icon-192.svg",
+      data: data.url,
+      actions: [
+        { action: "open", title: "Open" },
+        { action: "acknowledge", title: "Acknowledge" },
+      ],
+    };
     event.waitUntil(
-      self.registration.showNotification(data.title || "JalMaps", {
-        body: data.body,
-        icon: "/icon-192.svg",
-        data: data.url,
-        actions: [
-          { action: "open", title: "Open" },
-          { action: "acknowledge", title: "Acknowledge" },
-        ],
-      }),
+      self.registration.showNotification(data.title || "JalMaps", options as NotificationOptions),
     );
   } catch (err) {
     console.error("Push event error:", err);

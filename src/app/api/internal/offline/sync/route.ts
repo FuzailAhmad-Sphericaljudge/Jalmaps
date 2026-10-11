@@ -1,4 +1,4 @@
-import { NextResponse } from "next";
+import { NextResponse } from "next/server";
 import { z } from "zod";
 import { submitTranslationFeedback } from "@/server/actions/translation-feedback";
 
@@ -16,11 +16,10 @@ export async function POST(req: Request) {
 
     switch (action.type) {
       case "translation_feedback":
-        await submitTranslationFeedback(action.payload);
+        await submitTranslationFeedback(
+          action.payload as Parameters<typeof submitTranslationFeedback>[0],
+        );
         break;
-      // Add more handlers as needed, e.g., snooze alert
-      default:
-        console.warn("Unknown offline action type:", action.type);
     }
 
     return NextResponse.json({ success: true });
