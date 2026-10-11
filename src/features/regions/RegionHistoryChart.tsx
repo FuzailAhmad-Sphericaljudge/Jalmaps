@@ -75,15 +75,15 @@ export function RegionHistoryChart({ data }: RegionHistoryChartProps) {
                         <div className="flex items-center justify-between gap-4 text-blue-600 dark:text-blue-400">
                           <span>{t("metrics.avgDepth")}</span>
                           <span className="font-medium">
-                            {payload[0]?.value !== null
-                              ? t("units.meters", { value: payload[0]?.value })
+                            {payload[0]?.value != null
+                              ? t("units.meters", { value: String(payload[0].value) })
                               : t("units.unrecorded")}
                           </span>
                         </div>
                         <div className="flex items-center justify-between gap-4 text-rose-600 dark:text-rose-400">
                           <span>{t("metrics.criticalPct")}</span>
                           <span className="font-medium">
-                            {t("units.percent", { value: payload[1]?.value })}
+                            {t("units.percent", { value: String(payload[1]?.value ?? 0) })}
                           </span>
                         </div>
                       </div>

@@ -31,7 +31,8 @@ export function RegionChoroplethMap({ regions, onSelectRegion }: RegionChoroplet
             critical: r.isPrivacySuppressed ? null : r.stats.pct_critical,
             wells: r.stats.wells_count,
           },
-          geometry: r.simplified_geojson,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          geometry: r.simplified_geojson as any,
         })),
     };
   }, [regions]);

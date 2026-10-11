@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Download, Layers, MapPin, Table as TableIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -24,6 +25,7 @@ interface RegionsOverviewViewProps {
 }
 
 export function RegionsOverviewView({ locale, regions, overallStats }: RegionsOverviewViewProps) {
+  const router = useRouter();
   const t = useTranslations("regions");
   const [viewMode, setViewMode] = useState<"table" | "choropleth">("table");
   const [selectedCompare, setSelectedCompare] = useState<RankedRegionItem[]>([]);
@@ -42,7 +44,12 @@ export function RegionsOverviewView({ locale, regions, overallStats }: RegionsOv
   };
 
   const handleExportCsv = () => {
-    window.location.href = `/api/v1/regions/export?level=state&locale=${locale}`;
+    const a = document.createElement("a");
+    a.href = `/api/v1/regions/export?level=state&locale=${locale}`;
+    a.setAttribute("download", `regions-state-export.csv`);
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -131,7 +138,7 @@ export function RegionsOverviewView({ locale, regions, overallStats }: RegionsOv
         <RegionChoroplethMap
           regions={regions}
           onSelectRegion={(id) => {
-            window.location.href = `/${locale}/official/regions/${id}`;
+            router.push(`/${locale}/official/regions/${id}`);
           }}
         />
       )}
