@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "ਸਾਰਣੀ",
     "choropleth": "ਕੋਰੋਪਲੇਥ ਨਕਸ਼ਾ"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

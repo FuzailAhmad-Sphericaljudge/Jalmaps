@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "പട്ടിക",
     "choropleth": "കോറോപ്ലെത്ത് മാപ്പ്"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

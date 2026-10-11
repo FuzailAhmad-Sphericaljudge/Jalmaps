@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "तालिका",
     "choropleth": "कोरोप्लेथ मानचित्र"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

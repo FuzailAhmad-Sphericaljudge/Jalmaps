@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "ସାରଣୀ",
     "choropleth": "କୋରୋପ୍ଲେଥ ମାନଚିତ୍ର"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

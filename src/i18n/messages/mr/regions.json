@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "तक्ता",
     "choropleth": "कोरोप्लेथ नकाशा"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

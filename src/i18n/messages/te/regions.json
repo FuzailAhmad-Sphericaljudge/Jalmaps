@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "పట్టిక",
     "choropleth": "కోరోప్లెత్ మ్యాప్"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

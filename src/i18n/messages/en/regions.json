@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "Table",
     "choropleth": "Choropleth"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "કોષ્ટક",
     "choropleth": "કોરોપ્લેથ નકશો"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-

@@ -37,6 +37,10 @@
   "viewMode": {
     "table": "அட்டவணை",
     "choropleth": "வண்ண வரைபடம்"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
   }
 }
-
