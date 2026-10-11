@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next";
 import { getTranslations } from "next-intl/server";
-import { AppLocale, locales } from "@/i18n/config";
-import { theme } from "@/styles/tokens"; // We can hardcode colors if tokens is not structured for this
+import { AppLocale } from "@/i18n/config";
 
 export default async function manifest({
   params: { locale },
@@ -23,13 +22,13 @@ export default async function manifest({
         src: "/icon-192.svg",
         sizes: "192x192",
         type: "image/svg+xml",
-        purpose: "any maskable",
+        purpose: "maskable",
       },
       {
         src: "/icon-512.svg",
         sizes: "512x512",
         type: "image/svg+xml",
-        purpose: "any maskable",
+        purpose: "maskable",
       },
     ],
     shortcuts: [
