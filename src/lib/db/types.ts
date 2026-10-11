@@ -507,6 +507,54 @@ export type Database = {
           },
         ];
       };
+      area_notes: {
+        Row: {
+          area_id: string;
+          author_id: string;
+          created_at: string;
+          due_date: string | null;
+          id: string;
+          status: Database["public"]["Enums"]["area_note_status"];
+          text: string;
+          updated_at: string;
+        };
+        Insert: {
+          area_id: string;
+          author_id: string;
+          created_at?: string;
+          due_date?: string | null;
+          id?: string;
+          status?: Database["public"]["Enums"]["area_note_status"];
+          text: string;
+          updated_at?: string;
+        };
+        Update: {
+          area_id?: string;
+          author_id?: string;
+          created_at?: string;
+          due_date?: string | null;
+          id?: string;
+          status?: Database["public"]["Enums"]["area_note_status"];
+          text?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "area_notes_area_id_fkey";
+            columns: ["area_id"];
+            isOneToOne: false;
+            referencedRelation: "admin_areas";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "area_notes_author_id_fkey";
+            columns: ["author_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       area_stats: {
         Row: {
           area_id: string;
@@ -1027,6 +1075,47 @@ export type Database = {
           },
         ];
       };
+      saved_views: {
+        Row: {
+          created_at: string;
+          filters: NonNullable<Json>;
+          id: string;
+          is_default: boolean;
+          is_pinned: boolean;
+          name: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          filters?: NonNullable<Json>;
+          id?: string;
+          is_default?: boolean;
+          is_pinned?: boolean;
+          name: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          filters?: NonNullable<Json>;
+          id?: string;
+          is_default?: boolean;
+          is_pinned?: boolean;
+          name?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "saved_views_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       translation_feedback: {
         Row: {
           audio_url: string | null;
@@ -1465,6 +1554,7 @@ export type Database = {
       alert_rule_type: "level_below" | "drop_rate" | "no_data" | "low_battery" | "sensor_fault";
       alert_severity: "info" | "warning" | "critical";
       alert_status: "open" | "acknowledged" | "snoozed" | "resolved";
+      area_note_status: "open" | "in_progress" | "done";
       bucket_interval: "raw" | "hourly" | "daily";
       comparison_operator: "above" | "below";
       node_status: "provisioning" | "active" | "offline" | "fault" | "retired";
@@ -1596,6 +1686,7 @@ export const Constants = {
       alert_rule_type: ["level_below", "drop_rate", "no_data", "low_battery", "sensor_fault"],
       alert_severity: ["info", "warning", "critical"],
       alert_status: ["open", "acknowledged", "snoozed", "resolved"],
+      area_note_status: ["open", "in_progress", "done"],
       bucket_interval: ["raw", "hourly", "daily"],
       comparison_operator: ["above", "below"],
       node_status: ["provisioning", "active", "offline", "fault", "retired"],

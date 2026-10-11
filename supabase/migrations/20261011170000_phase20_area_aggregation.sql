@@ -39,7 +39,8 @@ CREATE INDEX IF NOT EXISTS idx_area_stats_daily_area_date
 CREATE OR REPLACE FUNCTION public.refresh_area_stats()
 RETURNS void AS $$
 DECLARE
-  r RECORD;
+  r_id uuid;
+  r_level text;
 BEGIN
   -- Village level calculations
   INSERT INTO public.area_stats (
@@ -56,17 +57,40 @@ BEGIN
     worst_well_id,
     updated_at
   )
-  WITH village_wells AS (
+  WITH latest_readings AS (
+    SELECT DISTINCT ON (n.well_id)
+      n.well_id,
+      r.column_m as current_depth
+    FROM public.nodes n
+    JOIN public.readings r ON r.node_id = n.id
+    ORDER BY n.well_id, r.recorded_at DESC
+  ),
+  well_active_alerts AS (
+    SELECT 
+      well_id,
+      bool_or(severity = 'critical') as has_critical,
+      bool_or(severity = 'warning') as has_warning
+    FROM public.alerts
+    WHERE status IN ('open', 'acknowledged')
+    GROUP BY well_id
+  ),
+  village_wells AS (
     SELECT 
       w.admin_area_id as area_id,
       w.id as well_id,
-      COALESCE(w.latest_depth_m, 15.0) as current_depth,
-      COALESCE(w.trend_7d, 0.0) as trend,
-      w.status,
+      COALESCE(lr.current_depth, 15.0) as current_depth,
+      0.0 as trend,
+      CASE 
+        WHEN COALESCE(al.has_critical, false) THEN 'critical'
+        WHEN COALESCE(al.has_warning, false) THEN 'warning'
+        ELSE 'normal'
+      END as status,
       n.id as node_id,
       n.last_seen_at
     FROM public.wells w
     LEFT JOIN public.nodes n ON n.well_id = w.id
+    LEFT JOIN latest_readings lr ON lr.well_id = w.id
+    LEFT JOIN well_active_alerts al ON al.well_id = w.id
     WHERE w.admin_area_id IS NOT NULL
   ),
   village_aggs AS (
@@ -110,8 +134,8 @@ BEGIN
     updated_at = now();
 
   -- Roll up parent tiers (blocks, districts, states) from child areas
-  FOR r IN (
-    SELECT DISTINCT a.id, a.level
+  FOR r_id, r_level IN (
+    SELECT a.id, a.level
     FROM public.admin_areas a
     WHERE a.level IN ('block', 'district', 'state')
     ORDER BY 
@@ -132,7 +156,7 @@ BEGIN
         s.avg_change_30d_m
       FROM public.admin_areas c
       JOIN public.area_stats s ON s.area_id = c.id
-      WHERE c.parent_id = r.id
+      WHERE c.parent_id = r_id
     )
     INSERT INTO public.area_stats (
       area_id,
@@ -149,7 +173,7 @@ BEGIN
       updated_at
     )
     SELECT 
-      r.id,
+      r_id,
       now(),
       COALESCE(SUM(wells_count), 0)::integer,
       COALESCE(SUM(nodes_online), 0)::integer,
@@ -216,3 +240,9 @@ CREATE POLICY "Allow authenticated read on area_stats_daily"
   FOR SELECT
   TO authenticated
   USING (true);
+
+-- Permissions
+REVOKE ALL ON public.area_stats FROM anon;
+REVOKE ALL ON public.area_stats_daily FROM anon;
+GRANT SELECT ON public.area_stats TO authenticated;
+GRANT SELECT ON public.area_stats_daily TO authenticated;
