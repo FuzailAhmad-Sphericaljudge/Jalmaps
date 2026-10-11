@@ -28,7 +28,9 @@
     "comparing": "పోలిక కొనసాగుతోంది",
     "clearCompare": "పోలికను క్లియర్ చేయండి",
     "viewDrilldown": "వివరాలను చూడండి",
-    "back": "వెనుకకు"
+    "back": "వెనుకకు",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "పేరు లేదా కోడ్ ద్వారా శోధించండి...",
   "noRegions": "ప్రాంతాలు ఏవీ కనుగొనబడలేదు.",

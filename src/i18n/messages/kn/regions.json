@@ -28,7 +28,9 @@
     "comparing": "ಹೋಲಿಕೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ",
     "clearCompare": "ಹೋಲಿಕೆ ತೆರವುಗೊಳಿಸಿ",
     "viewDrilldown": "ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ",
-    "back": "ಹಿಂದಕ್ಕೆ"
+    "back": "ಹಿಂದಕ್ಕೆ",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "ಹೆಸರು ಅಥವಾ ಕೋಡ್ ಮೂಲಕ ಹುಡುಕಿ...",
   "noRegions": "ಯಾವುದೇ ಪ್ರದೇಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",

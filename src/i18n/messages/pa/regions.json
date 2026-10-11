@@ -28,7 +28,9 @@
     "comparing": "ਤੁਲਨਾ ਜਾਰੀ",
     "clearCompare": "ਤੁਲਨਾ ਸਾਫ਼ ਕਰੋ",
     "viewDrilldown": "ਵੇਰਵੇ ਦੇਖੋ",
-    "back": "ਵਾਪਸ"
+    "back": "ਵਾਪਸ",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "ਨਾਮ ਜਾਂ ਕੋਡ ਦੁਆਰਾ ਖੋਜੋ...",
   "noRegions": "ਕੋਈ ਖੇਤਰ ਨਹੀਂ ਮਿਲਿਆ।",

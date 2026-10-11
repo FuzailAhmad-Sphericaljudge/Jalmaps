@@ -28,7 +28,9 @@
     "comparing": "સરખામણી ચાલુ",
     "clearCompare": "સરખામણી સાફ કરો",
     "viewDrilldown": "વિગતો જુઓ",
-    "back": "પાછા"
+    "back": "પાછા",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "નામ અથવા કોડ દ્વારા શોધો...",
   "noRegions": "કોઈ પ્રદેશ મળ્યો નથી.",

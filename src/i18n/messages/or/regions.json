@@ -28,7 +28,9 @@
     "comparing": "ତୁଳନା ଚାଲିଛି",
     "clearCompare": "ତୁଳନା ହଟାନ୍ତୁ",
     "viewDrilldown": "ବିବରଣୀ ଦେଖନ୍ତୁ",
-    "back": "ପଛକୁ"
+    "back": "ପଛକୁ",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "ନାମ କିମ୍ବା କୋଡ୍ ଦ୍ୱାରା ଖୋଜନ୍ତୁ...",
   "noRegions": "କୌଣସି ଅଞ୍ଚଳ ମିଳିଲା ନାହିଁ।",

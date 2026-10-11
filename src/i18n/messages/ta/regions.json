@@ -28,7 +28,9 @@
     "comparing": "ஒப்பீடு நடக்கிறது",
     "clearCompare": "ஒப்பீட்டை நீக்கு",
     "viewDrilldown": "விவரங்களைக் காண்க",
-    "back": "பின்செல்"
+    "back": "பின்செல்",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "பெயர் அல்லது குறியீட்டின் மூலம் தேடுங்கள்...",
   "noRegions": "பிராந்தியங்கள் எதுவும் கிடைக்கவில்லை.",

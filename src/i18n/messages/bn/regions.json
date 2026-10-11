@@ -28,7 +28,9 @@
     "comparing": "তুলনা চলছে",
     "clearCompare": "তুলনা বাতিল করুন",
     "viewDrilldown": "বিস্তারিত দেখুন",
-    "back": "ফিরে যান"
+    "back": "ফিরে যান",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "নাম বা কোড দিয়ে অনুসন্ধান করুন...",
   "noRegions": "কোনো অঞ্চল পাওয়া যায়নি।",

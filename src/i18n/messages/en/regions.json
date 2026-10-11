@@ -28,7 +28,9 @@
     "comparing": "Comparing",
     "clearCompare": "Clear Comparison",
     "viewDrilldown": "Drill down",
-    "back": "Back"
+    "back": "Back",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "Search region by name or code...",
   "noRegions": "No regions found.",

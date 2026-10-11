@@ -28,7 +28,9 @@
     "comparing": "तुलना चालू",
     "clearCompare": "तुलना रद्द करा",
     "viewDrilldown": "तपशील पहा",
-    "back": "मागे"
+    "back": "मागे",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "नाव किंवा कोडने शोधा...",
   "noRegions": "कोणताही प्रदेश आढळला नाही.",

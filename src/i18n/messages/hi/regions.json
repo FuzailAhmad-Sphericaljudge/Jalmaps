@@ -28,7 +28,9 @@
     "comparing": "तुलना जारी",
     "clearCompare": "तुलना हटाएं",
     "viewDrilldown": "विवरण देखें",
-    "back": "वापस"
+    "back": "वापस",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "नाम या कोड से खोजें...",
   "noRegions": "कोई क्षेत्र नहीं मिला।",

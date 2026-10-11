@@ -28,7 +28,9 @@
     "comparing": "താരതമ്യം ചെയ്യുന്നു",
     "clearCompare": "താരതമ്യം ഒഴിവാക്കുക",
     "viewDrilldown": "വിശദാംശങ്ങൾ കാണുക",
-    "back": "തിരികെ"
+    "back": "തിരികെ",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
   },
   "searchPlaceholder": "പേരോ കോഡോ ഉപയോഗിച്ച് തിരയുക...",
   "noRegions": "പ്രദേശങ്ങളൊന്നും കണ്ടെത്തിയില്ല.",
