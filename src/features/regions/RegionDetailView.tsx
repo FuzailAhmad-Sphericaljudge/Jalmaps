@@ -11,6 +11,7 @@ import { RegionPrivacyNotice } from "@/features/regions/RegionPrivacyNotice";
 import { RegionHistoryChart } from "@/features/regions/RegionHistoryChart";
 import { RegionRankingTable } from "@/features/regions/RegionRankingTable";
 import { RegionCompareModal } from "@/features/regions/RegionCompareModal";
+import { VillageHealthCard } from "@/components/insights/village-health-card";
 import type { RegionDetail } from "@/server/regions/service";
 import type { RankedRegionItem } from "@/server/regions/rollups";
 
@@ -19,13 +20,29 @@ const RegionChoroplethMap = dynamic(
   { ssr: false },
 );
 
+export interface RegionAreaInsight {
+  wells_count: number;
+  is_sufficient: boolean;
+  avg_health_score: number | null;
+  worst_health_score: number | null;
+  dominant_health_band: string | null;
+  avg_depletion_rate_m_per_year: number | null;
+  total_recharge_volume_mcm: number | null;
+}
+
 interface RegionDetailViewProps {
   locale: string;
   region: RegionDetail;
   childRegions: RankedRegionItem[];
+  areaInsight?: RegionAreaInsight | null;
 }
 
-export function RegionDetailView({ locale, region, childRegions }: RegionDetailViewProps) {
+export function RegionDetailView({
+  locale,
+  region,
+  childRegions,
+  areaInsight,
+}: RegionDetailViewProps) {
   const router = useRouter();
   const t = useTranslations("regions");
   const [viewMode, setViewMode] = useState<"table" | "choropleth">("table");
@@ -130,6 +147,21 @@ export function RegionDetailView({ locale, region, childRegions }: RegionDetailV
 
       {/* Region KPI Cards */}
       <RegionKpiCards stats={region.stats} isPrivacySuppressed={region.isPrivacySuppressed} />
+
+      {/* Aquifer Insights Summary for Area/Village */}
+      {areaInsight && (
+        <div className="pt-2">
+          <VillageHealthCard
+            wellsCount={areaInsight.wells_count}
+            isSufficient={areaInsight.is_sufficient}
+            avgHealthScore={areaInsight.avg_health_score}
+            worstHealthScore={areaInsight.worst_health_score}
+            dominantBand={areaInsight.dominant_health_band}
+            avgDepletionRateMPerYear={areaInsight.avg_depletion_rate_m_per_year}
+            totalRechargeVolumeMCM={areaInsight.total_recharge_volume_mcm}
+          />
+        </div>
+      )}
 
       {/* 30-Day Trend Chart */}
       {!region.isPrivacySuppressed && region.dailyHistory.length > 0 && (

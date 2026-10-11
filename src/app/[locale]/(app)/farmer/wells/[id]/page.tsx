@@ -16,6 +16,7 @@ import { LiveLatestReading } from "@/features/wells/live-latest-reading";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AdviceCard } from "@/features/advisory/advice-card";
+import { WellInsightsTab, type WellInsightsData } from "@/features/wells/well-insights-tab";
 import { ReadAloud } from "@/components/jalmaps/read-aloud";
 import { formatNumberForSpeech } from "@/lib/speech/formatters";
 
@@ -61,6 +62,15 @@ export default async function WellDetailPage({
   }
 
   const { advice, facts } = await getAdviceForWell(client, wellId);
+
+  // Fetch aquifer insights
+  const { data: wellInsightRow } = await client
+    .from("well_insights")
+    .select("*")
+    .eq("well_id", wellId)
+    .order("as_of", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
   const connectionState = activeNode ? getNodeConnectionState(activeNode) : "no_node";
   const unit = current.profile.preferred_unit;
@@ -119,9 +129,12 @@ export default async function WellDetailPage({
         )}
 
         <Tabs defaultValue="overview" className="mt-6 w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="overview">
               {t("detail.overview", { fallback: "Overview" })}
+            </TabsTrigger>
+            <TabsTrigger value="insights">
+              {t("detail.insights", { fallback: "Aquifer health" })}
             </TabsTrigger>
             <TabsTrigger value="details">
               {t("detail.moreDetails", { fallback: "More details" })}
@@ -130,6 +143,24 @@ export default async function WellDetailPage({
 
           <TabsContent value="overview" className="mt-6 space-y-6">
             <AdviceCard wellId={wellId} advice={advice} facts={facts} />
+          </TabsContent>
+
+          <TabsContent value="insights" className="mt-6">
+            <WellInsightsTab
+              insights={
+                wellInsightRow
+                  ? ({
+                      isSufficient: wellInsightRow.is_sufficient,
+                      healthScore: wellInsightRow.health_score,
+                      healthBand: wellInsightRow.health_band as WellInsightsData["healthBand"],
+                      seasonal: wellInsightRow.seasonal as unknown as WellInsightsData["seasonal"],
+                      monsoon: wellInsightRow.monsoon as unknown as WellInsightsData["monsoon"],
+                      recharge: wellInsightRow.recharge as unknown as WellInsightsData["recharge"],
+                      pumping: wellInsightRow.pumping as unknown as WellInsightsData["pumping"],
+                    } as WellInsightsData)
+                  : null
+              }
+            />
           </TabsContent>
 
           <TabsContent value="details" className="mt-6">

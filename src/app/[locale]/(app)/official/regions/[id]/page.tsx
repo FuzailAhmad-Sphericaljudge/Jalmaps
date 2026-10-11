@@ -33,9 +33,25 @@ export default async function OfficialRegionDetailPage({ params }: PageProps) {
     bypassPrivacy: session.user.role === "admin",
   });
 
+  // Get latest aquifer insights for this region
+  const { data: areaInsight } = await supabase
+    .from("area_insights")
+    .select(
+      "wells_count, is_sufficient, avg_health_score, worst_health_score, dominant_health_band, avg_depletion_rate_m_per_year, total_recharge_volume_mcm",
+    )
+    .eq("area_id", region.id)
+    .order("as_of", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
   return (
     <div className="container mx-auto max-w-7xl px-4 py-8">
-      <RegionDetailView locale={locale} region={region} childRegions={childRegions} />
+      <RegionDetailView
+        locale={locale}
+        region={region}
+        childRegions={childRegions}
+        areaInsight={areaInsight}
+      />
     </div>
   );
 }

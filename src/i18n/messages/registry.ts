@@ -20,6 +20,7 @@ const loaders = {
     notifications: (await import("./en/notifications.json")).default,
     pwa: (await import("./en/pwa.json")).default,
     speech: (await import("./en/speech.json")).default,
+    insights: (await import("./en/insights.json")).default,
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
@@ -40,6 +41,7 @@ const loaders = {
     notifications: (await import("./hi/notifications.json")).default,
     pwa: (await import("./hi/pwa.json")).default,
     speech: (await import("./hi/speech.json")).default,
+    insights: (await import("./hi/insights.json")).default,
   }),
   pa: async () => ({
     common: (await import("./pa/common.json")).default,
@@ -60,6 +62,7 @@ const loaders = {
     notifications: (await import("./pa/notifications.json")).default,
     pwa: (await import("./pa/pwa.json")).default,
     speech: (await import("./pa/speech.json")).default,
+    insights: (await import("./pa/insights.json")).default,
   }),
   mr: async () => ({
     common: (await import("./mr/common.json")).default,
@@ -80,6 +83,7 @@ const loaders = {
     notifications: (await import("./mr/notifications.json")).default,
     pwa: (await import("./mr/pwa.json")).default,
     speech: (await import("./mr/speech.json")).default,
+    insights: (await import("./mr/insights.json")).default,
   }),
   gu: async () => ({
     common: (await import("./gu/common.json")).default,
@@ -100,6 +104,7 @@ const loaders = {
     notifications: (await import("./gu/notifications.json")).default,
     pwa: (await import("./gu/pwa.json")).default,
     speech: (await import("./gu/speech.json")).default,
+    insights: (await import("./gu/insights.json")).default,
   }),
   bn: async () => ({
     common: (await import("./bn/common.json")).default,
@@ -120,6 +125,7 @@ const loaders = {
     notifications: (await import("./bn/notifications.json")).default,
     pwa: (await import("./bn/pwa.json")).default,
     speech: (await import("./bn/speech.json")).default,
+    insights: (await import("./bn/insights.json")).default,
   }),
   ta: async () => ({
     common: (await import("./ta/common.json")).default,
@@ -140,6 +146,7 @@ const loaders = {
     notifications: (await import("./ta/notifications.json")).default,
     pwa: (await import("./ta/pwa.json")).default,
     speech: (await import("./ta/speech.json")).default,
+    insights: (await import("./ta/insights.json")).default,
   }),
   te: async () => ({
     common: (await import("./te/common.json")).default,
@@ -160,6 +167,7 @@ const loaders = {
     notifications: (await import("./te/notifications.json")).default,
     pwa: (await import("./te/pwa.json")).default,
     speech: (await import("./te/speech.json")).default,
+    insights: (await import("./te/insights.json")).default,
   }),
   kn: async () => ({
     common: (await import("./kn/common.json")).default,
@@ -180,6 +188,7 @@ const loaders = {
     notifications: (await import("./kn/notifications.json")).default,
     pwa: (await import("./kn/pwa.json")).default,
     speech: (await import("./kn/speech.json")).default,
+    insights: (await import("./kn/insights.json")).default,
   }),
   ml: async () => ({
     common: (await import("./ml/common.json")).default,
@@ -200,6 +209,7 @@ const loaders = {
     notifications: (await import("./ml/notifications.json")).default,
     pwa: (await import("./ml/pwa.json")).default,
     speech: (await import("./ml/speech.json")).default,
+    insights: (await import("./ml/insights.json")).default,
   }),
   or: async () => ({
     common: (await import("./or/common.json")).default,
@@ -220,6 +230,7 @@ const loaders = {
     notifications: (await import("./or/notifications.json")).default,
     pwa: (await import("./or/pwa.json")).default,
     speech: (await import("./or/speech.json")).default,
+    insights: (await import("./or/insights.json")).default,
   }),
 } satisfies Record<AppLocale, () => Promise<unknown>>;
 
