@@ -18,6 +18,8 @@ export const wellCreateSchema = z.object({
   status: wellStatusSchema.optional(),
   visibility: wellVisibilitySchema.optional(),
   notes: z.string().max(4000).nullable().optional(),
+  aquifer_type_id: uuidSchema.nullable().optional(),
+  specific_yield_override: z.number().positive().max(0.4).nullable().optional(),
 });
 
 export const wellFiltersSchema = z.object({

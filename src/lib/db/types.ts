@@ -1,31 +1,13 @@
-﻿export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
-  graphql_public: {
-    Tables: {
-      [_ in never]: never;
-    };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      graphql: {
-        Args: { extensions?: Json; operationName?: string; query?: string; variables?: Json };
-        Returns: Json;
-      };
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
   public: {
     Tables: {
       admin_areas: {
         Row: {
+          boundary: unknown;
           boundary_ref: string | null;
+          boundary_simplified: unknown;
           centroid_lat: number | null;
           centroid_lng: number | null;
           code: string;
@@ -38,7 +20,9 @@ export type Database = {
           updated_at: string;
         };
         Insert: {
+          boundary?: unknown;
           boundary_ref?: string | null;
+          boundary_simplified?: unknown;
           centroid_lat?: number | null;
           centroid_lng?: number | null;
           code: string;
@@ -51,7 +35,9 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          boundary?: unknown;
           boundary_ref?: string | null;
+          boundary_simplified?: unknown;
           centroid_lat?: number | null;
           centroid_lng?: number | null;
           code?: string;
@@ -425,6 +411,143 @@ export type Database = {
             columns: ["profile_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      aquifer_types: {
+        Row: {
+          code: string;
+          created_at: string;
+          default_sy: number;
+          default_sy_max: number;
+          default_sy_min: number;
+          description: string | null;
+          id: string;
+          name: string;
+          source_notes: string;
+          updated_at: string;
+        };
+        Insert: {
+          code: string;
+          created_at?: string;
+          default_sy: number;
+          default_sy_max: number;
+          default_sy_min: number;
+          description?: string | null;
+          id?: string;
+          name: string;
+          source_notes: string;
+          updated_at?: string;
+        };
+        Update: {
+          code?: string;
+          created_at?: string;
+          default_sy?: number;
+          default_sy_max?: number;
+          default_sy_min?: number;
+          description?: string | null;
+          id?: string;
+          name?: string;
+          source_notes?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      area_stats: {
+        Row: {
+          area_id: string;
+          as_of: string;
+          avg_change_30d_m: number;
+          avg_depth_m: number | null;
+          median_depth_m: number | null;
+          nodes_online: number;
+          pct_critical: number;
+          pct_offline: number;
+          pct_warning: number;
+          updated_at: string;
+          wells_count: number;
+          worst_well_id: string | null;
+        };
+        Insert: {
+          area_id: string;
+          as_of?: string;
+          avg_change_30d_m?: number;
+          avg_depth_m?: number | null;
+          median_depth_m?: number | null;
+          nodes_online?: number;
+          pct_critical?: number;
+          pct_offline?: number;
+          pct_warning?: number;
+          updated_at?: string;
+          wells_count?: number;
+          worst_well_id?: string | null;
+        };
+        Update: {
+          area_id?: string;
+          as_of?: string;
+          avg_change_30d_m?: number;
+          avg_depth_m?: number | null;
+          median_depth_m?: number | null;
+          nodes_online?: number;
+          pct_critical?: number;
+          pct_offline?: number;
+          pct_warning?: number;
+          updated_at?: string;
+          wells_count?: number;
+          worst_well_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "area_stats_area_id_fkey";
+            columns: ["area_id"];
+            isOneToOne: true;
+            referencedRelation: "admin_areas";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "area_stats_worst_well_id_fkey";
+            columns: ["worst_well_id"];
+            isOneToOne: false;
+            referencedRelation: "wells";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      area_stats_daily: {
+        Row: {
+          area_id: string;
+          avg_depth_m: number | null;
+          created_at: string;
+          median_depth_m: number | null;
+          pct_critical: number;
+          recorded_date: string;
+          wells_count: number;
+        };
+        Insert: {
+          area_id: string;
+          avg_depth_m?: number | null;
+          created_at?: string;
+          median_depth_m?: number | null;
+          pct_critical?: number;
+          recorded_date: string;
+          wells_count?: number;
+        };
+        Update: {
+          area_id?: string;
+          avg_depth_m?: number | null;
+          created_at?: string;
+          median_depth_m?: number | null;
+          pct_critical?: number;
+          recorded_date?: string;
+          wells_count?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "area_stats_daily_area_id_fkey";
+            columns: ["area_id"];
+            isOneToOne: false;
+            referencedRelation: "admin_areas";
             referencedColumns: ["id"];
           },
         ];
@@ -1042,7 +1165,9 @@ export type Database = {
       wells: {
         Row: {
           admin_area_id: string;
+          aquifer_type_id: string | null;
           created_at: string;
+          geom: unknown;
           id: string;
           installed_at: string | null;
           latitude: number;
@@ -1051,6 +1176,7 @@ export type Database = {
           name: string;
           notes: string | null;
           owner_id: string | null;
+          specific_yield_override: number | null;
           status: Database["public"]["Enums"]["well_status"];
           total_depth_m: number | null;
           updated_at: string;
@@ -1059,7 +1185,9 @@ export type Database = {
         };
         Insert: {
           admin_area_id: string;
+          aquifer_type_id?: string | null;
           created_at?: string;
+          geom?: unknown;
           id?: string;
           installed_at?: string | null;
           latitude: number;
@@ -1068,6 +1196,7 @@ export type Database = {
           name: string;
           notes?: string | null;
           owner_id?: string | null;
+          specific_yield_override?: number | null;
           status?: Database["public"]["Enums"]["well_status"];
           total_depth_m?: number | null;
           updated_at?: string;
@@ -1076,7 +1205,9 @@ export type Database = {
         };
         Update: {
           admin_area_id?: string;
+          aquifer_type_id?: string | null;
           created_at?: string;
+          geom?: unknown;
           id?: string;
           installed_at?: string | null;
           latitude?: number;
@@ -1085,6 +1216,7 @@ export type Database = {
           name?: string;
           notes?: string | null;
           owner_id?: string | null;
+          specific_yield_override?: number | null;
           status?: Database["public"]["Enums"]["well_status"];
           total_depth_m?: number | null;
           updated_at?: string;
@@ -1097,6 +1229,13 @@ export type Database = {
             columns: ["admin_area_id"];
             isOneToOne: false;
             referencedRelation: "admin_areas";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "wells_aquifer_type_id_fkey";
+            columns: ["aquifer_type_id"];
+            isOneToOne: false;
+            referencedRelation: "aquifer_types";
             referencedColumns: ["id"];
           },
           {
@@ -1139,6 +1278,7 @@ export type Database = {
         Args: Record<PropertyKey, never>;
         Returns: Database["public"]["Enums"]["user_role"];
       };
+      backfill_well_admin_areas: { Args: Record<PropertyKey, never>; Returns: number };
       calculate_depth_to_water_m: {
         Args: { column_m: number; hang_depth_m: number };
         Returns: number;
@@ -1199,6 +1339,7 @@ export type Database = {
           reading_count: number;
         }[];
       };
+      refresh_area_stats: { Args: Record<PropertyKey, never>; Returns: undefined };
       user_area_ids: { Args: Record<PropertyKey, never>; Returns: string[] };
     };
     Enums: {
@@ -1331,9 +1472,6 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       admin_area_level: ["state", "district", "block", "village"],
