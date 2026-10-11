@@ -104,5 +104,5 @@ export function useWellRealtime(wellId: string) {
     };
   }, [wellId, queryClient, isDataSaver]);
 
-  return { connectionState: isDataSaver ? ("disconnected" as const) : connectionState };
+  return { connectionState: isDataSaver ? ("offline" as const) : connectionState };
 }
