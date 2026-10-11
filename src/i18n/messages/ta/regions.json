@@ -42,5 +42,13 @@
     "meters": "{value} m",
     "percent": "{value}%",
     "unrecorded": "—"
+  },
+  "table": {
+    "region": "Region",
+    "wells": "Wells",
+    "avgDepth": "Avg Depth",
+    "critical": "Critical %",
+    "status": "Status",
+    "actions": "Actions"
   }
 }
