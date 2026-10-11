@@ -38,7 +38,8 @@
     "users": "Users",
     "systemStatus": "System status",
     "security": "Security",
-    "settings": "Settings"
+    "settings": "Settings",
+    "regions": "ਖੇਤਰ"
   },
   "empty": {
     "title": "This space is ready",

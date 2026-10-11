@@ -38,7 +38,8 @@
     "users": "उपयोगकर्ता",
     "systemStatus": "सिस्टम स्थिति",
     "security": "सुरक्षा",
-    "settings": "सेटिंग"
+    "settings": "सेटिंग",
+    "regions": "क्षेत्र"
   },
   "empty": {
     "title": "यह जगह तैयार है",

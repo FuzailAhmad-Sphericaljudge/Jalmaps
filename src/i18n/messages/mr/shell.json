@@ -38,7 +38,8 @@
     "users": "Users",
     "systemStatus": "System status",
     "security": "Security",
-    "settings": "Settings"
+    "settings": "Settings",
+    "regions": "प्रदेश"
   },
   "empty": {
     "title": "This space is ready",
