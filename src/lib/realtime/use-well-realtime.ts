@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { RealtimeManager, ConnectionState, RealtimeReading } from "./manager";
+import { useDataSaver } from "@/lib/pwa/use-data-saver";
 
 export function useWellRealtime(wellId: string) {
   const queryClient = useQueryClient();
+  const isDataSaver = useDataSaver();
   const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
   const bufferRef = useRef<RealtimeReading[]>([]);
   const flushTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // In Data Saver mode, we pause realtime subscriptions to save bandwidth, unless we add an opt-in
+    if (isDataSaver) {
+      return;
+    }
+
     const manager = RealtimeManager.getInstance();
 
     const handleReading = (reading: RealtimeReading) => {
@@ -95,7 +102,7 @@ export function useWellRealtime(wellId: string) {
       }
       unsubscribe();
     };
-  }, [wellId, queryClient]);
+  }, [wellId, queryClient, isDataSaver]);
 
-  return { connectionState };
+  return { connectionState: isDataSaver ? ("disconnected" as const) : connectionState };
 }

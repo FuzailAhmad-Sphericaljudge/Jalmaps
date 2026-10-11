@@ -12,6 +12,8 @@ import { isAppLocale, locales } from "@/i18n/config";
 import { getFontClassName } from "@/i18n/fonts";
 import { THEME_COOKIE_NAME, parseThemeCookieValue } from "@/server/theme";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { InstallBanner } from "@/components/pwa/install-banner";
+import { ServiceWorkerUpdater } from "@/components/pwa/update-toast";
 
 import "../globals.css";
 
@@ -42,6 +44,7 @@ export async function generateMetadata({
   return {
     title: `${commonT("appName")} — ${commonT("tagline")}`,
     description: homeT("description"),
+    manifest: `/${locale}/manifest.webmanifest`,
   };
 }
 
@@ -84,6 +87,8 @@ export default async function LocaleLayout({
               <AppHeader />
               {children}
               <Toaster />
+              <InstallBanner />
+              <ServiceWorkerUpdater />
             </QueryProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
