@@ -65,3 +65,4 @@ Users: Farmers (phones), Village Admins, Officials, Insurers.
 - **Phase 19**: Completed (Map View - MapLibre GL, PostGIS GiST, Server-side clustering, Offline fallback)
 - **Phase 20**: Completed (Admin Hierarchy - LGD 4-tier hierarchy, Point-in-polygon assignment, Privacy thresholds, Rollups)
 - **Phase 21**: Completed (Aquifer Insights - Seasonal decomposition, Depletion rates, WTF recharge, Pumping stress, Health score v1)
+- **Phase 22**: Completed (Official Dashboard - Explainable village stress score, KPI strip, choropleth panel, alert feed, saved views, follow-up tracker, village admin view)
