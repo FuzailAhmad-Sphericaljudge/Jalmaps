@@ -156,3 +156,4 @@ CREATE POLICY "Users can delete their own reports" ON storage.objects
         bucket_id = 'reports' AND
         (storage.foldername(name))[1] = auth.uid()::text
     );
+

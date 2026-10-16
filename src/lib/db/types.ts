@@ -1075,6 +1075,152 @@ export type Database = {
           },
         ];
       };
+      report_schedules: {
+        Row: {
+          active: boolean;
+          cadence: string;
+          channel: string;
+          created_at: string;
+          day_of_month: number;
+          day_of_week: number;
+          id: string;
+          last_run_at: string | null;
+          locale: string;
+          scope: NonNullable<Json>;
+          time_utc: string;
+          type: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          active?: boolean;
+          cadence?: string;
+          channel?: string;
+          created_at?: string;
+          day_of_month?: number;
+          day_of_week?: number;
+          id?: string;
+          last_run_at?: string | null;
+          locale?: string;
+          scope?: NonNullable<Json>;
+          time_utc?: string;
+          type: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          active?: boolean;
+          cadence?: string;
+          channel?: string;
+          created_at?: string;
+          day_of_month?: number;
+          day_of_week?: number;
+          id?: string;
+          last_run_at?: string | null;
+          locale?: string;
+          scope?: NonNullable<Json>;
+          time_utc?: string;
+          type?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      report_shares: {
+        Row: {
+          access_count: number;
+          created_at: string;
+          created_by: string;
+          expires_at: string;
+          id: string;
+          last_accessed_at: string | null;
+          report_id: string;
+          revoked_at: string | null;
+          token_hash: string;
+        };
+        Insert: {
+          access_count?: number;
+          created_at?: string;
+          created_by: string;
+          expires_at?: string;
+          id?: string;
+          last_accessed_at?: string | null;
+          report_id: string;
+          revoked_at?: string | null;
+          token_hash: string;
+        };
+        Update: {
+          access_count?: number;
+          created_at?: string;
+          created_by?: string;
+          expires_at?: string;
+          id?: string;
+          last_accessed_at?: string | null;
+          report_id?: string;
+          revoked_at?: string | null;
+          token_hash?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "report_shares_report_id_fkey";
+            columns: ["report_id"];
+            isOneToOne: false;
+            referencedRelation: "reports";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      reports: {
+        Row: {
+          completed_at: string | null;
+          created_at: string;
+          created_by: string | null;
+          error: string | null;
+          expires_at: string;
+          file_size_bytes: number | null;
+          format: string;
+          id: string;
+          params: NonNullable<Json>;
+          retry_count: number;
+          scope: NonNullable<Json>;
+          status: string;
+          storage_path: string | null;
+          type: string;
+        };
+        Insert: {
+          completed_at?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          error?: string | null;
+          expires_at?: string;
+          file_size_bytes?: number | null;
+          format?: string;
+          id?: string;
+          params?: NonNullable<Json>;
+          retry_count?: number;
+          scope?: NonNullable<Json>;
+          status?: string;
+          storage_path?: string | null;
+          type: string;
+        };
+        Update: {
+          completed_at?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          error?: string | null;
+          expires_at?: string;
+          file_size_bytes?: number | null;
+          format?: string;
+          id?: string;
+          params?: NonNullable<Json>;
+          retry_count?: number;
+          scope?: NonNullable<Json>;
+          status?: string;
+          storage_path?: string | null;
+          type?: string;
+        };
+        Relationships: [];
+      };
       saved_views: {
         Row: {
           created_at: string;
@@ -1511,6 +1657,31 @@ export type Database = {
         SetofOptions: {
           from: "*";
           to: "notification_outbox";
+          isOneToOne: false;
+          isSetofReturn: true;
+        };
+      };
+      claim_report_jobs: {
+        Args: { batch_size: number };
+        Returns: {
+          completed_at: string | null;
+          created_at: string;
+          created_by: string | null;
+          error: string | null;
+          expires_at: string;
+          file_size_bytes: number | null;
+          format: string;
+          id: string;
+          params: NonNullable<Json>;
+          retry_count: number;
+          scope: NonNullable<Json>;
+          status: string;
+          storage_path: string | null;
+          type: string;
+        }[];
+        SetofOptions: {
+          from: "*";
+          to: "reports";
           isOneToOne: false;
           isSetofReturn: true;
         };
