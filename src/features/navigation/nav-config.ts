@@ -100,6 +100,14 @@ export const navigationItems: readonly NavigationItem[] = [
     order: 3,
   },
   {
+    id: "village-reports",
+    labelKey: "reports",
+    icon: ClipboardList,
+    href: "/village/reports",
+    allowedRoles: ["village_admin"],
+    order: 4,
+  },
+  {
     id: "official-home",
     labelKey: "officialOverview",
     icon: Home,
