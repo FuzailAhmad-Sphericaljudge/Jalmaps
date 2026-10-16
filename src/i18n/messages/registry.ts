@@ -22,6 +22,7 @@ const loaders = {
     speech: (await import("./en/speech.json")).default,
     insights: (await import("./en/insights.json")).default,
     official: (await import("./en/official.json")).default,
+    reports: (await import("./en/reports.json")).default,
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
@@ -44,6 +45,7 @@ const loaders = {
     speech: (await import("./hi/speech.json")).default,
     insights: (await import("./hi/insights.json")).default,
     official: (await import("./hi/official.json")).default,
+    reports: (await import("./hi/reports.json")).default,
   }),
   pa: async () => ({
     common: (await import("./pa/common.json")).default,
@@ -66,6 +68,7 @@ const loaders = {
     speech: (await import("./pa/speech.json")).default,
     insights: (await import("./pa/insights.json")).default,
     official: (await import("./pa/official.json")).default,
+    reports: (await import("./pa/reports.json")).default,
   }),
   mr: async () => ({
     common: (await import("./mr/common.json")).default,
@@ -88,6 +91,7 @@ const loaders = {
     speech: (await import("./mr/speech.json")).default,
     insights: (await import("./mr/insights.json")).default,
     official: (await import("./mr/official.json")).default,
+    reports: (await import("./mr/reports.json")).default,
   }),
   gu: async () => ({
     common: (await import("./gu/common.json")).default,
@@ -110,6 +114,7 @@ const loaders = {
     speech: (await import("./gu/speech.json")).default,
     insights: (await import("./gu/insights.json")).default,
     official: (await import("./gu/official.json")).default,
+    reports: (await import("./gu/reports.json")).default,
   }),
   bn: async () => ({
     common: (await import("./bn/common.json")).default,
@@ -132,6 +137,7 @@ const loaders = {
     speech: (await import("./bn/speech.json")).default,
     insights: (await import("./bn/insights.json")).default,
     official: (await import("./bn/official.json")).default,
+    reports: (await import("./bn/reports.json")).default,
   }),
   ta: async () => ({
     common: (await import("./ta/common.json")).default,
@@ -154,6 +160,7 @@ const loaders = {
     speech: (await import("./ta/speech.json")).default,
     insights: (await import("./ta/insights.json")).default,
     official: (await import("./ta/official.json")).default,
+    reports: (await import("./ta/reports.json")).default,
   }),
   te: async () => ({
     common: (await import("./te/common.json")).default,
@@ -176,6 +183,7 @@ const loaders = {
     speech: (await import("./te/speech.json")).default,
     insights: (await import("./te/insights.json")).default,
     official: (await import("./te/official.json")).default,
+    reports: (await import("./te/reports.json")).default,
   }),
   kn: async () => ({
     common: (await import("./kn/common.json")).default,
@@ -198,6 +206,7 @@ const loaders = {
     speech: (await import("./kn/speech.json")).default,
     insights: (await import("./kn/insights.json")).default,
     official: (await import("./kn/official.json")).default,
+    reports: (await import("./kn/reports.json")).default,
   }),
   ml: async () => ({
     common: (await import("./ml/common.json")).default,
@@ -220,6 +229,7 @@ const loaders = {
     speech: (await import("./ml/speech.json")).default,
     insights: (await import("./ml/insights.json")).default,
     official: (await import("./ml/official.json")).default,
+    reports: (await import("./ml/reports.json")).default,
   }),
   or: async () => ({
     common: (await import("./or/common.json")).default,
@@ -242,6 +252,7 @@ const loaders = {
     speech: (await import("./or/speech.json")).default,
     insights: (await import("./or/insights.json")).default,
     official: (await import("./or/official.json")).default,
+    reports: (await import("./or/reports.json")).default,
   }),
 } satisfies Record<AppLocale, () => Promise<unknown>>;
 
