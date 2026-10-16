@@ -163,3 +163,37 @@ export async function revokeReportShare(
     throw new Error(`Failed to revoke report share: ${error.message}`);
   }
 }
+
+/**
+ * Retrieves the currently active share link for a given report and user.
+ */
+export async function getActiveShareForReport(
+  supabase: SupabaseClient<Database>,
+  reportId: string,
+  userId: string,
+): Promise<{
+  id: string;
+  expiresAt: string;
+  accessCount: number;
+  revokedAt: string | null;
+} | null> {
+  const { data } = await supabase
+    .from("report_shares")
+    .select("id, expires_at, access_count, revoked_at")
+    .eq("report_id", reportId)
+    .eq("created_by", userId)
+    .is("revoked_at", null)
+    .gt("expires_at", new Date().toISOString())
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  return data
+    ? {
+        id: data.id,
+        expiresAt: data.expires_at,
+        accessCount: data.access_count,
+        revokedAt: data.revoked_at,
+      }
+    : null;
+}
