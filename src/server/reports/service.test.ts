@@ -241,8 +241,8 @@ describe("assembleVillageReportData & Privacy Threshold", () => {
     expect(data.type).toBe("village");
     expect(data.privacyMasked).toBe(false);
     expect(data.kpis.averageDepthM).not.toBeNull();
-    expect(data.wells[0].name).toBe("Well 1");
-    expect(data.wells[0].currentDepthM).not.toBeNull();
+    expect(data.wells[0]?.name).toBe("Well 1");
+    expect(data.wells[0]?.currentDepthM).not.toBeNull();
     expect(data.trendSeries.length).toBeGreaterThan(0);
   });
 
@@ -272,8 +272,8 @@ describe("assembleVillageReportData & Privacy Threshold", () => {
     expect(data.privacyMasked).toBe(true);
     expect(data.kpis.averageDepthM).toBeNull();
     expect(data.kpis.change30dM).toBeNull();
-    expect(data.wells[0].name).toContain("Anonymous");
-    expect(data.wells[0].currentDepthM).toBeNull();
+    expect(data.wells[0]?.name).toContain("Anonymous");
+    expect(data.wells[0]?.currentDepthM).toBeNull();
     expect(data.trendSeries).toHaveLength(0);
     expect(data.dataQuality.notes[0]).toContain("Privacy threshold applied");
   });
@@ -303,8 +303,8 @@ describe("assembleSubsidyPlanningReportData", () => {
       supabase,
     );
     expect(data.type).toBe("subsidy_planning");
-    expect(data.prioritizedVillages[0].rank).toBe(1);
-    expect(data.prioritizedVillages[0].rechargeSuitability).toBe("high");
+    expect(data.prioritizedVillages[0]?.rank).toBe(1);
+    expect(data.prioritizedVillages[0]?.rechargeSuitability).toBe("high");
     expect(data.summary.criticalPriorityCount).toBeGreaterThan(0);
     expect(data.methodology.dataNotice).toContain("verified telemetry");
   });

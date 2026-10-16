@@ -121,9 +121,11 @@ export async function assembleWellReportData(
     .map((r) => r.depth_to_water_m)
     .filter((d): d is number => typeof d === "number");
 
-  const currentDepthM = validDepths.length > 0 ? validDepths[validDepths.length - 1] : null;
-  const initialDepthM = validDepths.length > 0 ? validDepths[0] : null;
-  const change30dM =
+  const lastDepth = validDepths[validDepths.length - 1];
+  const firstDepth = validDepths[0];
+  const currentDepthM: number | null = typeof lastDepth === "number" ? lastDepth : null;
+  const initialDepthM: number | null = typeof firstDepth === "number" ? firstDepth : null;
+  const change30dM: number | null =
     currentDepthM !== null && initialDepthM !== null
       ? Number((currentDepthM - initialDepthM).toFixed(2))
       : null;
