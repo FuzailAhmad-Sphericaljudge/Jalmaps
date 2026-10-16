@@ -1,12 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createServerActionClient } from "@/server/supabase/server-action";
+import { createServerComponentClient } from "@/server/supabase/server-component";
 import { saveView, deleteSavedView, togglePinSavedView, type SaveViewInput } from "./saved-views";
 import { createAreaNote, updateAreaNoteStatus, deleteAreaNote, type AreaNoteInput } from "./notes";
 
 export async function acknowledgeAlertAction(alertId: string) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -34,7 +34,7 @@ export async function acknowledgeAlertAction(alertId: string) {
 }
 
 export async function saveViewAction(input: SaveViewInput) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -49,7 +49,7 @@ export async function saveViewAction(input: SaveViewInput) {
 }
 
 export async function deleteViewAction(viewId: string) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -64,7 +64,7 @@ export async function deleteViewAction(viewId: string) {
 }
 
 export async function togglePinViewAction(viewId: string, isPinned: boolean) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -79,7 +79,7 @@ export async function togglePinViewAction(viewId: string, isPinned: boolean) {
 }
 
 export async function createNoteAction(input: AreaNoteInput) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -98,7 +98,7 @@ export async function updateNoteStatusAction(
   noteId: string,
   status: "open" | "in_progress" | "done",
 ) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -114,7 +114,7 @@ export async function updateNoteStatusAction(
 }
 
 export async function deleteNoteAction(noteId: string) {
-  const supabase = await createServerActionClient();
+  const supabase = await createServerComponentClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

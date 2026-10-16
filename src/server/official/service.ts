@@ -144,7 +144,8 @@ export async function getOfficialDashboardData(
       worst_well_id
     `);
 
-  const statsMap = new Map<string, typeof statsRows extends Array<infer T> ? T : never>();
+  type AreaStatRecord = NonNullable<typeof statsRows>[number];
+  const statsMap = new Map<string, AreaStatRecord>();
   (statsRows || []).forEach((row) => {
     statsMap.set(row.area_id, row);
   });
@@ -177,7 +178,9 @@ export async function getOfficialDashboardData(
 
   const feedAlerts: OfficialAlertItem[] = [];
   (alertsData || []).forEach((a) => {
-    const areaIdForAlert = a.admin_area_id || a.wells?.admin_area_id || "";
+    const wellInfo = (Array.isArray(a.wells) ? a.wells[0] : a.wells) as
+      { name: string; admin_area_id: string | null } | null | undefined;
+    const areaIdForAlert = a.admin_area_id || wellInfo?.admin_area_id || "";
     if (a.severity === "critical" && a.status === "open") {
       totalOpenCritical++;
       if (areaIdForAlert) {
@@ -189,7 +192,7 @@ export async function getOfficialDashboardData(
     feedAlerts.push({
       id: a.id,
       wellId: a.well_id || "",
-      wellName: a.wells?.name || "Well",
+      wellName: wellInfo?.name || "Well",
       areaId: areaIdForAlert,
       areaName: matchedArea?.name || "Village",
       severity: a.severity as "critical" | "warning" | "info",
