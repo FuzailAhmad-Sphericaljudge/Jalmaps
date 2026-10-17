@@ -6,6 +6,7 @@ const validEnv = {
   NEXT_PUBLIC_SUPABASE_URL: "https://example.supabase.co",
   NEXT_PUBLIC_SUPABASE_ANON_KEY: "anon-key",
   SUPABASE_SERVICE_ROLE_KEY: "service-key",
+  INGEST_PEPPER: "test-pepper-12345",
 };
 
 describe("parseEnv", () => {
@@ -38,6 +39,7 @@ describe("getEnv caching", () => {
     process.env.NEXT_PUBLIC_SUPABASE_URL ??= "https://cached.supabase.co";
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??= "anon";
     process.env.SUPABASE_SERVICE_ROLE_KEY ??= "service";
+    process.env.INGEST_PEPPER ??= "test-pepper-12345";
 
     const first = getEnv();
     const second = getEnv();

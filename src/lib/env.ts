@@ -16,6 +16,8 @@ import type { PublicEnv } from "@/lib/db/public-env";
 const serverSchema = z.object({
   /** Supabase service role key. Server-only: bypasses row level security. */
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, "SUPABASE_SERVICE_ROLE_KEY is required"),
+  /** Secret pepper added before hashing node API keys. Cannot be changed without invalidating all keys. */
+  INGEST_PEPPER: z.string().min(16, "INGEST_PEPPER must be at least 16 chars for security"),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;

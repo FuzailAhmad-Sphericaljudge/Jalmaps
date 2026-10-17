@@ -1,0 +1,61 @@
+{
+  "title": "ପ୍ରଶାସନିକ କ୍ରମ",
+  "subtitle": "ରାଜ୍ୟ, ଜିଲ୍ଲା, ବ୍ଲକ ଏବଂ ଗ୍ରାମଗୁଡ଼ିକରେ ଭୂତଳ ଜଳ ନିରୀକ୍ଷଣ ତଥ୍ୟ।",
+  "allStates": "ସମସ୍ତ ରାଜ୍ୟ",
+  "levels": {
+    "state": "ରାଜ୍ୟ",
+    "district": "ଜିଲ୍ଲା",
+    "block": "ବ୍ଲକ",
+    "village": "ଗ୍ରାମ"
+  },
+  "metrics": {
+    "wells": "ମୋଟ କୂଅ",
+    "nodesOnline": "ସକ୍ରିୟ ନୋଡ୍",
+    "avgDepth": "ହାରାହାରି ଗଭୀରତା",
+    "medianDepth": "ମଧ୍ୟମ ଗଭୀରତା",
+    "criticalPct": "ଗୁରୁତର",
+    "warningPct": "ଚେତାବନୀ",
+    "offlinePct": "ଅଫଲାଇନ୍",
+    "change30d": "୩୦ ଦିନର ପରିବର୍ତ୍ତନ"
+  },
+  "privacy": {
+    "badge": "ଗୋପନୀୟତା ସୁରକ୍ଷିତ",
+    "notice": "ବ୍ୟକ୍ତିଗତ ଗୋପନୀୟତା ରକ୍ଷା କରିବା ପାଇଁ ତଥ୍ୟ ଲୁକ୍କାୟିତ କରାଯାଇଛି କାରଣ ଏହି ଅଞ୍ଚଳରେ {min} ରୁ କମ୍ କୂଅ ଅଛି।"
+  },
+  "actions": {
+    "exportCsv": "CSV ରପ୍ତାନି କରନ୍ତୁ",
+    "compare": "ତୁଳନା କରନ୍ତୁ",
+    "comparing": "ତୁଳନା ଚାଲିଛି",
+    "clearCompare": "ତୁଳନା ହଟାନ୍ତୁ",
+    "viewDrilldown": "ବିବରଣୀ ଦେଖନ୍ତୁ",
+    "back": "ପଛକୁ",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
+  },
+  "searchPlaceholder": "ନାମ କିମ୍ବା କୋଡ୍ ଦ୍ୱାରା ଖୋଜନ୍ତୁ...",
+  "noRegions": "କୌଣସି ଅଞ୍ଚଳ ମିଳିଲା ନାହିଁ।",
+  "historyTitle": "୩୦ ଦିନର ଗଭୀରତା ଓ ସ୍ଥିତି ଧାରା",
+  "compareTitle": "ଅଞ୍ଚଳ ତୁଳନା",
+  "viewMode": {
+    "table": "ସାରଣୀ",
+    "choropleth": "କୋରୋପ୍ଲେଥ ମାନଚିତ୍ର"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
+  },
+  "table": {
+    "region": "Region",
+    "wells": "Wells",
+    "avgDepth": "Avg Depth",
+    "critical": "Critical %",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "legend": {
+    "low": "< 15%",
+    "medium": "15% - 30%",
+    "high": "> 30%"
+  }
+}

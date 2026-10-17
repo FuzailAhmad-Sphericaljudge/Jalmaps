@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 
-export type Theme = "light" | "dark";
+export type Theme = "system" | "light" | "dark";
 
 type ThemeContextValue = {
   theme: Theme;
@@ -24,8 +24,14 @@ const COOKIE_NAME = "jalmaps-theme";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 function applyThemeToDocument(next: Theme) {
-  document.documentElement.classList.toggle("dark", next === "dark");
-  document.documentElement.style.colorScheme = next;
+  const effectiveTheme =
+    next === "system"
+      ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light"
+      : next;
+  document.documentElement.classList.toggle("dark", effectiveTheme === "dark");
+  document.documentElement.style.colorScheme = effectiveTheme;
 }
 
 function writeThemeCookie(theme: Theme) {
@@ -51,19 +57,15 @@ export function ThemeProvider({
     setTheme(document.documentElement.classList.contains("dark") ? "light" : "dark");
   }, [setTheme]);
 
-  // Follow the OS preference while the user has not made an explicit choice.
   useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = (event: MediaQueryListEvent) => {
-      if (!document.cookie.includes(COOKIE_NAME)) {
-        const next: Theme = event.matches ? "dark" : "light";
-        setThemeState(next);
-        applyThemeToDocument(next);
-      }
+    const onChange = () => {
+      if (theme === "system") applyThemeToDocument("system");
     };
+    onChange();
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
-  }, []);
+  }, [theme]);
 
   const value = useMemo(() => ({ theme, setTheme, toggleTheme }), [theme, setTheme, toggleTheme]);
 

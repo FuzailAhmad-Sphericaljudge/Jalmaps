@@ -7,3 +7,63 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# JalMaps Project Rules
+
+See `docs/` for full details. Do not paste long documents here.
+
+## Purpose
+
+A groundwater monitoring platform for India (sensors -> DB -> Web UI).
+Users: Farmers (phones), Village Admins, Officials, Insurers.
+
+## Stack (Fixed - do not substitute)
+
+- Next.js (App Router), TypeScript (strict)
+- Tailwind CSS v4, shadcn/ui, lucide-react, next-intl
+- Supabase (Postgres, Auth, RLS, Storage)
+- Zod, TanStack Query, Recharts, MapLibre GL
+- Vitest, Playwright, pnpm
+
+## Ground Rules
+
+1. **i18n for EVERY string.** No hardcoded UI text.
+2. **Farmer-first UI:** 48px minimum touch targets, icon + text.
+3. **Units:** Store in metres, display in local preference (m/ft).
+4. **Commits:** Small, atomic, Conventional Commits.
+5. **Git:** Work directly on `main`, run `pnpm check` before push, push frequently.
+6. **Secrets:** `.env.local` only (no secrets in repo). `src/lib/env.ts` for parsing.
+7. **Auth Phase (Current):** No UI for managing other users, OTP tested locally.
+
+## Key Commands
+
+- `pnpm dev`: Start Next.js
+- `pnpm db:start` / `pnpm db:stop`: Manage local Supabase
+- `pnpm db:reset`: Reset DB & seed
+- `pnpm db:test`: Run pgTAP / DB tests
+- `pnpm check`: Run lint, typecheck, unit tests, i18n checks (MUST RUN BEFORE PUSH)
+- `pnpm test:e2e`: Playwright
+
+## Roadmap Phases
+
+<!--
+  PITCH / SUMMARY OF PHASES:
+  Phases 1-11: Built the core foundation. Farmers can log in (OTP), see their wells, check water levels on a dashboard, manage settings, and view maps.
+  Phase 12: Realtime Updates. The dashboard now updates instantly via WebSockets when new sensor readings arrive.
+  Phase 13: Alerts Engine. A smart system that constantly evaluates readings to detect issues like low water, fast depletion, or sensor faults.
+  Phase 14: Notifications. The system now takes those alerts and reliably delivers them via SMS, WhatsApp, Web Push, etc., respecting quiet hours and user preferences.
+-->
+
+- **Phase 1-11**: Completed (Foundation, Auth, Navigation, Settings, Admin, Dashboard, Map, etc.)
+- **Phase 12**: Completed (Realtime Updates - WebSockets & Broadcasting)
+- **Phase 13**: Completed (Alerts Engine - Cron workers, Evaluators, State Machine)
+- **Phase 14**: Completed (Notifications - Outbox pattern, SMS/Push Providers, Routing Logic)
+- **Phase 15**: Completed (Advisory Engine - Facts builder, Deterministic rules, Next 3 days advice UI, Crop settings)
+- **Phase 16**: Completed (Voice & Multimodal - Web Speech API, Whisper fallback, Voice-driven well queries)
+- **Phase 17**: Completed (More Indian Languages - 10 Indic locales, Noto fonts, i18n tooling, Indic numbers)
+- **Phase 18**: Completed (PWA & Offline - Serwist service worker, TanStack IDB persister, Offline action queue)
+- **Phase 19**: Completed (Map View - MapLibre GL, PostGIS GiST, Server-side clustering, Offline fallback)
+- **Phase 20**: Completed (Admin Hierarchy - LGD 4-tier hierarchy, Point-in-polygon assignment, Privacy thresholds, Rollups)
+- **Phase 21**: Completed (Aquifer Insights - Seasonal decomposition, Depletion rates, WTF recharge, Pumping stress, Health score v1)
+- **Phase 22**: Completed (Official Dashboard - Explainable village stress score, KPI strip, choropleth panel, alert feed, saved views, follow-up tracker, village admin view)
+- **Phase 23**: Completed (Reports and Exports - Localized PDFs with Indic shaping, CSV/Excel with data dictionary, async queue worker, scheduled digests, expiring shares)

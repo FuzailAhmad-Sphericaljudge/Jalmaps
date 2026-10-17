@@ -1,0 +1,32 @@
+{
+  "title": "Next 3 Days",
+  "why": "Why?",
+  "limits_note": "This is automated advice based on your sensor data. Please use your best judgement.",
+  "feedback": {
+    "helpful": "Helpful",
+    "not_helpful": "Not Helpful",
+    "thanks": "Thank you for your feedback!"
+  },
+  "generic_fallback": {
+    "action": "Maintain normal irrigation schedule based on your crop needs."
+  },
+  "critical_stage_low_water": {
+    "action": "Prioritize irrigation now. Your crop is in a highly sensitive stage and water levels are low."
+  },
+  "fast_depletion": {
+    "action": "Reduce pumping hours and spread them over cooler parts of the day."
+  },
+  "recovering_after_rain": {
+    "action": "Avoid unnecessary irrigation if soil is moist."
+  },
+  "suspect_sensor_data": {
+    "action": "Do not rely on today's water level. Please check your sensor."
+  },
+  "facts": {
+    "stressLevel": "Water stress level is {value}",
+    "depthTrend7d": "Water level dropped by {value}m in 7 days",
+    "cropWaterSensitivity": "Crop sensitivity is {value}",
+    "expectedRainfall": "Expected rainfall: {value}mm",
+    "dataQuality": "Sensor data quality is {value}"
+  }
+}

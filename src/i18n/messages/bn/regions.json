@@ -1,0 +1,61 @@
+{
+  "title": "প্রশাসনিক শ্রেণিবিন্যাস",
+  "subtitle": "রাজ্য, জেলা, ব্লক এবং গ্রামে ভূগর্ভস্থ জল পর্যবেক্ষণের সমষ্টিগত তথ্য।",
+  "allStates": "সকল রাজ্য",
+  "levels": {
+    "state": "রাজ্য",
+    "district": "জেলা",
+    "block": "ব্লক",
+    "village": "গ্রাম"
+  },
+  "metrics": {
+    "wells": "মোট কূপ",
+    "nodesOnline": "সক্রিয় নোড",
+    "avgDepth": "গড় গভীরতা",
+    "medianDepth": "মধ্যম গভীরতা",
+    "criticalPct": "সংকটপূর্ণ",
+    "warningPct": "সতর্কতা",
+    "offlinePct": "অফলাইন",
+    "change30d": "৩০ দিনের পরিবর্তন"
+  },
+  "privacy": {
+    "badge": "গোপনীয়তা সুরক্ষিত",
+    "notice": "ব্যক্তিগত গোপনীয়তা রক্ষার জন্য তথ্য গোপন রাখা হয়েছে কারণ এই এলাকায় {min} টির কম কূপ রয়েছে।"
+  },
+  "actions": {
+    "exportCsv": "CSV রপ্তানি করুন",
+    "compare": "তুলনা করুন",
+    "comparing": "তুলনা চলছে",
+    "clearCompare": "তুলনা বাতিল করুন",
+    "viewDrilldown": "বিস্তারিত দেখুন",
+    "back": "ফিরে যান",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
+  },
+  "searchPlaceholder": "নাম বা কোড দিয়ে অনুসন্ধান করুন...",
+  "noRegions": "কোনো অঞ্চল পাওয়া যায়নি।",
+  "historyTitle": "৩০ দিনের গভীরতা ও সংকট প্রবণতা",
+  "compareTitle": "অঞ্চল তুলনা",
+  "viewMode": {
+    "table": "সারণী",
+    "choropleth": "কোরাপ্লেথ মানচিত্র"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
+  },
+  "table": {
+    "region": "Region",
+    "wells": "Wells",
+    "avgDepth": "Avg Depth",
+    "critical": "Critical %",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "legend": {
+    "low": "< 15%",
+    "medium": "15% - 30%",
+    "high": "> 30%"
+  }
+}

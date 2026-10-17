@@ -1,0 +1,16 @@
+{
+  "name": "JalMaps",
+  "shortName": "JalMaps",
+  "description": "Groundwater monitoring platform",
+  "shortcutMyWells": "My Wells",
+  "shortcutAlerts": "Alerts",
+  "updateAvailable": "Update available. Reload to apply.",
+  "reload": "Reload",
+  "offlineMessage": "Last updated {time}, you are offline",
+  "installTitle": "ଜଳମ୍ୟାପ୍ସ ଇନଷ୍ଟଲ୍ କରନ୍ତୁ",
+  "installText": "ଅଫଲାଇନ୍ ପ୍ରବେଶ ଏବଂ ଉନ୍ନତ ପ୍ରଦର୍ଶନ ପାଇଁ ଇନଷ୍ଟଲ୍ କରନ୍ତୁ |",
+  "installIosText": "ଇନଷ୍ଟଲ୍ କରିବାକୁ ସେୟାର୍ ଏବଂ ତା’ପରେ 'ହୋମ୍ ସ୍କ୍ରିନରେ ଯୋଡନ୍ତୁ' ଟ୍ୟାପ୍ କରନ୍ତୁ |",
+  "close": "ବନ୍ଦ କରନ୍ତୁ",
+  "notNow": "ଏବେ ନୁହେଁ",
+  "install": "ଇନଷ୍ଟଲ୍ କରନ୍ତୁ"
+}

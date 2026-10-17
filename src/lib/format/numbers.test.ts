@@ -30,6 +30,13 @@ describe("formatNumber (Indian grouping)", () => {
     // Devanagari digits are the hi-IN default.
     expect(formatNumber(100000, "hi")).toMatch(/^१|1/);
   });
+
+  it("uses Indian grouping for new locales (mr, gu, bn, etc.)", () => {
+    expect(formatNumber(1234567, "mr")).toMatch(/12,34,567|१२,३४,५६७/);
+    expect(formatNumber(1234567, "gu")).toMatch(/12,34,567|૧૨,૩૪,૫૬૭/);
+    expect(formatNumber(1234567, "bn")).toMatch(/12,34,567|১২,৩৪,৫৬৭/);
+    expect(formatNumber(1234567, "pa")).toMatch(/12,34,567|੧੨,੩੪,੫੬੭/);
+  });
 });
 
 describe("formatCompactNumber", () => {

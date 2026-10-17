@@ -3,20 +3,20 @@ import { z } from "zod";
 /** Theme preference stored in a cookie; readable on the server for no-flash SSR. */
 export const THEME_COOKIE_NAME = "jalmaps-theme";
 
-export const themeSchema = z.enum(["light", "dark"]);
+export const themeSchema = z.enum(["system", "light", "dark"]);
 export type Theme = z.infer<typeof themeSchema>;
 
-export const themeCookieSchema = z.object({ theme: themeSchema }).catch({ theme: "light" });
+export const themeCookieSchema = z.object({ theme: themeSchema }).catch({ theme: "system" });
 
 export function parseThemeCookieValue(value: string | undefined): Theme {
   let raw: unknown;
   try {
     raw = value ? JSON.parse(value) : undefined;
   } catch {
-    return "light";
+    return "system";
   }
   const parsed = themeCookieSchema.safeParse(raw);
-  return parsed.success ? parsed.data.theme : "light";
+  return parsed.success ? parsed.data.theme : "system";
 }
 
 /** Serialise the cookie value; safe for `cookies().set()`. */

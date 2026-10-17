@@ -1,0 +1,16 @@
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+
+import { getPublicEnv } from "@/lib/db/public-env";
+import type { Database } from "@/lib/db/types";
+
+export async function createServerComponentClient() {
+  const cookieStore = await cookies();
+  const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY } = getPublicEnv();
+
+  return createServerClient<Database>(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    cookies: {
+      getAll: () => cookieStore.getAll(),
+    },
+  });
+}

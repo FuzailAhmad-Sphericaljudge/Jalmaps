@@ -1,0 +1,33 @@
+{
+  "rules": {
+    "title": "Alert Rules",
+    "alerts": "Alerts",
+    "edit": "Edit",
+    "back": "Back to rules",
+    "save": "Save Rule",
+    "empty": "No alert rules configured for this well.",
+    "editDescription": "Configure thresholds for this alert.",
+    "threshold": "Threshold ({unit})"
+  },
+  "ruleTypes": {
+    "level_below": "Water Level Too Low",
+    "drop_rate": "Fast Depletion (Drop Rate)",
+    "no_data": "Node Offline (No Data)",
+    "low_battery": "Low Battery",
+    "sensor_fault": "Sensor Fault"
+  },
+  "simulator": {
+    "title": "Simulation Preview",
+    "description": "Would this have fired? (Simulated on last 30 days of data)",
+    "run": "Run Simulation",
+    "running": "Running...",
+    "result": "This rule would have triggered {count} times in the last 30 days."
+  },
+  "center": {
+    "noAlerts": "No active alerts.",
+    "triggeredAgo": "Triggered {time} ago",
+    "acknowledge": "Acknowledge"
+  },
+  "depthThreshold": "Water depth has exceeded threshold.",
+  "lowBattery": "Battery is critically low."
+}

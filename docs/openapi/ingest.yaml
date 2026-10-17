@@ -1,0 +1,167 @@
+openapi: 3.1.0
+info:
+  title: JalMaps Ingestion API
+  description: API for ESP32 sensor nodes to submit groundwater depth readings securely.
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /ingest:
+    post:
+      summary: Submit sensor readings
+      description: Secure endpoint for nodes to upload bulk sensor readings. Idempotent based on hardware_id and timestamps.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngestRequest"
+      responses:
+        "200":
+          description: Readings processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestResponse"
+        "400":
+          description: Bad request (invalid JSON or validation failure)
+        "401":
+          description: Unauthorized (missing or invalid API key)
+        "413":
+          description: Payload too large (exceeds 64 KB or 200 readings)
+  /ingest/ping:
+    get:
+      summary: Connectivity check
+      description: Validates API key and returns current server time.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful ping
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_time:
+                    type: string
+                    format: date-time
+        "401":
+          description: Unauthorized (missing or invalid API key)
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    IngestRequest:
+      type: object
+      required:
+        - hardware_id
+        - firmware
+        - readings
+      properties:
+        hardware_id:
+          type: string
+          description: Unique identifier for the hardware node.
+          example: JM-ESP32-0001
+        firmware:
+          type: string
+          description: Semantic version of the node firmware.
+          example: 2.0.0
+        sent_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the request was sent (optional).
+        readings:
+          type: array
+          maxItems: 200
+          items:
+            $ref: "#/components/schemas/SensorReading"
+    SensorReading:
+      type: object
+      required:
+        - current_ma
+        - battery_v
+        - rssi
+        - seq
+      properties:
+        current_ma:
+          type: number
+          format: float
+          description: The 4-20 mA loop reading representing the water column.
+          minimum: -1
+          maximum: 30
+          example: 12.34
+        battery_v:
+          type: number
+          format: float
+          description: Battery voltage.
+          minimum: 2.5
+          maximum: 5.5
+          example: 3.92
+        rssi:
+          type: integer
+          description: Signal strength (Received Signal Strength Indicator).
+          minimum: -130
+          maximum: 0
+          example: -71
+        recorded_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the reading was taken. Mutually exclusive with age_s.
+        age_s:
+          type: integer
+          description: Seconds since the reading was taken. Mutually exclusive with recorded_at.
+          example: 120
+        seq:
+          type: integer
+          description: Sequence number of the reading for tracking missed packets.
+          example: 1021
+    IngestResponse:
+      type: object
+      required:
+        - server_time
+        - next_interval_s
+        - accepted
+        - duplicates
+        - rejected
+        - results
+      properties:
+        server_time:
+          type: string
+          format: date-time
+          description: Current server ISO 8601 timestamp for clock synchronization.
+        next_interval_s:
+          type: integer
+          description: Requested reporting interval for the next cycle in seconds.
+          example: 900
+        accepted:
+          type: integer
+          description: Number of readings successfully saved.
+        duplicates:
+          type: integer
+          description: Number of readings ignored because they already exist.
+        rejected:
+          type: integer
+          description: Number of readings rejected due to validation failure.
+        results:
+          type: array
+          items:
+            type: object
+            required:
+              - index
+              - status
+            properties:
+              index:
+                type: integer
+                description: Array index of the reading in the request.
+              status:
+                type: string
+                enum: [accepted, duplicate, rejected]
+              reason:
+                type: string
+                description: Optional reason message, primarily for rejected readings.
