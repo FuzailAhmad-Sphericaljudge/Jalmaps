@@ -9,6 +9,7 @@ import { isAppLocale, localeNativeNames, type AppLocale } from "@/i18n/config";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { SettingsInput } from "@/lib/schemas/settings";
 import { useTheme } from "@/components/theme/theme-context";
+import { DataSharingConsentToggle } from "@/features/account/data-sharing-consent";
 
 import { saveSettings } from "./actions";
 
@@ -26,6 +27,7 @@ export function SettingsForm({
   initialTextSize,
   initialTheme,
   initialHighContrast,
+  initialConsent,
 }: {
   locale: AppLocale;
   initialLocale: AppLocale;
@@ -33,6 +35,7 @@ export function SettingsForm({
   initialTextSize: SettingsInput["text_size"];
   initialTheme: SettingsInput["theme"];
   initialHighContrast: boolean;
+  initialConsent: boolean;
 }) {
   const t = useTranslations("settings");
   const router = useRouter();
@@ -233,6 +236,8 @@ export function SettingsForm({
           {t("profile")}
         </Link>
       </section>
+
+      <DataSharingConsentToggle initialConsent={initialConsent} locale={locale} />
 
       <div aria-live="polite" className="min-h-6 text-sm">
         {message ? (
