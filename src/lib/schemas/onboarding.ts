@@ -23,6 +23,7 @@ export const onboardingSchema = z.object({
   block_id: uuidSchema,
   village_id: uuidSchema,
   crops: z.array(z.enum(cropIds)).min(1).max(cropIds.length),
+  data_sharing_consent: z.boolean().default(false),
 });
 
 export type OnboardingInput = z.infer<typeof onboardingSchema>;

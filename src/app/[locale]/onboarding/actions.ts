@@ -80,6 +80,8 @@ export async function completeOnboarding(input: unknown): Promise<OnboardingActi
       preferred_unit: parsed.data.preferred_unit,
       admin_area_id: village.id,
       crops: parsed.data.crops,
+      data_sharing_consent: parsed.data.data_sharing_consent,
+      data_sharing_consent_at: parsed.data.data_sharing_consent ? new Date().toISOString() : null,
       onboarding_completed_at: new Date().toISOString(),
     })
     .eq("id", current.user.id)

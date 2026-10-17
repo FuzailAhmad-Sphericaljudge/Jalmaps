@@ -44,7 +44,7 @@ describe("OnboardingWizard", () => {
     renderWizard();
 
     expect(screen.getByRole("group", { name: "Which language do you prefer?" })).toBeVisible();
-    expect(screen.getByLabelText("Step 1 of 7")).toBeInTheDocument();
+    expect(screen.getByLabelText("Step 1 of 8")).toBeInTheDocument();
     expect(
       screen.queryByRole("group", { name: "Which unit should we use for water depth?" }),
     ).not.toBeInTheDocument();

@@ -58,6 +58,7 @@ export function OnboardingWizard({
   const [blocks, setBlocks] = useState<AreaOption[]>([]);
   const [villages, setVillages] = useState<AreaOption[]>([]);
   const [crops, setCrops] = useState<OnboardingInput["crops"]>([]);
+  const [dataSharingConsent, setDataSharingConsent] = useState(false);
   const [loadError, setLoadError] = useState(false);
   const [saveError, setSaveError] = useState(false);
   const [isLoadingAreas, setIsLoadingAreas] = useState(false);
@@ -137,6 +138,7 @@ export function OnboardingWizard({
       block_id: selectedBlock,
       village_id: selectedVillage,
       crops,
+      data_sharing_consent: dataSharingConsent,
     };
 
     void (async () => {
@@ -158,12 +160,13 @@ export function OnboardingWizard({
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (step < 6) {
+    if (step < 7) {
+      if (step === 6 && crops.length === 0) {
+        setSaveError(true);
+        return;
+      }
+      setSaveError(false);
       setStep((current) => current + 1);
-      return;
-    }
-    if (crops.length === 0) {
-      setSaveError(true);
       return;
     }
     finishOnboarding();
@@ -177,6 +180,7 @@ export function OnboardingWizard({
     "blockQuestion",
     "villageQuestion",
     "cropsQuestion",
+    "dataSharingTitle",
   ] as const;
 
   return (
@@ -298,6 +302,32 @@ export function OnboardingWizard({
               ))}
             </div>
           ) : null}
+
+          {step === 7 ? (
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">{t("dataSharingDescription")}</p>
+              <div className="grid gap-3">
+                <label className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border px-4">
+                  <input
+                    type="radio"
+                    name="data_sharing"
+                    checked={dataSharingConsent === true}
+                    onChange={() => setDataSharingConsent(true)}
+                  />
+                  <span>{t("dataSharingOptIn")}</span>
+                </label>
+                <label className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border px-4">
+                  <input
+                    type="radio"
+                    name="data_sharing"
+                    checked={dataSharingConsent === false}
+                    onChange={() => setDataSharingConsent(false)}
+                  />
+                  <span>{t("dataSharingSkip")}</span>
+                </label>
+              </div>
+            </div>
+          ) : null}
         </fieldset>
 
         <div className="min-h-7 text-sm" aria-live="polite">
@@ -328,7 +358,7 @@ export function OnboardingWizard({
             className="flex-1"
             disabled={isSaving || isLoadingAreas || (step >= 2 && step <= 5 && loadError)}
           >
-            {isSaving ? t("saving") : step === 6 ? t("save") : t("next")}
+            {isSaving ? t("saving") : step === 7 ? t("save") : t("next")}
           </Button>
         </div>
       </form>
