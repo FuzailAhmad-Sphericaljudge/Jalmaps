@@ -43,7 +43,7 @@ export async function upsertAreaRiskScore(
         as_of: asOf,
         score: input.score,
         band: input.band,
-        components: input.components as unknown as Json,
+        components: input.components as unknown as NonNullable<Json>,
         confidence: input.confidence,
       },
       { onConflict: "area_id,model_version,as_of" },

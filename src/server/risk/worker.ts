@@ -2,7 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/db/types";
 import { computeRiskV1 } from "@/lib/risk/model-v1";
 import { fetchInsurerVillageStats } from "@/server/insurer/aggregates";
-import { upsertAreaRiskScore, type StoredAreaRiskScore } from "./repository";
+import { upsertAreaRiskScore } from "./repository";
 
 export interface RiskWorkerResult {
   processedCount: number;
@@ -54,10 +54,10 @@ export async function runDailyRiskComputation(
     const inputs = {
       currentDepthM: currentDepth,
       historicalMedianDepthM: medianDepth,
-      annualDepletionRateMPerYear: stats.pct_critical > 0 ? 0.8 : 0.2,
+      annualDepletionRateMPerYear: (stats.pct_critical ?? 0) > 0 ? 0.8 : 0.2,
       preMonsoonDepthM: currentDepth * 1.15,
       totalDepthM: Math.max(currentDepth * 1.8, 30),
-      monsoonRechargeRatio: stats.pct_offline > 20 ? 0.6 : 1.0,
+      monsoonRechargeRatio: (stats.pct_offline ?? 0) > 20 ? 0.6 : 1.0,
       consentingWellsCount: stats.consenting_wells_count,
       observationsLast90Days: 80,
       daysOfHistory: 90,
