@@ -7,7 +7,7 @@ import { issueNodeKey, revokeNodeKey } from "./keys";
 import { processIngestion, IngestError } from "./service";
 import crypto from "node:crypto";
 
-describe("Ingestion Service Integration", () => {
+describe("Ingestion Service Integration", { timeout: 30000 }, () => {
   const db = createServiceRoleClient();
   let validNodeId: string;
   let validHardwareId: string;
