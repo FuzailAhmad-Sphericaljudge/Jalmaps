@@ -85,6 +85,8 @@ describe("applyRolePrivacy", () => {
     preferred_theme: "system",
     created_at: "2026-01-01T00:00:00Z",
     updated_at: "2026-01-01T00:00:00Z",
+    data_sharing_consent: false,
+    data_sharing_consent_at: null,
     deleted_at: null,
   };
 

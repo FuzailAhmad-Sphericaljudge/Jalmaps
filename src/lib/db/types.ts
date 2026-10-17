@@ -415,6 +415,41 @@ export type Database = {
           },
         ];
       };
+      api_usage: {
+        Row: {
+          bytes: number;
+          endpoint: string;
+          id: string;
+          key_id: string | null;
+          status: number;
+          ts: string;
+        };
+        Insert: {
+          bytes?: number;
+          endpoint: string;
+          id?: string;
+          key_id?: string | null;
+          status: number;
+          ts?: string;
+        };
+        Update: {
+          bytes?: number;
+          endpoint?: string;
+          id?: string;
+          key_id?: string | null;
+          status?: number;
+          ts?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "api_usage_key_id_fkey";
+            columns: ["key_id"];
+            isOneToOne: false;
+            referencedRelation: "insurer_api_keys";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       aquifer_types: {
         Row: {
           code: string;
@@ -551,6 +586,50 @@ export type Database = {
             columns: ["author_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      area_risk_scores: {
+        Row: {
+          area_id: string;
+          as_of: string;
+          band: string;
+          components: NonNullable<Json>;
+          confidence: string;
+          created_at: string;
+          id: string;
+          model_version: string;
+          score: number;
+        };
+        Insert: {
+          area_id: string;
+          as_of?: string;
+          band: string;
+          components?: NonNullable<Json>;
+          confidence?: string;
+          created_at?: string;
+          id?: string;
+          model_version?: string;
+          score: number;
+        };
+        Update: {
+          area_id?: string;
+          as_of?: string;
+          band?: string;
+          components?: NonNullable<Json>;
+          confidence?: string;
+          created_at?: string;
+          id?: string;
+          model_version?: string;
+          score?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "area_risk_scores_area_id_fkey";
+            columns: ["area_id"];
+            isOneToOne: false;
+            referencedRelation: "admin_areas";
             referencedColumns: ["id"];
           },
         ];
@@ -752,6 +831,95 @@ export type Database = {
             columns: ["node_id"];
             isOneToOne: false;
             referencedRelation: "nodes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      insurer_api_keys: {
+        Row: {
+          created_at: string;
+          expires_at: string | null;
+          id: string;
+          is_sandbox: boolean;
+          key_hash: string;
+          key_prefix: string;
+          last_used_at: string | null;
+          monthly_quota: number;
+          name: string;
+          rate_limit_per_min: number;
+          revoked_at: string | null;
+          scopes: string[];
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          expires_at?: string | null;
+          id?: string;
+          is_sandbox?: boolean;
+          key_hash: string;
+          key_prefix: string;
+          last_used_at?: string | null;
+          monthly_quota?: number;
+          name: string;
+          rate_limit_per_min?: number;
+          revoked_at?: string | null;
+          scopes?: string[];
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          expires_at?: string | null;
+          id?: string;
+          is_sandbox?: boolean;
+          key_hash?: string;
+          key_prefix?: string;
+          last_used_at?: string | null;
+          monthly_quota?: number;
+          name?: string;
+          rate_limit_per_min?: number;
+          revoked_at?: string | null;
+          scopes?: string[];
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      insurer_area_grants: {
+        Row: {
+          area_id: string;
+          created_at: string;
+          granted_by: string | null;
+          id: string;
+          insurer_user_id: string;
+          scopes: string[];
+          valid_from: string;
+          valid_to: string | null;
+        };
+        Insert: {
+          area_id: string;
+          created_at?: string;
+          granted_by?: string | null;
+          id?: string;
+          insurer_user_id: string;
+          scopes?: string[];
+          valid_from?: string;
+          valid_to?: string | null;
+        };
+        Update: {
+          area_id?: string;
+          created_at?: string;
+          granted_by?: string | null;
+          id?: string;
+          insurer_user_id?: string;
+          scopes?: string[];
+          valid_from?: string;
+          valid_to?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "insurer_area_grants_area_id_fkey";
+            columns: ["area_id"];
+            isOneToOne: false;
+            referencedRelation: "admin_areas";
             referencedColumns: ["id"];
           },
         ];
@@ -968,6 +1136,8 @@ export type Database = {
           admin_area_id: string | null;
           created_at: string;
           crops: string[];
+          data_sharing_consent: boolean;
+          data_sharing_consent_at: string | null;
           deleted_at: string | null;
           full_name: string;
           id: string;
@@ -985,6 +1155,8 @@ export type Database = {
           admin_area_id?: string | null;
           created_at?: string;
           crops?: string[];
+          data_sharing_consent?: boolean;
+          data_sharing_consent_at?: string | null;
           deleted_at?: string | null;
           full_name: string;
           id: string;
@@ -1002,6 +1174,8 @@ export type Database = {
           admin_area_id?: string | null;
           created_at?: string;
           crops?: string[];
+          data_sharing_consent?: boolean;
+          data_sharing_consent_at?: string | null;
           deleted_at?: string | null;
           full_name?: string;
           id?: string;
@@ -1689,6 +1863,38 @@ export type Database = {
       consume_otp_rate_limit: {
         Args: { p_destination_hash: string; p_destination_type: string; p_ip_hash: string };
         Returns: boolean;
+      };
+      get_insurer_village_stats: {
+        Args: { p_area_id: string; p_min_wells?: number };
+        Returns: {
+          area_id: string;
+          as_of: string;
+          avg_depth_m: number;
+          consenting_wells_count: number;
+          median_depth_m: number;
+          nodes_online: number;
+          pct_critical: number;
+          pct_offline: number;
+          pct_warning: number;
+          privacy_masked: boolean;
+          privacy_reason: string;
+        }[];
+      };
+      get_insurer_village_timeseries: {
+        Args: {
+          p_area_id: string;
+          p_bucket?: string;
+          p_end_date: string;
+          p_min_wells?: number;
+          p_start_date: string;
+        };
+        Returns: {
+          avg_depth_m: number;
+          bucket_ts: string;
+          consenting_wells_count: number;
+          median_depth_m: number;
+          privacy_masked: boolean;
+        }[];
       };
       get_trend: {
         Args: { p_hours: number; p_well_id: string };

@@ -40,6 +40,8 @@ const profile: Database["public"]["Tables"]["profiles"]["Row"] = {
   crops: [],
   onboarding_completed_at: "2026-10-01T00:00:00.000Z",
   deleted_at: null,
+  data_sharing_consent: false,
+  data_sharing_consent_at: null,
   created_at: "2026-10-01T00:00:00.000Z",
   updated_at: "2026-10-01T00:00:00.000Z",
 };
