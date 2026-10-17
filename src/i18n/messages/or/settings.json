@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "ଅଜ୍ଞାତ ତଥ୍ୟ ଅଂଶୀଦାର",
+  "dataSharingDescription": "କୃଷି ଅନୁସନ୍ଧାନକାରୀ ଏବଂ ଅନୁମୋଦିତ ଆର୍ଥିକ ଭାଗୀଦାରୀଙ୍କୁ ଭୂତଳ ଜଳ ବିପଦ ବୁଝିବାରେ ସାହାଯ୍ୟ କରନ୍ତୁ। ଆମେ କେବଳ ଅଜ୍ଞାତ ଗ୍ରାମ ସ୍ତରୀୟ ପରିସଂଖ୍ୟାନ ଅଂଶୀଦାର କରୁ।",
+  "dataSharingConsentLabel": "ଅଜ୍ଞାତ ଗ୍ରାମ ସ୍ତରୀୟ ତଥ୍ୟ ଅଂଶୀଦାରକୁ ଅନୁମତି ଦିଅନ୍ତୁ",
+  "dataSharingWithdrawNotice": "ଆପଣ ଯେକୌଣସି ସମୟରେ ସମ୍ମତି ପ୍ରତ୍ୟାହାର କରିପାରିବେ। ପରିବର୍ତ୍ତନ ତୁରନ୍ତ ପ୍ରଭାବଶାଳୀ ହେବ।",
+  "legalReviewNote": "ସରଳ ଭାଷା ନକଲ (ଆଇନଗତ ସମୀକ୍ଷା ପାଇଁ ଚିହ୍ନିତ)",
+  "dataSharingConsentActive": "ସକ୍ରିୟ: ଅଜ୍ଞାତ ଗ୍ରାମ ସ୍ତରୀୟ ଅଂଶୀଦାର ସକ୍ଷମ ଅଟେ",
+  "dataSharingConsentInactive": "ବନ୍ଦ: ଆପଣଙ୍କ ତଥ୍ୟ ସମସ୍ତ ବାହ୍ୟ ସମଷ୍ଟିରୁ ବାଦ ଦିଆଯାଇଛି"
 }

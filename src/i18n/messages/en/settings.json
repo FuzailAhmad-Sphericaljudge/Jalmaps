@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "Anonymous Data Sharing",
+  "dataSharingDescription": "Help agricultural researchers and approved finance partners understand groundwater risks. We only share anonymised, village-level aggregate statistics. Your individual well details and exact location are never disclosed.",
+  "dataSharingConsentLabel": "Allow anonymous village aggregate sharing",
+  "dataSharingWithdrawNotice": "You can withdraw consent at any time. Changes take immediate effect on future village aggregates.",
+  "legalReviewNote": "Plain-language copy (marked for legal review)",
+  "dataSharingConsentActive": "Active: Anonymous village aggregate sharing enabled",
+  "dataSharingConsentInactive": "Off: Your data is excluded from all external aggregates"
 }

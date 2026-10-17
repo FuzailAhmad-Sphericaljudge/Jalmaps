@@ -29,5 +29,9 @@
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
   "cropSugarcane": "Sugarcane",
-  "betaWarning": "Beta languages use early machine translations."
+  "betaWarning": "Beta languages use early machine translations.",
+  "dataSharingTitle": "కమ్యూనిటీ డేటా భాగస్వామ్యం",
+  "dataSharingDescription": "ఆమోదిత బీమా మరియు వ్యవసాయ భాగస్వాముల కోసం గ్రామ భూగర్భ జలాల అంచనాకు సహకరించండి.",
+  "dataSharingOptIn": "అవును, అనామక గ్రామ గణాంకాలలో నా బావిని చేర్చండి",
+  "dataSharingSkip": "వద్దు ధన్యవాదాలు, మొత్తం డేటాను ప్రైవేట్‌గా ఉంచండి"
 }

@@ -29,5 +29,9 @@
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
   "cropSugarcane": "Sugarcane",
-  "betaWarning": "Beta languages use early machine translations."
+  "betaWarning": "Beta languages use early machine translations.",
+  "dataSharingTitle": "சமூக தரவு பகிர்வு",
+  "dataSharingDescription": "அங்கீகரிக்கப்பட்ட காப்பீடு மற்றும் விவசாய கூட்டாளர்களுக்கான கிராம நிலத்தடி நீர் மதிப்பீட்டிற்கு பங்களிக்கவும்.",
+  "dataSharingOptIn": "ஆம், எனது கிணற்றை அநாமதேய கிராம புள்ளிவிவரங்களில் சேர்க்கவும்",
+  "dataSharingSkip": "இல்லை நன்றி, எல்லா தரவையும் தனிப்பட்டதாக வைத்திருக்கவும்"
 }

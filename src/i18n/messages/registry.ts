@@ -23,6 +23,7 @@ const loaders = {
     insights: (await import("./en/insights.json")).default,
     official: (await import("./en/official.json")).default,
     reports: (await import("./en/reports.json")).default,
+    insurer: (await import("./en/insurer.json")).default,
   }),
   hi: async () => ({
     common: (await import("./hi/common.json")).default,
@@ -46,6 +47,7 @@ const loaders = {
     insights: (await import("./hi/insights.json")).default,
     official: (await import("./hi/official.json")).default,
     reports: (await import("./hi/reports.json")).default,
+    insurer: (await import("./hi/insurer.json")).default,
   }),
   pa: async () => ({
     common: (await import("./pa/common.json")).default,
@@ -69,6 +71,7 @@ const loaders = {
     insights: (await import("./pa/insights.json")).default,
     official: (await import("./pa/official.json")).default,
     reports: (await import("./pa/reports.json")).default,
+    insurer: (await import("./pa/insurer.json")).default,
   }),
   mr: async () => ({
     common: (await import("./mr/common.json")).default,
@@ -92,6 +95,7 @@ const loaders = {
     insights: (await import("./mr/insights.json")).default,
     official: (await import("./mr/official.json")).default,
     reports: (await import("./mr/reports.json")).default,
+    insurer: (await import("./mr/insurer.json")).default,
   }),
   gu: async () => ({
     common: (await import("./gu/common.json")).default,
@@ -115,6 +119,7 @@ const loaders = {
     insights: (await import("./gu/insights.json")).default,
     official: (await import("./gu/official.json")).default,
     reports: (await import("./gu/reports.json")).default,
+    insurer: (await import("./gu/insurer.json")).default,
   }),
   bn: async () => ({
     common: (await import("./bn/common.json")).default,
@@ -138,6 +143,7 @@ const loaders = {
     insights: (await import("./bn/insights.json")).default,
     official: (await import("./bn/official.json")).default,
     reports: (await import("./bn/reports.json")).default,
+    insurer: (await import("./bn/insurer.json")).default,
   }),
   ta: async () => ({
     common: (await import("./ta/common.json")).default,
@@ -161,6 +167,7 @@ const loaders = {
     insights: (await import("./ta/insights.json")).default,
     official: (await import("./ta/official.json")).default,
     reports: (await import("./ta/reports.json")).default,
+    insurer: (await import("./ta/insurer.json")).default,
   }),
   te: async () => ({
     common: (await import("./te/common.json")).default,
@@ -184,6 +191,7 @@ const loaders = {
     insights: (await import("./te/insights.json")).default,
     official: (await import("./te/official.json")).default,
     reports: (await import("./te/reports.json")).default,
+    insurer: (await import("./te/insurer.json")).default,
   }),
   kn: async () => ({
     common: (await import("./kn/common.json")).default,
@@ -207,6 +215,7 @@ const loaders = {
     insights: (await import("./kn/insights.json")).default,
     official: (await import("./kn/official.json")).default,
     reports: (await import("./kn/reports.json")).default,
+    insurer: (await import("./kn/insurer.json")).default,
   }),
   ml: async () => ({
     common: (await import("./ml/common.json")).default,
@@ -230,6 +239,7 @@ const loaders = {
     insights: (await import("./ml/insights.json")).default,
     official: (await import("./ml/official.json")).default,
     reports: (await import("./ml/reports.json")).default,
+    insurer: (await import("./ml/insurer.json")).default,
   }),
   or: async () => ({
     common: (await import("./or/common.json")).default,
@@ -253,6 +263,7 @@ const loaders = {
     insights: (await import("./or/insights.json")).default,
     official: (await import("./or/official.json")).default,
     reports: (await import("./or/reports.json")).default,
+    insurer: (await import("./or/insurer.json")).default,
   }),
 } satisfies Record<AppLocale, () => Promise<unknown>>;
 

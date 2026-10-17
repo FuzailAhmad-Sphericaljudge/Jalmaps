@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "અનામી ડેટા શેરિંગ",
+  "dataSharingDescription": "કૃષિ સંશોધકો અને માન્ય નાણાકીય ભાગીદારોને ભૂગર્ભજળના જોખમો સમજવામાં સહાય કરો. અમે ફક્ત અનામી, ગ્રામ-સ્તરના એકંદર આંકડા શેર કરીએ છીએ.",
+  "dataSharingConsentLabel": "અનામી ગામ એકંદર શેરિંગની મંજૂરી આપો",
+  "dataSharingWithdrawNotice": "તમે કોઈપણ સમયે સંમતિ પાછી ખેંચી શકો છો. ફેરફારો તરત જ અસરકારક થશે.",
+  "legalReviewNote": "સરળ ભાષા નકલ (કાનૂની સમીક્ષા માટે ચિહ્નિત)",
+  "dataSharingConsentActive": "સક્રિય: અનામી ગામ એકંદર શેરિંગ સક્ષમ છે",
+  "dataSharingConsentInactive": "બંધ: તમારો ડેટા તમામ બાહ્ય એકંદરમાંથી બાકાત રાખવામાં આવ્યો છે"
 }

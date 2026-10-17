@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "ਗੁਮਨਾਮ ਡੇਟਾ ਸਾਂਝਾਕਰਨ",
+  "dataSharingDescription": "ਖੇਤੀਬਾੜੀ ਖੋਜਕਰਤਾਵਾਂ ਅਤੇ ਪ੍ਰਵਾਨਿਤ ਵਿੱਤੀ ਭਾਈਵਾਲਾਂ ਨੂੰ ਧਰਤੀ ਹੇਠਲੇ ਪਾਣੀ ਦੇ ਜੋਖਮਾਂ ਨੂੰ ਸਮਝਣ ਵਿੱਚ ਮਦਦ ਕਰੋ। ਅਸੀਂ ਸਿਰਫ਼ ਗੁਮਨਾਮ, ਪਿੰਡ-ਪੱਧਰੀ ਸਮੁੱਚੇ ਅੰਕੜੇ ਸਾਂਝੇ ਕਰਦੇ ਹਾਂ।",
+  "dataSharingConsentLabel": "ਗੁਮਨਾਮ ਪਿੰਡ ਸਮੁੱਚੇ ਡੇਟਾ ਸਾਂਝਾ ਕਰਨ ਦੀ ਆਗਿਆ ਦਿਓ",
+  "dataSharingWithdrawNotice": "ਤੁਸੀਂ ਕਿਸੇ ਵੀ ਸਮੇਂ ਸਹਿਮਤੀ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ। ਤਬਦੀਲੀਆਂ ਤੁਰੰਤ ਪ੍ਰਭਾਵੀ ਹੋਣਗੀਆਂ।",
+  "legalReviewNote": "ਸਧਾਰਨ ਭਾਸ਼ਾ ਕਾਪੀ (ਕਾਨੂੰਨੀ ਸਮੀਖਿਆ ਲਈ ਨਿਸ਼ਾਨਬੱਧ)",
+  "dataSharingConsentActive": "ਸਰਗਰਮ: ਗੁਮਨਾਮ ਪਿੰਡ ਸਮੁੱਚੀ ਸਾਂਝੇਦਾਰੀ ਸਮਰੱਥ ਹੈ",
+  "dataSharingConsentInactive": "ਬੰਦ: ਤੁਹਾਡਾ ਡੇਟਾ ਸਾਰੇ ਬਾਹਰੀ ਸਮੂਹਾਂ ਤੋਂ ਬਾਹਰ ਰੱਖਿਆ ਗਿਆ ਹੈ"
 }

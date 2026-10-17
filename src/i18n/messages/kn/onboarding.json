@@ -29,5 +29,9 @@
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
   "cropSugarcane": "Sugarcane",
-  "betaWarning": "Beta languages use early machine translations."
+  "betaWarning": "Beta languages use early machine translations.",
+  "dataSharingTitle": "ಸಮುದಾಯ ಡೇಟಾ ಹಂಚಿಕೆ",
+  "dataSharingDescription": "ಅನುಮೋದಿತ ವಿಮೆ ಮತ್ತು ಕೃಷಿ ಪಾಲುದಾರರಿಗಾಗಿ ಗ್ರಾಮ ಅಂತರ್ಜಲ ಮೌಲ್ಯಮಾಪನಕ್ಕೆ ಕೊಡುಗೆ ನೀಡಿ.",
+  "dataSharingOptIn": "ಹೌದು, ಅನಾಮಧೇಯ ಗ್ರಾಮ ಅಂಕಿಅಂಶಗಳಲ್ಲಿ ನನ್ನ ಬಾವಿಯನ್ನು ಸೇರಿಸಿ",
+  "dataSharingSkip": "ಬೇಡ ಧನ್ಯವಾದಗಳು, ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ಖಾಸಗಿಯಾಗಿರಿಸಿ"
 }

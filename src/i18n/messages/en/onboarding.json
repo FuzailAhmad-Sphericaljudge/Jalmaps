@@ -29,5 +29,9 @@
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
   "cropSugarcane": "Sugarcane",
-  "betaWarning": "Beta languages use early machine translations."
+  "betaWarning": "Beta languages use early machine translations.",
+  "dataSharingTitle": "Community Data Sharing",
+  "dataSharingDescription": "Contribute to aggregated village groundwater assessments for approved insurance and agriculture partners. Your individual well and location are completely private.",
+  "dataSharingOptIn": "Yes, include my well in anonymous village statistics",
+  "dataSharingSkip": "No thanks, keep all data private"
 }

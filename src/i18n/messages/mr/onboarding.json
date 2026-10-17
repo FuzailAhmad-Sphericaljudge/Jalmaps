@@ -29,5 +29,9 @@
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
   "cropSugarcane": "Sugarcane",
-  "betaWarning": "Beta languages use early machine translations."
+  "betaWarning": "Beta languages use early machine translations.",
+  "dataSharingTitle": "समुदाय डेटा सामायिकरण",
+  "dataSharingDescription": "मंजूर विमा आणि कृषी भागीदारांसाठी एकत्रित गाव भूजल मूल्यांकनात योगदान द्या. तुमची विहीर आणि स्थान खाजगी आहे.",
+  "dataSharingOptIn": "होय, माझ्या विहिरीचा निनावी गाव आकडेवारीत समावेश करा",
+  "dataSharingSkip": "नाही धन्यवाद, सर्व डेटा खाजगी ठेवा"
 }

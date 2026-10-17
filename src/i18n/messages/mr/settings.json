@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "निनावी डेटा सामायिकरण",
+  "dataSharingDescription": "कृषी संशोधक आणि मंजूर वित्तीय भागीदारांना भूजल धोके समजून घेण्यास मदत करा. आम्ही केवळ निनावी, गावपातळीवरील एकत्रित आकडेवारी सामायिक करतो.",
+  "dataSharingConsentLabel": "निनावी गाव पातळीवरील एकत्रित डेटा सामायिक करण्यास अनुमती द्या",
+  "dataSharingWithdrawNotice": "तुम्ही कधीही संमती मागे घेऊ शकता. बदल भविष्यातील गाव एकत्रीकरणावर त्वरित लागू होतील.",
+  "legalReviewNote": "साधी भाषा प्रत (कायदेशीर पुनरावलोकनासाठी चिन्हांकित)",
+  "dataSharingConsentActive": "सक्रिय: निनावी गाव सामायिकरण सक्षम आहे",
+  "dataSharingConsentInactive": "बंद: तुमचा डेटा सर्व बाह्य एकत्रीकरणातून वगळला गेला आहे"
 }

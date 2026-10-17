@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "അജ്ഞാത ഡാറ്റ പങ്കിടൽ",
+  "dataSharingDescription": "ഭൂഗർഭജല അപകടസാധ്യതകൾ മനസ്സിലാക്കാൻ കാർഷിക ഗവേഷകരെയും അംഗീകൃത ധനകാര്യ പങ്കാളികളെയും സഹായിക്കുക. ഞങ്ങൾ അജ്ഞാത ഗ്രാമതല സ്ഥിതിവിവരക്കണക്കുകൾ മാത്രമേ പങ്കിടൂ.",
+  "dataSharingConsentLabel": "അജ്ഞാത ഗ്രാമതല ഡാറ്റ പങ്കിടൽ അനുവദിക്കുക",
+  "dataSharingWithdrawNotice": "നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും സമ്മതം പിൻവലിക്കാം. മാറ്റങ്ങൾ ഉടനടി പ്രാബല്യത്തിൽ വരും.",
+  "legalReviewNote": "ലളിതമായ ഭാഷാ പകർപ്പ് (നിയമപരമായ അവലോകനത്തിനായി അടയാളപ്പെടുത്തി)",
+  "dataSharingConsentActive": "സജീവം: അജ്ഞാത ഗ്രാമതല പങ്കിടൽ പ്രവർത്തനക്ഷമമാക്കി",
+  "dataSharingConsentInactive": "ഓഫ്: നിങ്ങളുടെ ഡാറ്റ എല്ലാ ബാഹ്യ സംഗ്രഹങ്ങളിൽ നിന്നും ഒഴിവാക്കിയിരിക്കുന്നു"
 }

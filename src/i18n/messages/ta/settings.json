@@ -26,5 +26,12 @@
   "save": "Save settings",
   "saving": "Saving…",
   "saved": "Your settings were saved.",
-  "saveError": "Settings could not be saved. Please try again."
+  "saveError": "Settings could not be saved. Please try again.",
+  "dataSharingTitle": "அநாமதேய தரவு பகிர்வு",
+  "dataSharingDescription": "விவசாய ஆராய்ச்சியாளர்கள் மற்றும் அங்கீகரிக்கப்பட்ட நிதி கூட்டாளர்களுக்கு நிலத்தடி நீர் அபாயங்களைப் புரிந்துகொள்ள உதவுங்கள். நாங்கள் அநாமதேய கிராம அளவிலான புள்ளிவிவரங்களை மட்டுமே பகிர்கிறோம்.",
+  "dataSharingConsentLabel": "அநாமதேய கிராம அளவிலான தரவு பகிர்வை அனுமதிக்கவும்",
+  "dataSharingWithdrawNotice": "நீங்கள் எந்த நேரத்திலும் சம்மதத்தைத் திரும்பப் பெறலாம். மாற்றங்கள் உடனடியாக நடைமுறைக்கு வரும்.",
+  "legalReviewNote": "எளிய மொழி நகல் (சட்ட மதிப்பாய்வுக்கு குறிக்கப்பட்டது)",
+  "dataSharingConsentActive": "செயலில்: அநாமதேய கிராம அளவிலான பகிர்வு இயக்கப்பட்டது",
+  "dataSharingConsentInactive": "முடக்கப்பட்டது: உங்கள் தரவு அனைத்து வெளிப்புற சேகரிப்புகளிலிருந்தும் விலக்கப்பட்டுள்ளது"
 }

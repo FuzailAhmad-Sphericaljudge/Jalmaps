@@ -29,5 +29,9 @@
   "cropPulses": "Pulses",
   "cropGroundnut": "Groundnut",
   "cropSugarcane": "Sugarcane",
-  "betaWarning": "Beta languages use early machine translations."
+  "betaWarning": "Beta languages use early machine translations.",
+  "dataSharingTitle": "সম্প্রদায় তথ্য ভাগাভাগি",
+  "dataSharingDescription": "অনুমোদিত বীমা এবং কৃষি অংশীদারদের জন্য সামগ্রিক গ্রাম ভূগর্ভস্থ জল মূল্যায়নে অবদান রাখুন।",
+  "dataSharingOptIn": "হ্যাঁ, বেনামী গ্রাম পরিসংখ্যানে আমার কূপ অন্তর্ভুক্ত করুন",
+  "dataSharingSkip": "না ধন্যবাদ, সমস্ত তথ্য ব্যক্তিগত রাখুন"
 }
