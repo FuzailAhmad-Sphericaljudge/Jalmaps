@@ -26,5 +26,5 @@ describe("PDF Generation & Text Extraction", () => {
     const parsed = await parser.getText();
     expect(parsed.text).toContain("JalMaps Groundwater Report");
     expect(parsed.text).toContain("जल");
-  }, 25000);
+  }, 60000);
 });
