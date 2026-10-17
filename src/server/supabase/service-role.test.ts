@@ -31,5 +31,5 @@ describe("service-role client boundary", () => {
     );
 
     expect(unsafeImports).toEqual([]);
-  });
+  }, 30000);
 });

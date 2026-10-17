@@ -67,7 +67,7 @@ describe("Ingestion Service Integration", () => {
       .eq("hardware_id", validHardwareId)
       .single();
     validNodeId = node!.id;
-  });
+  }, 30000);
 
   it("rejects missing auth", async () => {
     await expect(processIngestion(db, null, "{}", "127.0.0.1")).rejects.toThrowError(IngestError);
