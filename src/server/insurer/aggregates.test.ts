@@ -2,11 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/db/types";
 
-import {
-  fetchInsurerVillageStats,
-  fetchInsurerVillageTimeseries,
-  type InsurerVillageStatsResult,
-} from "./aggregates";
+import { fetchInsurerVillageStats, fetchInsurerVillageTimeseries } from "./aggregates";
 
 describe("fetchInsurerVillageStats", () => {
   it("returns privacy masked statistics when consenting wells count is below threshold", async () => {
@@ -106,7 +102,7 @@ describe("fetchInsurerVillageStats", () => {
       });
 
       expect(res).toHaveLength(1);
-      expect(res[0].avg_depth_m).toBe(13.8);
+      expect(res[0]?.avg_depth_m).toBe(13.8);
       expect(mockRpc).toHaveBeenCalledWith("get_insurer_village_timeseries", {
         p_area_id: "village-1",
         p_start_date: "2026-10-01",
