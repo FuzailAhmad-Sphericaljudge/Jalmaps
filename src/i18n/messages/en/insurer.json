@@ -49,5 +49,17 @@
   "monthlyQuota": "Monthly Quota",
   "usageChart": "API Usage (Last 30 Days)",
   "downloadDataset": "Download Village Dataset (CSV)",
-  "legalReviewBadge": "Marked for Legal Review"
+  "legalReviewBadge": "Marked for Legal Review",
+  "status": "Status",
+  "actions": "Actions",
+  "noKeys": "No API keys yet. Create a key to access the JalMaps Data API.",
+  "expired": "Expired",
+  "reqPerMin": "{count} req/min",
+  "close": "Close",
+  "loadingUsage": "Loading usage metrics...",
+  "noUsage": "No recorded API requests in the past 30 days.",
+  "cancel": "Cancel",
+  "creating": "Creating...",
+  "rotate": "Rotate",
+  "viewUsage": "View Usage"
 }
