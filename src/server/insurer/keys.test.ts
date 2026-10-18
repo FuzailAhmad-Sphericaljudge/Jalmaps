@@ -161,7 +161,9 @@ describe("Insurer Keys Service", () => {
   });
 
   it("revokes an active key successfully", async () => {
-    const mockEq2 = vi.fn().mockResolvedValue({ error: null });
+    const mockMaybeSingle = vi.fn().mockResolvedValue({ data: { id: "key-uuid-1" }, error: null });
+    const mockSelect = vi.fn().mockReturnValue({ maybeSingle: mockMaybeSingle });
+    const mockEq2 = vi.fn().mockReturnValue({ select: mockSelect });
     const mockEq1 = vi.fn().mockReturnValue({ eq: mockEq2 });
     const mockUpdate = vi.fn().mockReturnValue({ eq: mockEq1 });
 
@@ -175,7 +177,26 @@ describe("Insurer Keys Service", () => {
   });
 
   it("rotates an active key by revoking old and creating new", async () => {
-    const mockRevokeEq2 = vi.fn().mockResolvedValue({ error: null });
+    const mockExisting = {
+      id: "key-uuid-1",
+      user_id: "user-1",
+      name: "Acme Key",
+      scopes: ["stats:read"],
+      is_sandbox: false,
+      rate_limit_per_min: 60,
+      monthly_quota: 50000,
+    };
+
+    const mockSelectSingle = vi.fn().mockResolvedValue({ data: mockExisting, error: null });
+    const mockSelectEq2 = vi.fn().mockReturnValue({ single: mockSelectSingle });
+    const mockSelectEq1 = vi.fn().mockReturnValue({ eq: mockSelectEq2 });
+    const mockSelect = vi.fn().mockReturnValue({ eq: mockSelectEq1 });
+
+    const mockRevokeMaybeSingle = vi
+      .fn()
+      .mockResolvedValue({ data: { id: "key-uuid-1" }, error: null });
+    const mockRevokeSelect = vi.fn().mockReturnValue({ maybeSingle: mockRevokeMaybeSingle });
+    const mockRevokeEq2 = vi.fn().mockReturnValue({ select: mockRevokeSelect });
     const mockRevokeEq1 = vi.fn().mockReturnValue({ eq: mockRevokeEq2 });
     const mockRevokeUpdate = vi.fn().mockReturnValue({ eq: mockRevokeEq1 });
 
@@ -184,7 +205,7 @@ describe("Insurer Keys Service", () => {
         single: vi.fn().mockResolvedValue({
           data: {
             id: "key-uuid-2",
-            name: "Rotated Key",
+            name: "Acme Key (Rotated)",
             key_prefix: "jlp_live_87654321",
             scopes: ["stats:read"],
             is_sandbox: false,
@@ -200,14 +221,10 @@ describe("Insurer Keys Service", () => {
     });
 
     const client = {
-      from: vi.fn().mockImplementation((table: string) => {
-        if (table === "insurer_api_keys") {
-          return {
-            update: mockRevokeUpdate,
-            insert: mockInsert,
-          };
-        }
-        return {};
+      from: vi.fn().mockReturnValue({
+        select: mockSelect,
+        update: mockRevokeUpdate,
+        insert: mockInsert,
       }),
     } as unknown as SupabaseClient<Database>;
 
