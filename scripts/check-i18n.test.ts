@@ -11,6 +11,11 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vites
  * resolve happens against the fixture.
  */
 
+vi.mock("../src/i18n/config", () => ({
+  locales: ["en", "hi"],
+  defaultLocale: "en",
+}));
+
 let fixtureDir: string;
 let originalCwd: string;
 

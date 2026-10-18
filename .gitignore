@@ -46,3 +46,8 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# geo data imports
+/data/geo/*.geojson
+/data/geo/*.json
+!/data/geo/fixtures/

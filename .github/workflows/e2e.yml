@@ -32,8 +32,29 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Start local Supabase
+        run: pnpm db:start
+
+      - name: Reset and seed database
+        run: pnpm db:reset
+
+      - name: Configure local Supabase environment
+        run: |
+          pnpm exec supabase status -o env > /tmp/jalmaps-supabase.env
+          set -a
+          . /tmp/jalmaps-supabase.env
+          set +a
+          echo "NEXT_PUBLIC_SUPABASE_URL=$API_URL" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$PUBLISHABLE_KEY" >> "$GITHUB_ENV"
+          echo "SUPABASE_SERVICE_ROLE_KEY=$SECRET_KEY" >> "$GITHUB_ENV"
+          echo "NEXT_PUBLIC_SITE_URL=http://localhost:3000" >> "$GITHUB_ENV"
+
       - name: Run Playwright tests
         run: pnpm test:e2e
+
+      - name: Stop local Supabase
+        if: always()
+        run: pnpm db:stop
 
       - name: Upload Playwright report on failure
         if: failure()

@@ -37,9 +37,9 @@ cp .env.example .env.local   # fill in Supabase credentials
 pnpm dev                     # http://localhost:3000
 ```
 
-For local development, copy the API URL, anon key and service-role key printed by
-`pnpm db:start` into `.env.local`. The service-role key is server-only and bypasses RLS;
-never expose it in browser code.
+For local development, map `API_URL`, `PUBLISHABLE_KEY` and `SECRET_KEY` from
+`pnpm exec supabase status -o env` to the corresponding variables in `.env.local`.
+The service-role secret is server-only and bypasses RLS; never expose it in browser code.
 
 Environment variables are documented in [.env.example](.env.example) and validated at
 runtime by `src/lib/env.ts` — the app fails fast with a readable error if anything is missing.
@@ -95,6 +95,9 @@ e2e/          # Playwright specs
 See [CONTRIBUTING.md](CONTRIBUTING.md). Branching is one branch per phase
 (e.g. `phase/01-bootstrap`); commits follow
 [Conventional Commits](https://www.conventionalcommits.org/) and are enforced by commitlint.
+
+Authentication and local test identities are described in [docs/auth.md](docs/auth.md);
+the implemented database access boundaries are in [docs/rls.md](docs/rls.md).
 
 ## Roadmap
 

@@ -1,0 +1,61 @@
+{
+  "title": "ಆಡಳಿತ ಶ್ರೇಣಿ",
+  "subtitle": "ರಾಜ್ಯಗಳು, ಜಿಲ್ಲೆಗಳು, ಬ್ಲಾಕ್‌ಗಳು ಮತ್ತು ಹಳ್ಳಿಗಳಲ್ಲಿ ಅಂತರ್ಜಲ ಮೇಲ್ವಿಚಾರಣೆಯ ಅಂಕಿಅಂಶಗಳು.",
+  "allStates": "ಎಲ್ಲಾ ರಾಜ್ಯಗಳು",
+  "levels": {
+    "state": "ರಾಜ್ಯ",
+    "district": "ಜಿಲ್ಲೆ",
+    "block": "ಬ್ಲಾಕ್",
+    "village": "ಗ್ರಾಮ"
+  },
+  "metrics": {
+    "wells": "ಒಟ್ಟು ಬಾವಿಗಳು",
+    "nodesOnline": "ಸಕ್ರಿಯ ನೋಡ್‌ಗಳು",
+    "avgDepth": "ಸರಾಸರಿ ಆಳ",
+    "medianDepth": "ಮಧ್ಯಮ ಆಳ",
+    "criticalPct": "ನಿರ್ಣಾಯಕ",
+    "warningPct": "ಎಚ್ಚರಿಕೆ",
+    "offlinePct": "ಆಫ್‌ಲೈನ್",
+    "change30d": "30 ದಿನಗಳ ಬದಲಾವಣೆ"
+  },
+  "privacy": {
+    "badge": "ಗೌಪ್ಯತೆ ರಕ್ಷಿತ",
+    "notice": "ವೈಯಕ್ತಿಕ ಗೌಪ್ಯತೆಯನ್ನು ರಕ್ಷಿಸಲು ಅಂಕಿಅಂಶಗಳನ್ನು ಮರೆಮಾಡಲಾಗಿದೆ ಏಕೆಂದರೆ ಈ ಪ್ರದೇಶದಲ್ಲಿ {min} ಕ್ಕಿಂತ ಕಡಿಮೆ ಬಾವಿಗಳಿವೆ."
+  },
+  "actions": {
+    "exportCsv": "CSV ರಫ್ತು ಮಾಡಿ",
+    "compare": "ಹೋಲಿಸಿ",
+    "comparing": "ಹೋಲಿಕೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ",
+    "clearCompare": "ಹೋಲಿಕೆ ತೆರವುಗೊಳಿಸಿ",
+    "viewDrilldown": "ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ",
+    "back": "ಹಿಂದಕ್ಕೆ",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
+  },
+  "searchPlaceholder": "ಹೆಸರು ಅಥವಾ ಕೋಡ್ ಮೂಲಕ ಹುಡುಕಿ...",
+  "noRegions": "ಯಾವುದೇ ಪ್ರದೇಶಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+  "historyTitle": "30 ದಿನಗಳ ಆಳ ಮತ್ತು ಸ್ಥಿತಿಯ ಪ್ರವೃತ್ತಿ",
+  "compareTitle": "ಪ್ರದೇಶ ಹೋಲಿಕೆ",
+  "viewMode": {
+    "table": "ಕೋಷ್ಟಕ",
+    "choropleth": "ಕೋರೋಪ್ಲೆತ್ ನಕ್ಷೆ"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
+  },
+  "table": {
+    "region": "Region",
+    "wells": "Wells",
+    "avgDepth": "Avg Depth",
+    "critical": "Critical %",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "legend": {
+    "low": "< 15%",
+    "medium": "15% - 30%",
+    "high": "> 30%"
+  }
+}

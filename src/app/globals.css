@@ -118,6 +118,14 @@
   --sidebar-ring: var(--color-primary);
 }
 
+html[data-text-size="large"] {
+  font-size: 112.5%;
+}
+
+html[data-text-size="extraLarge"] {
+  font-size: 125%;
+}
+
 .dark {
   --color-background: oklch(0.2 0.015 240);
   --color-surface: oklch(0.26 0.018 240);
@@ -232,9 +240,50 @@ html.text-large {
   font-size: 125%;
 }
 
-/* Devanagari pages (hi): native script first, Latin fallback for digits. */
-html[lang="hi"] {
+/* Devanagari/Indic pages: native script first, Latin fallback for digits. */
+html[lang="hi"],
+html[lang="mr"] {
   --font-sans: var(--font-noto-devanagari), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="pa"] {
+  --font-sans: var(--font-noto-gurmukhi), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="gu"] {
+  --font-sans: var(--font-noto-gujarati), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="bn"] {
+  --font-sans: var(--font-noto-bengali), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="ta"] {
+  --font-sans: var(--font-noto-tamil), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="te"] {
+  --font-sans: var(--font-noto-telugu), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="kn"] {
+  --font-sans: var(--font-noto-kannada), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="ml"] {
+  --font-sans: var(--font-noto-malayalam), var(--font-inter), system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+html[lang="or"] {
+  --font-sans: var(--font-noto-oriya), var(--font-inter), system-ui, sans-serif;
   --font-heading: var(--font-sans);
 }
 
@@ -253,4 +302,35 @@ html[lang="hi"] {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* High contrast mode overrides */
+.theme-high-contrast {
+  --color-background: oklch(1 0 0);
+  --color-surface: oklch(1 0 0);
+  --color-surface-muted: oklch(0.95 0 0);
+  --color-foreground: oklch(0 0 0);
+  --color-foreground-muted: oklch(0.1 0 0);
+  --color-border: oklch(0 0 0);
+  --color-primary: oklch(0.3 0.1 220);
+  --color-primary-foreground: oklch(1 0 0);
+  --color-primary-soft: oklch(0.8 0.1 220);
+  --color-success: oklch(0.4 0.15 150);
+  --color-warning: oklch(0.35 0.15 75);
+  --color-danger: oklch(0.4 0.2 25);
+}
+
+.dark.theme-high-contrast {
+  --color-background: oklch(0 0 0);
+  --color-surface: oklch(0 0 0);
+  --color-surface-muted: oklch(0.1 0 0);
+  --color-foreground: oklch(1 0 0);
+  --color-foreground-muted: oklch(0.9 0 0);
+  --color-border: oklch(1 0 0);
+  --color-primary: oklch(0.8 0.1 210);
+  --color-primary-foreground: oklch(0 0 0);
+  --color-primary-soft: oklch(0.2 0.1 210);
+  --color-success: oklch(0.85 0.15 155);
+  --color-warning: oklch(0.9 0.15 85);
+  --color-danger: oklch(0.85 0.2 25);
 }

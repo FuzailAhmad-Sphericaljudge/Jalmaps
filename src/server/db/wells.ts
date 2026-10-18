@@ -34,3 +34,199 @@ export async function createWell(client: SupabaseClient<Database>, input: unknow
   const { data, error } = await client.from("wells").insert(payload).select().single();
   return requireDatabaseData(data, error, "create well");
 }
+
+export async function listWellsForUser(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("wells")
+    .select(
+      `
+      *,
+      nodes (*),
+      well_members!inner (user_id, role)
+    `,
+    )
+    .or(`owner_id.eq.${userId},well_members.user_id.eq.${userId}`);
+  return requireDatabaseData(data, error, "list wells for user");
+}
+
+export async function getWell(client: SupabaseClient<Database>, wellId: string) {
+  const { data, error } = await client
+    .from("wells")
+    .select("*, nodes (*)")
+    .eq("id", wellId)
+    .single();
+  return requireDatabaseData(data, error, "get well");
+}
+
+export async function updateWell(
+  client: SupabaseClient<Database>,
+  wellId: string,
+  payload: Database["public"]["Tables"]["wells"]["Update"],
+) {
+  const { data, error } = await client
+    .from("wells")
+    .update(payload)
+    .eq("id", wellId)
+    .select()
+    .single();
+  return requireDatabaseData(data, error, "update well");
+}
+
+export async function getWellNode(client: SupabaseClient<Database>, wellId: string) {
+  const { data, error } = await client
+    .from("nodes")
+    .select("*")
+    .eq("well_id", wellId)
+    .neq("status", "retired")
+    .neq("status", "fault")
+    .single();
+
+  if (error && error.code === "PGRST116") {
+    return null; // no row
+  }
+  return requireDatabaseData(data, error, "get well node");
+}
+
+export async function createNode(
+  client: SupabaseClient<Database>,
+  wellId: string,
+  hardwareId: string,
+  settings: Omit<
+    Database["public"]["Tables"]["nodes"]["Insert"],
+    "well_id" | "hardware_id" | "status" | "is_simulated"
+  >,
+) {
+  const { data, error } = await client
+    .from("nodes")
+    .insert({
+      well_id: wellId,
+      hardware_id: hardwareId,
+      status: "provisioning",
+      is_simulated: false,
+      ...settings,
+    })
+    .select()
+    .single();
+  return requireDatabaseData(data, error, "create node");
+}
+
+export async function updateNodeSettings(
+  client: SupabaseClient<Database>,
+  nodeId: string,
+  settings: Database["public"]["Tables"]["nodes"]["Update"],
+  actorId: string,
+) {
+  const { data, error } = await client
+    .from("nodes")
+    .update(settings)
+    .eq("id", nodeId)
+    .select()
+    .single();
+
+  // Audit log
+  await client.from("audit_log").insert({
+    actor_id: actorId,
+    entity_type: "node",
+    entity_id: nodeId,
+    action: "update_settings",
+  });
+
+  return requireDatabaseData(data, error, "update node settings");
+}
+
+export async function rotateNodeKey(
+  client: SupabaseClient<Database>,
+  nodeId: string,
+  wellId: string,
+  hardwareId: string,
+  actorId: string,
+) {
+  // Logic is in src/server/ingest/keys.ts -> revokeNodeKey, issueNodeKey
+  // For DB side we just need to log it
+  await client.from("audit_log").insert({
+    actor_id: actorId,
+    entity_type: "node",
+    entity_id: nodeId,
+    action: "rotate_key",
+  });
+}
+
+export async function retireNode(
+  client: SupabaseClient<Database>,
+  nodeId: string,
+  actorId: string,
+) {
+  const { data, error } = await client
+    .from("nodes")
+    .update({ status: "retired" })
+    .eq("id", nodeId)
+    .select()
+    .single();
+
+  await client.from("audit_log").insert({
+    actor_id: actorId,
+    entity_type: "node",
+    entity_id: nodeId,
+    action: "retire",
+  });
+
+  return requireDatabaseData(data, error, "retire node");
+}
+
+export async function addWellMember(
+  client: SupabaseClient<Database>,
+  wellId: string,
+  phoneNumber: string,
+  role: string,
+) {
+  // Find user by phone
+  const { data: profiles } = await client.from("profiles").select("id").eq("phone", phoneNumber);
+
+  const profile = profiles?.[0];
+  if (!profile) {
+    throw new Error("NOT_FOUND");
+  }
+
+  const { data, error } = await client
+    .from("well_members")
+    .insert({
+      well_id: wellId,
+      user_id: profile.id,
+      role,
+    })
+    .select()
+    .single();
+  return requireDatabaseData(data, error, "add well member");
+}
+
+export async function listWellMembers(client: SupabaseClient<Database>, wellId: string) {
+  const { data, error } = await client
+    .from("well_members")
+    .select("*, profiles(phone, full_name)")
+    .eq("well_id", wellId);
+  return requireDatabaseData(data, error, "list well members");
+}
+
+export async function getFarmerWells(client: SupabaseClient<Database>, userId: string) {
+  const { data, error } = await client
+    .from("wells")
+    .select(
+      `
+      *,
+      nodes (
+        id, well_id, status, range_m,
+        latest_reading (*)
+      )
+    `,
+    )
+    .eq("owner_id", userId);
+  return requireDatabaseData(data, error, "get farmer wells");
+}
+
+export async function getTrend(client: SupabaseClient<Database>, wellId: string, hours: number) {
+  const { data, error } = await client.rpc("get_trend", { p_well_id: wellId, p_hours: hours });
+  return requireDatabaseData(data, error, "get trend") as unknown as {
+    recorded_at: string;
+    depth_to_water_m: number;
+  }[];
+}

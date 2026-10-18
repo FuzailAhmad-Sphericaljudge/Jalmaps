@@ -2,6 +2,12 @@ import { z } from "zod";
 
 import { uuidSchema } from "./ids";
 
+const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
+type JsonValue = string | number | boolean | null | { [key: string]: JsonValue } | JsonValue[];
+const jsonSchema: z.ZodType<JsonValue> = z.lazy(() =>
+  z.union([literalSchema, z.array(jsonSchema), z.record(z.string(), jsonSchema)]),
+);
+
 export const readingCreateSchema = z.object({
   node_id: uuidSchema,
   recorded_at: z.iso.datetime(),
@@ -11,7 +17,7 @@ export const readingCreateSchema = z.object({
   battery_v: z.number().nonnegative().nullable().optional(),
   rssi: z.number().int().nullable().optional(),
   quality: z.enum(["good", "suspect", "bad"]).optional(),
-  raw: z.record(z.string(), z.json()).optional(),
+  raw: z.record(z.string(), jsonSchema).optional(),
 });
 
 export const readingQuerySchema = z.object({

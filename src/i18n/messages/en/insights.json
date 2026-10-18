@@ -1,0 +1,67 @@
+{
+  "title": "Aquifer Insights",
+  "tabTitle": "Aquifer Health",
+  "villageTitle": "Village Aquifer Health",
+  "notEnoughData": "Not enough data yet",
+  "notEnoughDataDesc": "At least {months} months of consistent data ({coverage}%) are needed to evaluate seasonal behavior and recharge.",
+  "missingDays": "Need approximately {days} more days of readings.",
+  "privacyMasked": "Data masked to protect privacy",
+  "privacyMaskedDesc": "Village aggregates require at least {min} active wells to prevent identifying individual farms.",
+  "healthGauge": {
+    "title": "Aquifer Health Score",
+    "scoreOutOf": "/ 100",
+    "howCalculated": "How is this calculated?",
+    "bands": {
+      "healthy": "Healthy",
+      "stressed": "Stressed",
+      "critical": "Critical",
+      "watch": "Moderate"
+    },
+    "dialog": {
+      "title": "How Aquifer Health is Calculated",
+      "subtitle": "A transparent score combining 4 explainable hydrological indicators",
+      "componentsTitle": "Score Components",
+      "seasonalStability": "Seasonal Stability (30%): Depth during dry season vs well capacity",
+      "depletionRate": "Yearly Depletion (30%): Long-term water table descent rate (m/yr)",
+      "monsoonRecharge": "Monsoon Recharge (25%): Post-monsoon water table recovery (m)",
+      "pumpingStress": "Pumping Stress (15%): Drawdown severity and recovery time hours",
+      "confidenceNote": "Data Confidence: A penalty is applied if fewer than 12 months or <90% readings are recorded."
+    }
+  },
+  "seasonalChart": {
+    "title": "Seasonal Decomposition",
+    "subtitle": "Observed water level separated into baseline trend and seasonal profile",
+    "observed": "Observed Daily Median",
+    "trend": "Underlying Trend",
+    "seasonal": "Seasonal Profile",
+    "units": "Depth (m)"
+  },
+  "monsoonCard": {
+    "title": "Monsoon Recharge",
+    "riseM": "Water Table Rise: {rise} m",
+    "waterVolume": "Estimated Recharge Volume: {volume} MCM",
+    "confidence": "Data Confidence: {level}",
+    "assumptions": "Assumptions & Limitations",
+    "assumptionsText": "Based on Water Table Fluctuation (WTF) method using regional specific yield ({sy}). Does not account for subsurface lateral outflow or ongoing pumping during monsoon."
+  },
+  "pumpingCard": {
+    "title": "Pumping Stress & Recovery",
+    "stressLevel": "Stress Level: {level}",
+    "drawdown": "Median Drawdown: {drawdown} m",
+    "recoveryTime": "Median Recovery Time: {hours} hrs",
+    "stressNotes": {
+      "fast_recovery": "Quick recovery after pumping stops; aquifer shows good local transmissivity.",
+      "moderate_drawdown": "Moderate drawdown with steady recovery within typical resting hours.",
+      "sluggish_recovery": "Sluggish recovery; water table takes more than 18 hours to stabilize.",
+      "severe_drawdown": "Deep drawdown under typical pumping; high local cone of depression."
+    }
+  },
+  "villageCard": {
+    "title": "Village Health Summary",
+    "avgScore": "Average Health Score",
+    "worstScore": "Lowest Well Score",
+    "sampleSize": "{count} wells analyzed",
+    "avgDepletion": "Average Depletion: {rate} m/yr",
+    "totalRecharge": "Total Monsoon Recharge: {volume} MCM"
+  }
+}

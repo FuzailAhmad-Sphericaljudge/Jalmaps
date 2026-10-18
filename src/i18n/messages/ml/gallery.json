@@ -1,0 +1,171 @@
+{
+  "title": "Design system",
+  "description": "Every JalMaps component and state, in light and dark, with large-text preview. Farmer-first: 48px touch targets, icon + text, never colour alone.",
+  "toolbar": {
+    "largeText": "Large text",
+    "toggleLargeText": "Toggle large text preview"
+  },
+  "sections": {
+    "brand": "Brand",
+    "colours": "Colour tokens",
+    "coloursDescription": "Status is always paired with icon + text.",
+    "typeScale": "Type scale",
+    "buttons": "Buttons",
+    "buttonsDescription": "`touch` sizes meet the 48px minimum.",
+    "badges": "Badges, separator, skeleton",
+    "cards": "Cards",
+    "formControls": "Form controls",
+    "formControlsDescription": "Every control labelled, 48px class targets.",
+    "tabs": "Tabs",
+    "overlays": "Dialog, sheet, menu, tooltip, toast",
+    "statusPills": "Status pills",
+    "statusPillsDescription": "Icon + text + colour, never colour alone.",
+    "trendArrows": "Trend arrows",
+    "waterGauge": "Water gauge",
+    "wellTank": "Well tank",
+    "statTiles": "Stat tiles",
+    "states": "States"
+  },
+  "swatches": {
+    "primary": "Primary (water)",
+    "success": "Success (good)",
+    "warning": "Warning (amber)",
+    "danger": "Critical (red)",
+    "offline": "Offline (grey)"
+  },
+  "typeScaleRows": {
+    "xs": "Text xs — labels",
+    "sm": "Text sm — secondary",
+    "base": "Text base — body",
+    "lg": "Text lg — emphasis",
+    "xl": "Text xl — section title",
+    "xxl": "Text 2xl — data value",
+    "xxxl": "Text 3xl — page title"
+  },
+  "buttons": {
+    "primary": "Primary",
+    "outline": "Outline",
+    "secondary": "Secondary",
+    "ghost": "Ghost",
+    "destructive": "Destructive",
+    "link": "Link",
+    "small": "Small",
+    "large": "Large",
+    "refreshLevels": "Refresh levels",
+    "disabled": "Disabled"
+  },
+  "badges": {
+    "default": "Default",
+    "secondary": "Secondary",
+    "outline": "Outline",
+    "destructive": "Destructive",
+    "loadingLevels": "Loading levels",
+    "loadingTile": "Loading tile"
+  },
+  "cards": {
+    "well4Title": "Well #4",
+    "well4Description": "Borewell — Kharagpur",
+    "well4Value": "11.3 m below ground level",
+    "borewell9Title": "Borewell #9",
+    "borewell9Description": "Group well — Amravati",
+    "borewell9Value": "28 m below ground level"
+  },
+  "forms": {
+    "villageName": "Village name",
+    "villagePlaceholder": "Kharagpur",
+    "notes": "Notes",
+    "notesPlaceholder": "Well observations…",
+    "district": "District",
+    "districtPlaceholder": "Choose district",
+    "districtNagpur": "Nagpur",
+    "districtAmravati": "Amravati",
+    "alertsLegend": "Alerts",
+    "smsAlerts": "SMS alerts",
+    "voiceCalls": "Voice calls",
+    "unitsLegend": "Units",
+    "metres": "Metres",
+    "feet": "Feet",
+    "voiceGuidance": "Voice guidance"
+  },
+  "tabs": {
+    "week": "This week",
+    "month": "This month",
+    "year": "This year",
+    "weekContent": "Weekly levels",
+    "monthContent": "Monthly levels",
+    "yearContent": "Yearly levels"
+  },
+  "overlays": {
+    "openDialog": "Open dialog",
+    "wellDetailsTitle": "Well details",
+    "wellDetailsDescription": "Borewell #4 — Kharagpur",
+    "wellDetailsBody": "Depth 42 m. Water level 11.3 m below ground level.",
+    "openSheet": "Open bottom sheet",
+    "filterWellsTitle": "Filter wells",
+    "filterWellsBody": "Pick a village, depth range or status.",
+    "reportMenu": "Report menu",
+    "downloadPdf": "Download PDF",
+    "shareLink": "Share link",
+    "depth": "Depth",
+    "depthTooltip": "Metres below ground level",
+    "showToast": "Show toast",
+    "toastTitle": "Level saved",
+    "toastDescription": "11.3 m bgl"
+  },
+  "statusPills": {
+    "good": "Water level good",
+    "warning": "Falling fast",
+    "critical": "Nearly dry",
+    "offline": "Sensor offline"
+  },
+  "trends": {
+    "rising": "Rising vs last week",
+    "falling": "Falling vs last week",
+    "steady": "Steady vs last week"
+  },
+  "gauges": {
+    "well4Name": "Well #4",
+    "well4ValueText": "11.3 metres below ground level",
+    "well4Center": "11.3",
+    "well4Unit": "m bgl",
+    "borewell9Name": "Borewell #9",
+    "borewell9ValueText": "28 m",
+    "borewell9Center": "28",
+    "borewell12Name": "Borewell #12",
+    "borewell12ValueText": "0 m — dry",
+    "borewell12Center": "0"
+  },
+  "tanks": {
+    "well4Name": "Well #4",
+    "well4ValueText": "Three quarters full",
+    "borewell9Name": "Borewell #9",
+    "borewell9ValueText": "One third full",
+    "borewell12Name": "Borewell #12",
+    "borewell12ValueText": "Nearly dry",
+    "borewell15Name": "Borewell #15",
+    "borewell15ValueText": "No data"
+  },
+  "statTiles": {
+    "waterLevel": "Water level",
+    "waterLevelValue": "11.3",
+    "waterLevelUnit": "m bgl",
+    "waterLevelTrend": "Rising",
+    "waterLevelStatus": "Good",
+    "depth": "Depth",
+    "depthValue": "42",
+    "depthUnit": "m"
+  },
+  "states": {
+    "emptyTitle": "No wells yet",
+    "emptyDescription": "Add your first well to see water levels here.",
+    "emptyAction": "Add well",
+    "errorTitle": "Could not load level",
+    "errorDescription": "Check your internet connection.",
+    "errorAction": "Try again",
+    "loadingLabel": "Loading water level"
+  },
+  "unavailable": {
+    "title": "Not available",
+    "description": "The design system gallery is only enabled outside production."
+  }
+}

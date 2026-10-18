@@ -8,9 +8,9 @@ describe("theme cookie", () => {
     expect(parseThemeCookieValue(cookie)).toBe("dark");
   });
 
-  it("falls back to light for missing or garbage values", () => {
-    expect(parseThemeCookieValue(undefined)).toBe("light");
-    expect(parseThemeCookieValue("not-json")).toBe("light");
-    expect(parseThemeCookieValue(JSON.stringify({ theme: "neon" }))).toBe("light");
+  it("falls back to system for missing or garbage values", () => {
+    expect(parseThemeCookieValue(undefined)).toBe("system");
+    expect(parseThemeCookieValue("not-json")).toBe("system");
+    expect(parseThemeCookieValue(JSON.stringify({ theme: "neon" }))).toBe("system");
   });
 });

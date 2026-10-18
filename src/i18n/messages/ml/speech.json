@@ -1,0 +1,5 @@
+{
+  "well_status": "Your well water is {depth} {unit} below ground. The status is {status}.",
+  "alert_status": "There is a {severity} alert: {message}.",
+  "advice": "Advice for next 3 days: {advice}."
+}

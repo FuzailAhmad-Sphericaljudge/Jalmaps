@@ -45,11 +45,14 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         onChange={(event) => switchTo(event.target.value)}
         className="h-12 appearance-none rounded-md border border-border bg-surface pr-8 pl-9 text-sm font-medium text-foreground"
       >
-        {locales.map((code) => (
-          <option key={code} value={code}>
-            {localeNativeNames[code]}
-          </option>
-        ))}
+        {locales.map((code) => {
+          const isBeta = code !== "en" && code !== "hi";
+          return (
+            <option key={code} value={code}>
+              {localeNativeNames[code]} {isBeta ? "(Beta)" : ""}
+            </option>
+          );
+        })}
       </select>
     </div>
   );

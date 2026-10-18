@@ -1,16 +1,25 @@
-import { getTranslations } from "next-intl/server";
+"use client";
+
+import { useTranslations } from "next-intl";
 
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Wordmark } from "@/components/jalmaps/logo";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 
 /**
  * App header on every page: brand, language switcher and theme toggle.
  * Includes a skip-to-content link for keyboard users.
  */
-export async function AppHeader() {
-  const t = await getTranslations();
+export function AppHeader() {
+  const t = useTranslations();
+  const pathname = usePathname();
+  if (
+    /^\/(farmer|village|official|insurer|admin)(\/|$)/.test(pathname) ||
+    pathname.startsWith("/app/")
+  ) {
+    return null;
+  }
 
   return (
     <>

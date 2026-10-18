@@ -1,0 +1,130 @@
+{
+  "title": "Official Dashboard",
+  "subtitle": "Groundwater monitoring & stress intervention",
+  "kpis": {
+    "wellsMonitored": "Wells Monitored",
+    "wellsMonitoredTooltip": "Total number of operational and monitored wells in this jurisdiction.",
+    "nodesOnline": "Nodes Online",
+    "nodesOnlineTooltip": "Percentage of active telemetry nodes reporting data within expected intervals.",
+    "villagesCritical": "Critical Villages",
+    "villagesCriticalTooltip": "Percentage of villages with critical groundwater depletion or alert status.",
+    "avgChange30d": "30-Day Change",
+    "avgChange30dTooltip": "Net average water level change over the last 30 days across all monitored wells.",
+    "openCriticalAlerts": "Open Critical Alerts",
+    "openCriticalAlertsTooltip": "Unresolved high-severity threshold alerts requiring official intervention.",
+    "freshness": "Data Freshness",
+    "freshnessTooltip": "Timestamp of the most recently ingested telemetry record.",
+    "freshnessNever": "No data ingested"
+  },
+  "needsAttention": {
+    "title": "Needs Attention This Week",
+    "subtitle": "Villages prioritized by composite groundwater stress score.",
+    "stressScore": "Stress Score",
+    "scoreLabel": "Score: {score}",
+    "rank": "Rank #{rank}",
+    "severityHigh": "High Stress",
+    "severityMedium": "Moderate Stress",
+    "severityLow": "Low Stress",
+    "empty": "No villages currently flagged for urgent attention.",
+    "viewVillage": "View Village",
+    "chips": {
+      "pctCritical": "{pct}% wells critical",
+      "pctOffline": "{pct}% nodes offline",
+      "criticalAlerts": "{count, plural, one {# critical alert} other {# critical alerts}}",
+      "depletingFast": "Depleting fast ({rate} m/yr)",
+      "poorHealth": "Poor aquifer health ({score})",
+      "overDraft": "Pumping stress / overdraft"
+    }
+  },
+  "map": {
+    "title": "Regional Overview Map",
+    "metric": "Select Metric",
+    "metricCritical": "% Critical Wells",
+    "metricOffline": "% Offline Nodes",
+    "metricDepth": "Average Depth (m)"
+  },
+  "alerts": {
+    "title": "Area Alert Feed",
+    "subtitle": "Real-time alerts across your jurisdiction",
+    "filterAll": "All Alerts",
+    "filterCritical": "Critical",
+    "filterWarning": "Warning",
+    "filterInfo": "Info",
+    "acknowledge": "Acknowledge",
+    "acknowledging": "Acknowledging...",
+    "acknowledged": "Acknowledged",
+    "empty": "No open alerts in this jurisdiction.",
+    "reportedAt": "Reported {time}"
+  },
+  "trend": {
+    "title": "Depth to Water Trend",
+    "subtitle": "Average water depth over time with year-over-year comparison",
+    "preset7d": "7 Days",
+    "preset30d": "30 Days",
+    "preset90d": "90 Days",
+    "preset1y": "1 Year",
+    "currentYear": "Current Period",
+    "lastYear": "Same Period Last Year",
+    "empty": "Insufficient historical data for this period."
+  },
+  "scope": {
+    "label": "Jurisdiction Scope",
+    "allAreas": "All Assigned Areas",
+    "changeScope": "Change Scope"
+  },
+  "savedViews": {
+    "title": "Saved Views",
+    "saveCurrent": "Save View",
+    "manage": "Manage Views",
+    "name": "View Name",
+    "namePlaceholder": "e.g. Ludhiana Critical Blocks",
+    "save": "Save",
+    "saving": "Saving...",
+    "delete": "Delete",
+    "default": "Default View",
+    "pin": "Pin to Home",
+    "unpin": "Unpin",
+    "pinned": "Pinned",
+    "empty": "No saved views yet."
+  },
+  "notes": {
+    "title": "Follow-up Actions & Notes",
+    "subtitle": "Track administrative interventions and village-level tasks",
+    "addNote": "Add Action Note",
+    "textPlaceholder": "Describe the follow-up action or inspection notes...",
+    "dueDate": "Due Date",
+    "statusOpen": "Open",
+    "statusInProgress": "In Progress",
+    "statusDone": "Done",
+    "markDone": "Mark Done",
+    "markInProgress": "In Progress",
+    "markOpen": "Reopen",
+    "empty": "No open action items or notes.",
+    "createdOn": "Created {date}",
+    "saving": "Saving..."
+  },
+  "caveats": {
+    "banner": "Data Notice",
+    "offlineWarning": "{pct}% of sensors ({count}) are currently offline; calculations reflect reported data only.",
+    "privacyNotice": "{count, plural, one {# village has} other {# villages have}} fewer than 3 wells and metrics are masked for privacy."
+  },
+  "village": {
+    "title": "Village Admin Dashboard",
+    "subtitle": "Groundwater summary for {village}",
+    "wellsSummary": "Monitored Wells",
+    "openAlerts": "Open Alerts",
+    "monthlySummary": "Monthly Groundwater Summary",
+    "announcementPlaceholder": "Community announcements and water-sharing actions will be available in Phase 27.",
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "status": "Status",
+      "depth": "Depth to Water",
+      "node": "Sensor Node",
+      "action": "Action",
+      "view": "View",
+      "none": "None"
+    }
+  },
+  "print": "Print Dashboard"
+}

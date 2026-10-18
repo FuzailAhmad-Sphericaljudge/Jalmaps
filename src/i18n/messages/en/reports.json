@@ -1,0 +1,79 @@
+{
+  "title": "Reports & Exports",
+  "subtitle": "Generate localized PDF reports, CSV data exports, and manage scheduled digests.",
+  "generateReport": "Generate Report",
+  "newReport": "New Report",
+  "reportType": "Report Type",
+  "selectType": "Select report type",
+  "types": {
+    "well": "Well Report (Farmer)",
+    "village": "Village Overview Report",
+    "district": "District Groundwater Summary",
+    "subsidy_planning": "Subsidy & Recharge Planning"
+  },
+  "scope": "Scope & Area",
+  "selectScope": "Select area",
+  "period": "Period",
+  "periods": {
+    "7d": "Past 7 Days",
+    "30d": "Past 30 Days",
+    "90d": "Past 90 Days",
+    "1y": "Past 1 Year"
+  },
+  "format": "File Format",
+  "formats": {
+    "pdf": "PDF Document (A4 Print)",
+    "csv": "CSV Spreadsheet (UTF-8 BOM)",
+    "xlsx": "Excel Workbook (.xlsx)"
+  },
+  "previewSummary": "Preview Summary",
+  "generating": "Generating report...",
+  "history": "Report Generation History",
+  "historyEmpty": "No reports generated yet. Click Generate Report to create your first report.",
+  "columns": {
+    "type": "Report Type",
+    "scope": "Scope",
+    "format": "Format",
+    "status": "Status",
+    "created": "Generated At",
+    "expires": "Expires In",
+    "actions": "Actions"
+  },
+  "statuses": {
+    "queued": "Queued",
+    "running": "Processing",
+    "done": "Ready",
+    "failed": "Failed"
+  },
+  "actions": {
+    "download": "Download",
+    "share": "Share Link",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm & Generate"
+  },
+  "shareModal": {
+    "title": "Share Report Link",
+    "description": "Anyone with this link can view the report. Link expires automatically in 30 days.",
+    "copyLink": "Copy Link",
+    "copied": "Link copied to clipboard!",
+    "revoke": "Revoke Link",
+    "revoking": "Revoking...",
+    "views": "Views: {count}"
+  },
+  "digests": {
+    "title": "Scheduled Digests",
+    "subtitle": "Automatically receive weekly groundwater summaries via Email or SMS.",
+    "cadence": "Frequency",
+    "channel": "Delivery Channel",
+    "weekly": "Weekly (Every Monday)",
+    "monthly": "Monthly (1st of month)",
+    "subscribe": "Schedule Digest",
+    "subscribed": "Digest scheduled successfully",
+    "activeSchedules": "Active Digest Schedules",
+    "noSchedules": "No scheduled digests configured."
+  },
+  "privacyNotice": "Privacy Protection: Aggregations with fewer than 3 wells mask individual well metrics.",
+  "deleteConfirm": "Are you sure you want to delete this report?",
+  "failedToLoad": "Failed to load reports. Please try again."
+}

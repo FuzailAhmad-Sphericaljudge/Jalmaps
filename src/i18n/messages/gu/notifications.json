@@ -1,0 +1,9 @@
+{
+  "preferences": {
+    "title": "Notification Preferences",
+    "description": "Manage how and when you receive alerts.",
+    "dailyDigest": "Daily Digest",
+    "dailyDigestDescription": "Receive a single summary of minor updates once a day.",
+    "save": "Save Preferences"
+  }
+}

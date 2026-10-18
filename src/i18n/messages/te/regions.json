@@ -1,0 +1,61 @@
+{
+  "title": "పరిపాలనా సోపానక్రమం",
+  "subtitle": "రాష్ట్రాలు, జిల్లాలు, బ్లాకులు మరియు గ్రామాల్లో భూగర్భ జల పర్యవేక్షణ గణాంకాలు.",
+  "allStates": "అన్ని రాష్ట్రాలు",
+  "levels": {
+    "state": "రాష్ట్రం",
+    "district": "జిల్లా",
+    "block": "బ్లాక్",
+    "village": "గ్రామం"
+  },
+  "metrics": {
+    "wells": "మొత్తం బావులు",
+    "nodesOnline": "క్రియాశీల నోడ్స్",
+    "avgDepth": "సగటు లోతు",
+    "medianDepth": "మధ్యస్థ లోతు",
+    "criticalPct": "క్లిష్టమైనది",
+    "warningPct": "హెచ్చరిక",
+    "offlinePct": "ఆఫ్‌లైన్",
+    "change30d": "30 రోజుల మార్పు"
+  },
+  "privacy": {
+    "badge": "గోప్యత రక్షించబడింది",
+    "notice": "వ్యక్తిగత గోప్యతను కాపాడటానికి గణాంకాలు దాచబడ్డాయి, ఎందుకంటే ఈ ప్రాంతంలో {min} కంటే తక్కువ బావులు ఉన్నాయి."
+  },
+  "actions": {
+    "exportCsv": "CSV ఎగుమతి చేయండి",
+    "compare": "పోల్చండి",
+    "comparing": "పోలిక కొనసాగుతోంది",
+    "clearCompare": "పోలికను క్లియర్ చేయండి",
+    "viewDrilldown": "వివరాలను చూడండి",
+    "back": "వెనుకకు",
+    "close": "Close",
+    "selectToCompare": "Select at least 2 regions to compare"
+  },
+  "searchPlaceholder": "పేరు లేదా కోడ్ ద్వారా శోధించండి...",
+  "noRegions": "ప్రాంతాలు ఏవీ కనుగొనబడలేదు.",
+  "historyTitle": "30 రోజుల లోతు మరియు స్థితి ధోరణి",
+  "compareTitle": "ప్రాంత పోలిక",
+  "viewMode": {
+    "table": "పట్టిక",
+    "choropleth": "కోరోప్లెత్ మ్యాప్"
+  },
+  "units": {
+    "meters": "{value} m",
+    "percent": "{value}%",
+    "unrecorded": "—"
+  },
+  "table": {
+    "region": "Region",
+    "wells": "Wells",
+    "avgDepth": "Avg Depth",
+    "critical": "Critical %",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "legend": {
+    "low": "< 15%",
+    "medium": "15% - 30%",
+    "high": "> 30%"
+  }
+}

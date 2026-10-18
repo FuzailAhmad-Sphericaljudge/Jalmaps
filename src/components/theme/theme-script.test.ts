@@ -19,12 +19,13 @@ describe("THEME_SCRIPT", () => {
     document.cookie = "jalmaps-theme=; path=/; max-age=0";
   });
 
-  it("falls back to light when no cookie exists", () => {
+  it("follows the system theme when no cookie exists", () => {
     document.cookie = "jalmaps-theme=; path=/; max-age=0";
     document.documentElement.classList.add("dark");
 
     new Function(THEME_SCRIPT)();
 
     expect(document.documentElement.classList.contains("dark")).toBe(false);
+    expect(document.documentElement.style.colorScheme).toBe("light");
   });
 });

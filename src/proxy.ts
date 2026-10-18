@@ -2,6 +2,7 @@ import { type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 
 import { routing } from "@/i18n/routing";
+import { refreshSupabaseSession } from "@/server/supabase/middleware";
 
 /**
  * Locale negotiation proxy (Next.js 16's renamed middleware) provided by
@@ -21,8 +22,13 @@ const intlMiddleware = createMiddleware(routing);
 
 const PSEUDO_COOKIE = "jalmaps-pseudo";
 
-export default function proxy(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
+  const refreshedResponse = await refreshSupabaseSession(request);
   const response = intlMiddleware(request);
+
+  for (const cookie of refreshedResponse.headers.getSetCookie()) {
+    response.headers.append("set-cookie", cookie);
+  }
 
   const pseudoParam = request.nextUrl.searchParams.get("pseudo");
   if (pseudoParam === "1") {
